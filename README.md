@@ -13,7 +13,8 @@
     * Node.js;
     * Espress.js;
     * Angular ou React;
-    * MySQL ou SQLServer.
+    * MySQL ou SQLServer ou MongoDB.
+    * (MEAN ou MERN se seguirmos com mongoDB(ainda será necessário apurar benefícios)) 
   * Tecnologias a ponderar:
     * Redis
     * ...
