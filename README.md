@@ -2,7 +2,7 @@
 ***
 
 ## Ideias para o projeto:
-* Knock Off do IMDB
+* Knock Off do IMDB (Graças ao acesso à API do imdb conseguimos bastantes informações)
   * Amigos, listagem, pedidos listas dos amigos;
   * Filmes/series vistos, para ver, deixados;
   * Reviews, pontuações, rankings;
