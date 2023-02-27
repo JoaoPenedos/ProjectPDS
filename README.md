@@ -22,14 +22,13 @@
       * tier editor pago - acesso normal mais permissão de edição de filmes
       * a edição tem que ser aceite por um moderador, se a edição for recusada terá que refazer e reenviar, no caso de ser negada 3 vezes é suspenso durante x tempo e sujeito a uma avaliação interna
       * se for recusado durante a avaliação passa novamente a ser apenas utilizador normal sem poder voltar a ser editor
-      * A qualquer momento pode mudar de plano a não ser que esteja (suspenso, proibido)
+      * A qualquer momento pode mudar de plano, a não ser que esteja (suspenso, proibido)
     * Definição de um calendário de horas de visualização
       * ao definir uma hora futura para ver um filme, é dada a opção de pedir comida para essa dada hora
       * terá integração com um sitema exterior onde pode fazer a encomenda para a determinada hora reservada
       * No caso da comida escolhida não estar disponivel (horas, ingredientes, fistrubuidora fechada, etc), irá ser oferecida outras opções, onde é reiniciada o pedido.
       * estes pedidos iram ficar ligado a um estafeta, que poderá ser vizualizado no sistema
       * Será possivel cancelar o pedido até 1 hora antes da hora reserva.
+    * Estatisticas dos filmes (dashboard)
     * ..
     * ..
-    * ..
-    * Ligação com api do twitter
