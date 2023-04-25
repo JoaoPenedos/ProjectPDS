@@ -1,0 +1,5 @@
+<app-header *ngIf="!(hasRoute('login') || hasRoute('register'))"></app-header>
+
+<router-outlet></router-outlet>
+
+<app-footer *ngIf="!(hasRoute('login') || hasRoute('register'))"></app-footer>
