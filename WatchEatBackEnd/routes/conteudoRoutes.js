@@ -1,5 +1,4 @@
 'use strict'
-
 const express = require('express');
 const conteudoController = require('../controllers/conteudoController');
 const router = express.Router();

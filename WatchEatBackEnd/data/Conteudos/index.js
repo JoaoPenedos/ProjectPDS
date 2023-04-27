@@ -1,15 +1,16 @@
 'use strict';
 
-const utils = require('../utils');
 const config = require('../../config');
 const sql = require('mssql');
 
 const listConteudos = async () => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('Conteudos');
+        let query = 'SELECT [Id],[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse]' +
+            'FROM [dbo].[Conteudo]';
+
         const list = await pool.request()
-            .query(sqlQueries.listConteudos);
+            .query(query);
         return list.recordset;
     }
     catch (error) {
@@ -20,10 +21,13 @@ const listConteudos = async () => {
 const listConteudoById = async (Id)=> {
     try {
         let pool = await  sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('Conteudos');
+        let query = 'SELECT [Id],[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse]' +
+            'FROM [dbo].[Conteudo]' +
+            'WHERE [Id] = @Id';
+
         const oneConteudo = await pool.request()
             .input('Id', sql.Int, Id)
-            .query(sqlQueries.listConteudoById);
+            .query(query);
 
         return oneConteudo.recordset;
     }
@@ -35,13 +39,17 @@ const listConteudoById = async (Id)=> {
 const createConteudo = async (conteudoData) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('Conteudos');
+        let query = 'INSERT INTO [dbo].[Conteudo] ' +
+            '([Nome],[Realizador],[Rating],[DataReleased]) ' +
+            'VALUES (@Nome, @Realizador, @Rating, @DataReleased) ' +
+            'SELECT SCOPE_IDENTITY() AS Id';
+
         const insertConteudo = await pool.request()
             .input('Nome', sql.VarChar(255), conteudoData.Nome)
             .input('Realizador', sql.VarChar(255), conteudoData.Realizador)
             .input('Rating', sql.Real, conteudoData.Rating)
             .input('DataReleased', sql.Date, conteudoData.DataReleased)
-            .query(sqlQueries.createConteudo);
+            .query(query);
 
         return insertConteudo.recordset;
     }
@@ -53,7 +61,14 @@ const createConteudo = async (conteudoData) => {
 const updateConteudo = async (Id, conteudoData) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('Conteudos');
+        let query = 'UPDATE [dbo].[Conteudo] SET ';
+        const inputParams = ['Nome', 'Poster', 'Realizador', 'Rating', 'DataReleased', 'Sinopse'];
+        for (const param of inputParams) {
+            query += conteudoData[param] ? `${param} = @${param}, ` : '';
+        }
+        query = query.slice(0, -2); // remove trailing comma and space
+        query +=` WHERE [Id]=@Id`
+
         const update = await pool.request()
             .input('Id', sql.Int, Id)
             .input('Nome', sql.VarChar(255), conteudoData.Nome)
@@ -61,7 +76,7 @@ const updateConteudo = async (Id, conteudoData) => {
             .input('Rating', sql.Real, conteudoData.Rating)
             .input('DataReleased', sql.Date, conteudoData.DataReleased)
             .input('Sinopse', sql.VarChar(255), conteudoData.Sinopse)
-            .query(sqlQueries.updateConteudo);
+            .query(query);
         return update.recordset;
     }
     catch (error) {
@@ -72,10 +87,11 @@ const updateConteudo = async (Id, conteudoData) => {
 const deleteConteudo = async (Id) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('Conteudos');
+        let query = 'DELETE [dbo].[Conteudo] WHERE [Id]=@Id;'
+
         const deleted = await pool.request()
             .input('Id', sql.Int, Id)
-            .query(sqlQueries.deleteConteudo);
+            .query(query);
         return deleted.recordset;
     }
     catch (error) {
