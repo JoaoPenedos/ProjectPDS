@@ -34,7 +34,7 @@ const addUtlizador = async (req, res)=> {
     }
 }
 
-const updateUtilizador = async (req, res, next)=> {
+const updateUtilizador = async (req, res)=> {
     try {
         const utilizadorId = req.params.Id;
         const data = req.body;
@@ -46,7 +46,7 @@ const updateUtilizador = async (req, res, next)=> {
     }
 }
 
-const deleteUtilizador = async (req, res, next)=> {
+const deleteUtilizador = async (req, res)=> {
     try {
         const utilizadorId = req.params.Id;
         const deleted = await utilizadorData.deleteUtilizador(utilizadorId);

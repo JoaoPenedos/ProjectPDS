@@ -23,7 +23,7 @@ const getConteudo = async (req, res)=> {
     }
 }
 
-const addConteudo = async (req, res, next)=> {
+const addConteudo = async (req, res)=> {
     try {
         const data = req.body;
         const created = await conteudoData.createConteudo(data);
