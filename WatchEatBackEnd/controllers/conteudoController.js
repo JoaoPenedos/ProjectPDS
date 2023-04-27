@@ -4,7 +4,7 @@ const conteudoData = require('../data/Conteudos');
 
 const getConteudos = async (req, res, next) => {
     try {
-        const conteudos = await conteudoData.getConteudos();
+        const conteudos = await conteudoData.listConteudos();
         res.send(conteudos);
     }
     catch (error) {
@@ -15,7 +15,7 @@ const getConteudos = async (req, res, next) => {
 const getConteudo = async (req, res, next)=> {
     try {
         const conteudoId = req.params.Id;
-        const oneConteudo = await conteudoData.getById(conteudoId);
+        const oneConteudo = await conteudoData.listConteudoById(conteudoId);
         res.send(oneConteudo);
     }
     catch (error) {

@@ -4,12 +4,12 @@ const utils = require('../utils');
 const config = require('../../config');
 const sql = require('mssql');
 
-const getConteudos = async () => {
+const listConteudos = async () => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('Conteudos');
         const list = await pool.request()
-            .query(sqlQueries.listConteudo);
+            .query(sqlQueries.listConteudos);
         return list.recordset;
     }
     catch (error) {
@@ -17,7 +17,7 @@ const getConteudos = async () => {
     }
 }
 
-const getById = async (Id)=> {
+const listConteudoById = async (Id)=> {
     try {
         let pool = await  sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('Conteudos');
@@ -84,8 +84,8 @@ const deleteConteudo = async (Id) => {
 }
 
 module.exports = {
-    getConteudos,
-    getById,
+    listConteudos,
+    listConteudoById,
     createConteudo,
     updateConteudo,
     deleteConteudo
