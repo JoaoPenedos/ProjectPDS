@@ -1,0 +1,106 @@
+'use strict';
+
+const config = require('../../config');
+const sql = require('mssql');
+
+const listProdutos = async () => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'SELECT [Id],[Nome],[Preco],[Stock],[Imagem]' +
+            'FROM [dbo].[Produto]';
+        const list = await pool.request()
+            .query(query);
+        return list.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
+const listProdutoById = async (Id)=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT [Id],[Nome],[Preco],[Stock],[Imagem]' +
+            'FROM [dbo].[Produto]' +
+            'WHERE [Id] = @Id';
+
+        const oneConteudo = await pool.request()
+            .input('Id', sql.Int, Id)
+            .query(query);
+
+        return oneConteudo.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
+const createProduto = async (produtoData) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'INSERT INTO [dbo].[Produto] ' +
+            '([Nome],[Preco],[Stock]) ' +
+            'VALUES (@Nome, @Preco, @Stock) ' +
+            'SELECT SCOPE_IDENTITY() AS Id';
+
+        const insertConteudo = await pool.request()
+            .input('Nome', sql.VarChar(255), produtoData.Nome)
+            .input('Preco', sql.Real, produtoData.Preco)
+            .input('Stock', sql.Int, produtoData.Stock)
+            .query(query);
+
+        return insertConteudo.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
+const updateProduto = async (Id, produtoData) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'UPDATE [dbo].[Produto] SET ';
+        const inputParams = ['Nome', 'Preco', 'Stock', 'Imagem'];
+        for (const param of inputParams) {
+            query += produtoData[param] ? `${param} = @${param}, ` : '';
+        }
+        query = query.slice(0, -2); // remove trailing comma and space
+        query +=` WHERE [Id]=@Id`
+
+        const update = await pool.request()
+            .input('Id', sql.Int, Id)
+            .input('Nome', sql.VarChar(255), produtoData.Nome)
+            .input('Preco', sql.Real, produtoData.Preco)
+            .input('Stock', sql.Int, produtoData.Stock)
+            .input('Imagem', sql.VarBinary(sql.MAX), produtoData.Imagem)
+            .query(query);
+
+        return update.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
+const deleteProduto = async (Id) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'DELETE [dbo].[Produto] WHERE [Id]=@Id;'
+
+        const deleted = await pool.request()
+            .input('Id', sql.Int, Id)
+            .query(query);
+        return deleted.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
+module.exports = {
+    listProdutos,
+    listProdutoById,
+    createProduto,
+    updateProduto,
+    deleteProduto
+}
