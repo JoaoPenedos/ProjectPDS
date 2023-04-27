@@ -2,7 +2,7 @@
 
 const conteudoData = require('../data/Conteudos');
 
-const getConteudos = async (req, res, next) => {
+const getConteudos = async (req, res) => {
     try {
         const conteudos = await conteudoData.listConteudos();
         res.send(conteudos);
@@ -12,7 +12,7 @@ const getConteudos = async (req, res, next) => {
     }
 }
 
-const getConteudo = async (req, res, next)=> {
+const getConteudo = async (req, res)=> {
     try {
         const conteudoId = req.params.Id;
         const oneConteudo = await conteudoData.listConteudoById(conteudoId);
@@ -34,7 +34,7 @@ const addConteudo = async (req, res, next)=> {
     }
 }
 
-const updateConteudo = async (req, res, next)=> {
+const updateConteudo = async (req, res)=> {
     try {
         const conteudoId = req.params.Id;
         const data = req.body;
@@ -46,7 +46,7 @@ const updateConteudo = async (req, res, next)=> {
     }
 }
 
-const deleteConteudo = async (req, res, next)=> {
+const deleteConteudo = async (req, res)=> {
     try {
         const conteudoId = req.params.Id;
         const deleted = await conteudoData.deleteConteudo(conteudoId);

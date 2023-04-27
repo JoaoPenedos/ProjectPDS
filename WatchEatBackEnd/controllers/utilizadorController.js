@@ -2,7 +2,7 @@
 
 const utilizadorData = require('../data/Utilizadores');
 
-const getUtilizadores = async (req, res, next) => {
+const getUtilizadores = async (req, res) => {
     try {
         const utilizadores = await utilizadorData.listUtilizadores();
         res.send(utilizadores);
@@ -12,7 +12,7 @@ const getUtilizadores = async (req, res, next) => {
     }
 }
 
-const getUtilizador = async (req, res, next)=> {
+const getUtilizador = async (req, res)=> {
     try {
         const utilizadorId = req.params.Id;
         const oneUtilizador = await utilizadorData.listUtilizadorById(utilizadorId);
@@ -23,7 +23,7 @@ const getUtilizador = async (req, res, next)=> {
     }
 }
 
-const addUtlizador = async (req, res, next)=> {
+const addUtlizador = async (req, res)=> {
     try {
         const data = req.body;
         const created = await utilizadorData.createUtilizador(data);
