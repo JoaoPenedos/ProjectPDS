@@ -1,14 +1,13 @@
 'use strict';
-
 const config = require('../../config');
 const sql = require('mssql');
 const utils = require('../utils');
 
-const listMenus = async () => {
+const listAtores = async () => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'SELECT [Id],[Nome],[Preco]' +
-            'FROM [dbo].[Menu]';
+        let query = 'SELECT [Id],[Nome],[Imagem]' +
+            'FROM [dbo].[Ator]';
         const list = await pool.request()
             .query(query);
         return list.recordset;
@@ -18,59 +17,58 @@ const listMenus = async () => {
     }
 }
 
-const listMenuById = async (Id)=> {
+const listAtorById = async (Id)=> {
     try {
         let pool = await  sql.connect(config.sql);
-        let query = 'SELECT [Id],[Nome],[Preco]' +
-            'FROM [dbo].[Menu]' +
+        let query = 'SELECT [Id],[Nome],[Imagem]' +
+            'FROM [dbo].[Ator]' +
             'WHERE [Id] = @Id';
 
-        const oneConteudo = await pool.request()
+        const oneAtor = await pool.request()
             .input('Id', sql.Int, Id)
             .query(query);
 
-        return oneConteudo.recordset;
+        return oneAtor.recordset;
     }
     catch (error) {
         return  error.message;
     }
 }
 
-const createMenu = async (menuData) => {
+const createAtor = async (atorData) => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'INSERT INTO [dbo].[Menu] ' +
-            '([Nome],[Preco]) ' +
-            'VALUES (@Nome, @Preco) ' +
+        let query = 'INSERT INTO [dbo].[Ator] ' +
+            '([Nome]) ' +
+            'VALUES (@Nome) ' +
             'SELECT SCOPE_IDENTITY() AS Id';
 
-        const insertConteudo = await pool.request()
-            .input('Nome', sql.VarChar(255), menuData.Nome)
-            .input('Preco', sql.Real, menuData.Preco)
+        const insertAtor = await pool.request()
+            .input('Nome', sql.VarChar(255), atorData.Nome)
             .query(query);
 
-        return insertConteudo.recordset;
+        return insertAtor.recordset;
     }
     catch (error) {
         return error.message;
     }
 }
 
-const updateMenu = async (Id, menuData) => {
+const updateAtor = async (Id, atorData) => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'UPDATE [dbo].[Menu] SET ';
-        const inputParams = ['Nome', 'Preco'];
+        let query = 'UPDATE [dbo].[Ator] SET ';
+        const inputParams = ['Nome', 'Imagem'];
         for (const param of inputParams) {
-            query += menuData[param] ? `${param} = @${param}, ` : '';
+            query += atorData[param] ? `${param} = @${param}, ` : '';
         }
         query = query.slice(0, -2); // remove trailing comma and space
         query +=` WHERE [Id]=@Id`
 
         const update = await pool.request()
             .input('Id', sql.Int, Id)
-            .input('Nome', sql.VarChar(255), menuData.Nome)
-            .input('Preco', sql.Real, menuData.Preco)
+            .input('Nome', sql.VarChar(255), atorData.Nome)
+            .input('Imagem', sql.VarBinary(sql.MAX), atorData.Imagem)
             .query(query);
 
         return update.recordset;
@@ -80,10 +78,10 @@ const updateMenu = async (Id, menuData) => {
     }
 }
 
-const deleteMenu = async (Id) => {
+const deleteAtor = async (Id) => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'DELETE [dbo].[Menu] WHERE [Id]=@Id;'
+        let query = 'DELETE [dbo].[Ator] WHERE [Id]=@Id;'
 
         const deleted = await pool.request()
             .input('Id', sql.Int, Id)
@@ -96,9 +94,9 @@ const deleteMenu = async (Id) => {
 }
 
 module.exports = {
-    listMenus,
-    listMenuById,
-    createMenu,
-    updateMenu,
-    deleteMenu
+    listAtores,
+    listAtorById,
+    createAtor,
+    updateAtor,
+    deleteAtor
 }

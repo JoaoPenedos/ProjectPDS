@@ -44,4 +44,10 @@ import { RegisterComponent } from './register/register.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  // constructor(
+  //   @Optional() @Inject('body') private body: any
+  // ) {
+  //   console.log(`body`, body);
+  // }
+}

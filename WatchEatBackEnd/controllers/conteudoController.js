@@ -23,10 +23,52 @@ const getConteudo = async (req, res)=> {
     }
 }
 
+const getConteudosFilmes = async (req, res) => {
+    try {
+        const conteudosFilmes = await conteudoData.listConteudosFilmes();
+        res.send(conteudosFilmes);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const getConteudosSeries = async (req, res) => {
+    try {
+        const conteudosSeries = await conteudoData.listConteudosSeries();
+        res.send(conteudosSeries);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const addConteudo = async (req, res)=> {
     try {
         const data = req.body;
         const created = await conteudoData.createConteudo(data);
+        res.send(created);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const addConteudoFilme = async (req, res)=> {
+    try {
+        const data = req.body;
+        const created = await conteudoData.createConteudoFilme(data);
+        res.send(created);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const addConteudoSerie = async (req, res)=> {
+    try {
+        const data = req.body;
+        const created = await conteudoData.createConteudoSerie(data);
         res.send(created);
     }
     catch (error) {
@@ -60,7 +102,11 @@ const deleteConteudo = async (req, res)=> {
 module.exports = {
     getConteudos,
     getConteudo,
+    getConteudosFilmes,
+    getConteudosSeries,
     addConteudo,
+    addConteudoFilme,
+    addConteudoSerie,
     updateConteudo,
     deleteConteudo
 }

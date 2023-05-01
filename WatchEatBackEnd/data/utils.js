@@ -1,22 +1,53 @@
 'use strict';
+const estadosUtilizadores = {
+    UserState1: 'Ativo',
+    UserState2: 'Suspenso',
+    UserState3: 'Bloqueado'
+}
 
-const fs = require('fs-extra');
-const {join} = require('path');
+const estadosConteudosBiblioteca = {
+    BiblioState1: 'Para Assistir',
+    BiblioState2: 'Terminado',
+    BiblioState3: 'Assistindo',
+    BiblioState4: 'Em Espera',
+    BiblioState5: 'Cancelado',
+}
 
-const loadSqlQueries = async (folderName) => {
-    const filePath = join(process.cwd(), 'data', folderName);
-    const files = await fs.readdir(filePath);
-    const sqlFiles = await files.filter(f => f.endsWith('.sql'));
-    const queries = {};
+const estadosPagamentos = {
+    PagamentoState1: 'Pago',
+    PagamentoState2: 'Não Pago',
+    PagamentoState3: 'Terminou o Prazo'
+}
 
-    for (const sqlFile of sqlFiles) {
-        const query = await fs.readFileSync(join(filePath, sqlFile), {encoding: "UTF-8"});
-        queries[sqlFile.replace(".sql", "")] = query;
-    }
+const estadosPedidos = {
+    PedidosState1: 'Em Aberto',
+    PedidosState2: 'Cancelado',
+    PedidosState3: 'Cancelado Depois de Pagamento',
+    PedidosState4: 'Pago',
+    PedidosState5: 'Não Pago',
+    PedidosState6: 'Em Preparação',
+    PedidosState7: 'Expedido',
+    PedidosState8: 'Entregue',
+    PedidosState9: 'Utilizador Não Apareceu',
+    PedidosState10: 'Sitio Não Encontrado'
+}
 
-    return queries
+const estadosAmizade = {
+    AmizadeState1: 'Amigos',
+    AmizadeState2: 'Pedido Enviado'
+}
+
+const estadosSerie = {
+    SerieState1: 'A decorrer',
+    SerieState2: 'Concluido',
+    SerieState3: 'Brevemente'
 }
 
 module.exports = {
-    loadSqlQueries
+    estadosUtilizadores,
+    estadosConteudosBiblioteca,
+    estadosPagamentos,
+    estadosPedidos,
+    estadosAmizade,
+    estadosSerie
 }
