@@ -1,23 +1,23 @@
 'use strict'
 const express = require('express');
 const utilizadorController = require('../controllers/utilizadorController');
-const {authCookieVerify} = require("../middleware/authCookieVerify");
+const authCookie = require("../middleware/authCookieVerify");
 const router = express.Router();
 
 const {getUtilizadores, getUtilizador, getUtilizadorAmizade, addUtlizador, addUtlizadorAmizade,
     updateUtilizador, updatePedidoAmizade, deleteUtilizador} = utilizadorController;
 
-router.get('/Utilizadores', authCookieVerify , getUtilizadores);
-router.get('/Utilizador/:Id', getUtilizador);
-router.get('/UtilizadorAmizade/:Id', getUtilizadorAmizade);
+router.get('/Utilizadores', authCookie.authCookieVerify, getUtilizadores);
+router.get('/Utilizador/:Id', authCookie.authCookieVerify, getUtilizador);
+router.get('/UtilizadorAmizade/:Id', authCookie.authCookieVerify, getUtilizadorAmizade);
 
-router.post('/Utilizador', addUtlizador);
-router.post('/UtilizadorAmizade/:Id', addUtlizadorAmizade);
+router.post('/Utilizador', authCookie.authCookieVerify, addUtlizador);
+router.post('/UtilizadorAmizade/:Id', authCookie.authCookieVerify, addUtlizadorAmizade);
 
-router.put('/Utilizador/:Id', updateUtilizador);
-router.put('/Utilizador/PedidoAmizade/:Id', updatePedidoAmizade);
+router.put('/Utilizador/:Id', authCookie.authCookieVerify, updateUtilizador);
+router.put('/Utilizador/PedidoAmizade/:Id', authCookie.authCookieVerify, updatePedidoAmizade);
 
-router.delete('/Utilizador/:Id', deleteUtilizador);
+router.delete('/Utilizador/:Id', authCookie.authCookieVerify, deleteUtilizador);
 
 module.exports = {
     routes: router

@@ -21,11 +21,32 @@ const listBibliotecas = async () => {
         return error.message;
     }
 }
-const listBibliotecaByUserId = async (Id) => {
+
+const listBibliotecasByVisibilidade = async (Visibilidade) => {
     try {
         let pool = await sql.connect(config.sql);
         let query = 'SELECT [Biblioteca].[UtilizadorId],[Utilizador].[Nome] as Nome,[Utilizador].[Apelido],[Conteudo].[Nome] as Conteudo,' +
             '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado] ' +
+            'FROM [dbo].[Biblioteca]' +
+            'JOIN [dbo].[Utilizador] ON Utilizador.Id = Biblioteca.UtilizadorId ' +
+            'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId ' +
+            'WHERE [Visibilidade]=@Visibilidade';
+
+        const list = await pool.request()
+            .input('Visibilidade', sql.VarChar(255), Visibilidade)
+            .query(query);
+        return list.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
+const listBibliotecaByUserId = async (Id) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'SELECT [Biblioteca].[UtilizadorId],[Utilizador].[Nome] as Nome,[Utilizador].[Apelido],[Conteudo].[Nome] as Conteudo,' +
+            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade] ' +
             'FROM [dbo].[Biblioteca]' +
             'JOIN [dbo].[Utilizador] ON Utilizador.Id = Biblioteca.UtilizadorId ' +
             'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId ' +
@@ -88,6 +109,7 @@ const updateConteudoInBiblioteca = async (uId, data) => {
 
 module.exports = {
     listBibliotecas,
+    listBibliotecasByVisibilidade,
     listBibliotecaByUserId,
     createConteudoInBiblioteca,
     updateConteudoInBiblioteca

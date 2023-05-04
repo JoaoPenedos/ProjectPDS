@@ -1,10 +1,22 @@
 'use strict'
 
-const bibliotecaData = require('../data/bibliotecaService')
+const bibliotecaData = require('../data/bibliotecaService');
+const utils = require('../utils/utils');
 
 const getBibliotecas = async (req, res) => {
     try {
         const bibliotecas = await bibliotecaData.listBibliotecas();
+        res.send(bibliotecas);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const getBibliotecasByVisibilidade = async (req, res) => {
+    try {
+        const vis = req.body.Visibilidade;
+        const bibliotecas = await bibliotecaData.listBibliotecasByVisibilidade(vis);
         res.send(bibliotecas);
     }
     catch (error) {
@@ -50,6 +62,7 @@ const updateConteudoInBiblioteca = async (req, res)=> {
 module.exports = {
     getBibliotecas,
     getBiblioteca,
+    getBibliotecasByVisibilidade,
     addConteudoInBiblioteca,
     updateConteudoInBiblioteca
 }

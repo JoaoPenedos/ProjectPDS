@@ -43,6 +43,12 @@ const estadosSerie = {
     ES_Brevemente: 'Brevemente'
 }
 
+const visibilidadeBiblioteca = {
+    VB_Publica: 'Publica',
+    VB_Privada: 'Privada',
+    VB_FriendsOnly: 'Friends Only'
+}
+
 const user_roles = {
     UR_Normal: 'Normal',
     UR_Premium: 'Premium',
@@ -56,5 +62,6 @@ module.exports = {
     estadosPedidos,
     estadosAmizade,
     estadosSerie,
+    visibilidadeBiblioteca,
     user_roles
 }
