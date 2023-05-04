@@ -3,7 +3,6 @@ const pedidosData = require('../data/pedidoService');
 const pagamentosData = require('../data/pagamentoService');
 const produtosData = require('../data/produtoService');
 const pedidosProdutosData = require('../data/pedidoProdutoService');
-const sql = require("mssql");
 
 const getPedidos = async (req, res) => {
     try {
