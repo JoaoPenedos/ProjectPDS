@@ -1,6 +1,6 @@
 'use strict'
 
-const atorData = require('../data/Atores');
+const atorData = require('../data/atorService');
 
 const getAtores = async (req, res) => {
     try {

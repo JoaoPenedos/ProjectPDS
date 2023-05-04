@@ -1,5 +1,5 @@
 'use strict'
-const menuData = require('../data/Menus');
+const menuData = require('../data/menuService');
 
 const getMenus = async (req, res) => {
     try {

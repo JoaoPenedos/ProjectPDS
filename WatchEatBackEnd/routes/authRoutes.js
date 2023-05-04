@@ -1,14 +1,17 @@
 'use strict'
 const express = require('express');
 const authController = require('../controllers/authController');
-const {authCookieVerify} = require("../middleware/authCookieVerify");
+const authCookie = require("../middleware/authCookieVerify");
 const router = express.Router();
 
-const {authUtilizador, getUtilizador} = authController;
+const {authUtilizador, getUtilizador, registerUtilizador} = authController;
+
+router.get("/getUser", getUtilizador);
 
 router.post('/authLogin', authUtilizador);
-router.get("/getUser", getUtilizador);
-router.post('/teste', authCookieVerify , (req, res) => {
+router.post('/authRegister', registerUtilizador);
+
+router.post('/teste', authCookie.authCookieVerify , (req, res) => {
     res.redirect("/pagina-inicial");
 });
 

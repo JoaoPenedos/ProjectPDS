@@ -1,6 +1,6 @@
 'use strict'
 
-const conteudoData = require('../data/Conteudos');
+const conteudoData = require('../data/conteudoService');
 
 const getConteudos = async (req, res) => {
     try {

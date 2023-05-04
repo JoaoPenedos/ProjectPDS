@@ -1,8 +1,8 @@
 'use strict';
 
-const config = require('../../config');
+const config = require('../config');
 const sql = require('mssql');
-const utils = require('../utils');
+const utils = require('../utils/utils');
 
 const listConteudos = async () => {
     try {
@@ -43,7 +43,7 @@ const listConteudosFilmes = async ()=> {
         let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
             '[Duracao],[Filme].[Id] as filmeId ' +
             'FROM [dbo].[Conteudo] ' +
-            'JOIN [dbo].[Filme] ON Conteudo.Id = Filme.conteudoId';
+            'JOIN [dbo].[Filme] ON Conteudo.Id = Filme.ConteudoId';
 
         const conteudosFilmes = await pool.request()
             .query(query);
@@ -61,7 +61,7 @@ const listConteudosSeries = async ()=> {
         let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
             '[NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[Serie].[Id] as serieId ' +
             'FROM [dbo].[Conteudo] ' +
-            'JOIN [dbo].[Serie] ON Conteudo.Id = Serie.conteudoId';
+            'JOIN [dbo].[Serie] ON Conteudo.Id = Serie.ConteudoId';
 
         const conteudosSeries = await pool.request()
             .query(query);
@@ -103,8 +103,8 @@ const createConteudoFilme = async (conteudoData) => {
             'VALUES (@Nome, @Realizador, @Rating, @DataReleased) ' +
             'SELECT SCOPE_IDENTITY() AS Id';
         let query2 = 'INSERT INTO [dbo].[Filme] ' +
-            '([Duracao],[conteudoId]) ' +
-            'VALUES (@Duracao, @conteudoId)';
+            '([Duracao],[ConteudoId]) ' +
+            'VALUES (@Duracao, @ConteudoId)';
 
         const insertConteudo = await pool.request()
             .input('Nome', sql.VarChar(255), conteudoData.Nome)
@@ -115,7 +115,7 @@ const createConteudoFilme = async (conteudoData) => {
 
         const insertFilme = await pool.request()
             .input('Duracao', sql.VarChar(255), conteudoData.Duracao)
-            .input('conteudoId', sql.Int, insertConteudo.recordset[0].Id)
+            .input('ConteudoId', sql.Int, insertConteudo.recordset[0].Id)
             .query(query2);
 
         return insertConteudo.recordset;
@@ -133,8 +133,8 @@ const createConteudoSerie = async (conteudoData) => {
             'VALUES (@Nome, @Realizador, @Rating, @DataReleased) ' +
             'SELECT SCOPE_IDENTITY() AS Id';
         let query2 = 'INSERT INTO [dbo].[Serie] ' +
-            '([NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[conteudoId]) ' +
-            'VALUES (@NTemporadas, @Estado, @DataFim, @NEpisodiosTotais, @conteudoId)';
+            '([NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[ConteudoId]) ' +
+            'VALUES (@NTemporadas, @Estado, @DataFim, @NEpisodiosTotais, @ConteudoId)';
 
         const insertConteudo = await pool.request()
             .input('Nome', sql.VarChar(255), conteudoData.Nome)
@@ -148,7 +148,7 @@ const createConteudoSerie = async (conteudoData) => {
             .input('Estado', sql.VarChar(255), conteudoData.Estado)
             .input('DataFim', sql.Date, conteudoData.DataFim)
             .input('NEpisodiosTotais', sql.Int, conteudoData.NEpisodiosTotais)
-            .input('conteudoId', sql.Int, insertConteudo.recordset[0].Id)
+            .input('ConteudoId', sql.Int, insertConteudo.recordset[0].Id)
             .query(query2);
 
         return insertConteudo.recordset;

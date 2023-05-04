@@ -1,8 +1,8 @@
 'use strict';
 
-const config = require('../../config');
+const config = require('../config');
 const sql = require('mssql');
-const utils = require('../utils');
+const utils = require('../utils/utils');
 
 const listProdutos = async () => {
     try {
@@ -30,6 +30,24 @@ const listProdutoById = async (Id)=> {
             .query(query);
 
         return oneConteudo.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
+const listProdutoByNome = async (Nome)=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT [Id],[Nome],[Preco],[Stock]' +
+            'FROM [dbo].[Produto]' +
+            'WHERE [Nome] = @Nome';
+
+        const oneProduto = await pool.request()
+            .input('Nome', sql.VarChar(255), Nome)
+            .query(query);
+
+        return oneProduto.recordset;
     }
     catch (error) {
         return  error.message;
@@ -101,6 +119,7 @@ const deleteProduto = async (Id) => {
 module.exports = {
     listProdutos,
     listProdutoById,
+    listProdutoByNome,
     createProduto,
     updateProduto,
     deleteProduto

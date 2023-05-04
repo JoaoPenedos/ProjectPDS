@@ -1,7 +1,7 @@
 'use strict';
-const config = require('../../config');
+const config = require('../config');
 const sql = require('mssql');
-const utils = require('../utils');
+const utils = require('../utils/utils');
 
 const listAtores = async () => {
     try {

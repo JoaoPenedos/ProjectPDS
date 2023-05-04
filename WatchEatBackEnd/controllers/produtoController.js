@@ -1,6 +1,6 @@
 'use strict'
 
-const produtoData = require('../data/Produtos');
+const produtoData = require('../data/produtoService');
 
 const getProdutos = async (req, res) => {
     try {

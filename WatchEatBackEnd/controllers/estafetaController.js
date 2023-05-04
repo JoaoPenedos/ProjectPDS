@@ -1,5 +1,5 @@
 'use strict'
-const estafetaData = require('../data/Estafetas');
+const estafetaData = require('../data/estafetaService');
 
 const getEstafetas = async (req, res) => {
     try {

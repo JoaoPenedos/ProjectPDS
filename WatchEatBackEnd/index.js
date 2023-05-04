@@ -22,6 +22,9 @@ app.get('/pagina-inicial', (req, res) => {
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname,"../WatchEat/src/app/login/login.component.html"));
 });
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname,"../WatchEat/src/app/register/register.component.html"));
+});
 
 app.use('/api', require('./routes/conteudoRoutes').routes);
 app.use('/api', require('./routes/utlizadorRoutes').routes);
@@ -31,6 +34,8 @@ app.use('/api', require('./routes/estafetaRoutes').routes);
 app.use('/api', require('./routes/bibliotecaRoutes').routes);
 app.use('/api', require('./routes/atorRoutes').routes);
 app.use('/api', require('./routes/authRoutes').routes);
+app.use('/api', require('./routes/pagamentoRoutes').routes);
+app.use('/api', require('./routes/pedidoRoutes').routes);
 
 
 app.listen(config.port, () => console.log('server is listening on https://localhost:' + config.port));

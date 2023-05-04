@@ -1,8 +1,8 @@
 'use strict';
 
-const config = require('../../config');
+const config = require('../config');
 const sql = require('mssql');
-const utils = require('../utils');
+const utils = require('../utils/utils');
 
 const listBibliotecas = async () => {
     try {
@@ -51,7 +51,7 @@ const createConteudoInBiblioteca = async (Id, data) => {
         const insertConteudo = await pool.request()
             .input('UtilizadorId', sql.Int, Id)
             .input('ConteudoId', sql.Int, data.ConteudoId)
-            .input('Estado', sql.VarChar(255), utils.estadosConteudosBiblioteca.BiblioState1)
+            .input('Estado', sql.VarChar(255), utils.estadosConteudosBiblioteca.EB_Assistindo)
             .query(query);
 
         return insertConteudo.recordset;

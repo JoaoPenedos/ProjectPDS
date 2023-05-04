@@ -21,7 +21,12 @@ const logOutClearCookie = async (req, res, next) => {
     return res.redirect("/login");
 }
 
+const testeMiddleware = async (req, res, next) => {
+    next();
+}
+
 module.exports = {
     authCookieVerify,
     logOutClearCookie,
+    testeMiddleware,
 }

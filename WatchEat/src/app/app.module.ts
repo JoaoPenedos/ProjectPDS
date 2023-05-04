@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from "@angular/router";
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { BibliotecaComponent } from './biblioteca/biblioteca.component';
@@ -18,6 +19,7 @@ import { RegisterComponent } from './register/register.component';
 @NgModule({
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'pagina-inicial', pathMatch: 'full' },
       { path: 'pagina-inicial', component: PaginaInicialComponent },

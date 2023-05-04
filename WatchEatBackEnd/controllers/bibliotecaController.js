@@ -1,6 +1,6 @@
 'use strict'
 
-const bibliotecaData = require('../data/Bibliotecas')
+const bibliotecaData = require('../data/bibliotecaService')
 
 const getBibliotecas = async (req, res) => {
     try {

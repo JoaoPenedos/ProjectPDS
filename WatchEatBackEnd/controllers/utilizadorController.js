@@ -1,6 +1,6 @@
 'use strict'
 
-const utilizadorData = require('../data/Utilizadores');
+const utilizadorData = require('../data/utilizadorService');
 
 const getUtilizadores = async (req, res) => {
     try {
@@ -23,6 +23,17 @@ const getUtilizador = async (req, res)=> {
     }
 }
 
+const getUtilizadorAmizade = async (req, res)=> {
+    try {
+        const utilizadorId = req.params.Id;
+        const utilizadorAmizades = await utilizadorData.listUtilizadorAmizades(utilizadorId);
+        res.send(utilizadorAmizades);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const addUtlizador = async (req, res)=> {
     try {
         const data = req.body;
@@ -38,8 +49,32 @@ const addUtlizadorAmizade = async (req, res)=> {
     try {
         const utilizadorId = req.params.Id;
         const data = req.body;
-        const created = await utilizadorData.createPedidoAmizade(utilizadorId, data);
-        res.send(created);
+        const user1 = await utilizadorData.listUtilizadorById(utilizadorId);
+        const user2 = await utilizadorData.listUtilizadorById(data.UtilizadorId2);
+        const checkAmizade = await utilizadorData.listAmizade(utilizadorId, data.UtilizadorId2);
+        const checkAmizadeReverse = await utilizadorData.listAmizade(data.UtilizadorId2, utilizadorId);
+
+        if (user1.length === 0 || user2.length === 0) {
+            return res.status(409).json({
+                error: `Utilizador (${utilizadorId}) ou Utilizador (${data.UtilizadorId2}) não existem na BD`
+            });
+        }
+        else {
+            if (checkAmizade.length !== 0) {
+                return res.status(409).json({
+                    error: `Utilizador (${utilizadorId}) e (${data.UtilizadorId2}) já são amigos ou já existe um pedido enviado`
+                });
+            }
+            else if (checkAmizadeReverse.length !== 0) {
+                return res.status(409).json({
+                    error: `Utilizador (${utilizadorId}) e (${data.UtilizadorId2}) já são amigos ou já existe um pedido enviado`
+                });
+            }
+            else {
+                const created = await utilizadorData.createPedidoAmizade(utilizadorId, data);
+                res.send(created);
+            }
+        }
     }
     catch (error) {
         res.status(400).send(error.message);
@@ -90,6 +125,7 @@ const deleteUtilizador = async (req, res)=> {
 module.exports = {
     getUtilizadores,
     getUtilizador,
+    getUtilizadorAmizade,
     addUtlizador,
     addUtlizadorAmizade,
     updateUtilizador,
