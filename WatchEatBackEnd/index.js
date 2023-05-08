@@ -38,6 +38,7 @@ app.use('/api', require('./routes/pagamentoRoutes').routes);
 app.use('/api', require('./routes/pedidoRoutes').routes);
 app.use('/api', require('./routes/reviewsPremiumRoutes').routes);
 app.use('/api', require('./routes/generoRoutes').routes);
+app.use('/api', require('./routes/alteracaoConteudoRoutes').routes);
 
 
 app.listen(config.port, () => console.log('server is listening on https://localhost:' + config.port));

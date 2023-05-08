@@ -66,13 +66,14 @@ const createConteudoInBiblioteca = async (Id, data) => {
     try {
         let pool = await sql.connect(config.sql);
         let query = 'INSERT INTO [dbo].[Biblioteca] ' +
-            '([UtilizadorId],[ConteudoId],[Estado]) ' +
-            'VALUES (@UtilizadorId, @ConteudoId, @Estado) ';
+            '([UtilizadorId],[ConteudoId],[Estado],[Visibilidade]) ' +
+            'VALUES (@UtilizadorId, @ConteudoId, @Estado, @Visibilidade) ';
 
         const insertConteudo = await pool.request()
             .input('UtilizadorId', sql.Int, Id)
             .input('ConteudoId', sql.Int, data.ConteudoId)
             .input('Estado', sql.VarChar(255), utils.estadosConteudosBiblioteca.EB_Assistindo)
+            .input('Visibilidade', sql.VarChar(255), utils.visibilidadeBiblioteca.VB_Publica)
             .query(query);
 
         return insertConteudo.recordset;
@@ -107,10 +108,33 @@ const updateConteudoInBiblioteca = async (uId, data) => {
     }
 }
 
+const updateVisibilidadeBiblioteca = async (uId, data) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'UPDATE [dbo].[Biblioteca] SET ';
+        const inputParams = ['Visibilidade'];
+        for (const param of inputParams) {
+            query += data[param] ? `${param} = @${param}, ` : '';
+        }
+        query = query.slice(0, -2); // remove trailing comma and space
+        query +=` WHERE [UtilizadorId]=@uId`
+
+        const update = await pool.request()
+            .input('uId', sql.Int, uId)
+            .input('Visibilidade', sql.VarChar(255), data.Visibilidade)
+            .query(query);
+        return update.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
     listBibliotecas,
     listBibliotecasByVisibilidade,
     listBibliotecaByUserId,
     createConteudoInBiblioteca,
-    updateConteudoInBiblioteca
+    updateConteudoInBiblioteca,
+    updateVisibilidadeBiblioteca
 }

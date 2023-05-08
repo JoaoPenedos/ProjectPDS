@@ -101,6 +101,24 @@ const updateProduto = async (Id, produtoData) => {
     }
 }
 
+const updateStockProduto = async (Id, novoStock) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'UPDATE [dbo].[Produto] SET [Stock] = @Stock ' +
+            'WHERE [Id]=@Id';
+
+        const update = await pool.request()
+            .input('Id', sql.Int, Id)
+            .input('Stock', sql.Int, novoStock)
+            .query(query);
+
+        return update.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
 const deleteProduto = async (Id) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -122,5 +140,6 @@ module.exports = {
     listProdutoByNome,
     createProduto,
     updateProduto,
+    updateStockProduto,
     deleteProduto
 }

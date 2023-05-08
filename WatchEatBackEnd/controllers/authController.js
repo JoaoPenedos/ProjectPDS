@@ -2,6 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 const utilizadoresData = require('../data/utilizadorService');
+const utils = require('../utils/utils');
 
 /*
 const data = { }
@@ -20,7 +21,7 @@ const getUtilizador = async (req, res)=> {
     }
 }
 
-const authUtilizador = async (req, res)=> {
+const authUtilizador = async (req, res, next)=> {
     try {
         const { Email, Password } = req.body;
         const user = await utilizadoresData.listUtilizadorByEmail(Email);
@@ -30,9 +31,13 @@ const authUtilizador = async (req, res)=> {
                 error: "invalid login"
             });
         }
+        if (user[0].Estado !== utils.estadosUtilizadores.EU_Ativo) {
+            return res.status(403).json({
+                error: "A conta deste utilizador está neste momento suspensa ou bloqueada, por favor tente mais tarde!"
+            });
+        }
 
         delete user[0].Password;
-
         const token = jwt.sign({user}, process.env.SECRET_TOKEN, { expiresIn: "1h"});
 
         res.cookie("token", token,{

@@ -49,6 +49,12 @@ const visibilidadeBiblioteca = {
     VB_FriendsOnly: 'Friends Only'
 }
 
+const estadoAlteracao = {
+    EA_EmEspera: 'Em Espera',
+    EA_Aceite: 'Aceite',
+    EA_NaoAceite: 'Não Aceite'
+}
+
 const user_roles = {
     UR_Normal: 'Normal',
     UR_Premium: 'Premium',
@@ -62,6 +68,7 @@ module.exports = {
     estadosPedidos,
     estadosAmizade,
     estadosSerie,
+    estadoAlteracao,
     visibilidadeBiblioteca,
     user_roles
 }

@@ -1,6 +1,12 @@
 'use strict'
 
 const conteudoData = require('../data/conteudoService');
+const produtosData = require("../data/produtoService");
+const generosData = require("../data/generoService");
+const atoresData = require("../data/atorService");
+const pedidosProdutosData = require("../data/pedidoProdutoService");
+const conteudosGeneroData = require("../data/conteudoGeneroService")
+const conteudosAtorData = require("../data/conteudoAtorService")
 
 const getConteudos = async (req, res) => {
     try {
@@ -56,9 +62,20 @@ const addConteudo = async (req, res)=> {
 
 const addConteudoFilme = async (req, res)=> {
     try {
-        const data = req.body;
-        const created = await conteudoData.createConteudoFilme(data);
-        res.send(created);
+        const dataF = req.body;
+        const createdCont = await conteudoData.createConteudo(dataF);
+        await conteudoData.createConteudoFilme(dataF, createdCont[0].Id);
+
+        for (const item of dataF.generos) {
+            const getGeneroByNome = await generosData.listGeneroByNome(item.Nome);
+            await conteudosGeneroData.createConteudoGenero(createdCont[0].Id, getGeneroByNome[0].Id);
+        }
+        for (const item of dataF.atores) {
+            const getAtorById = await atoresData.listAtorById(item.Id);
+            await conteudosAtorData.createConteudoAtor(createdCont[0].Id, getAtorById[0].Id, item);
+        }
+
+        res.send(createdCont);
     }
     catch (error) {
         res.status(400).send(error.message);
@@ -67,9 +84,20 @@ const addConteudoFilme = async (req, res)=> {
 
 const addConteudoSerie = async (req, res)=> {
     try {
-        const data = req.body;
-        const created = await conteudoData.createConteudoSerie(data);
-        res.send(created);
+        const dataS = req.body;
+        const createdCont = await conteudoData.createConteudo(dataS);
+        await conteudoData.createConteudoSerie(dataS, createdCont[0].Id);
+
+        for (const item of dataS.generos) {
+            const getGeneroByNome = await generosData.listGeneroByNome(item.Nome);
+            await conteudosGeneroData.createConteudoGenero(createdCont[0].Id, getGeneroByNome[0].Id);
+        }
+        for (const item of dataS.atores) {
+            const getAtorById = await atoresData.listAtorById(item.Id);
+            await conteudosAtorData.createConteudoAtor(createdCont[0].Id, getAtorById[0].Id, item);
+        }
+
+        res.send({createdCont});
     }
     catch (error) {
         res.status(400).send(error.message);

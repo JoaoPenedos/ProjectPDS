@@ -54,6 +54,25 @@ const listConteudosFilmes = async ()=> {
         return  error.message;
     }
 }
+const listConteudoFilme = async (ConteudoId)=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
+            '[Duracao],[Filme].[Id] as filmeId ' +
+            'FROM [dbo].[Conteudo] ' +
+            'JOIN [dbo].[Filme] ON Conteudo.Id = Filme.ConteudoId ' +
+            'WHERE [ConteudoId] = @ConteudoId';
+
+        const conteudoFilme = await pool.request()
+            .input('ConteudoId', sql.Int, ConteudoId)
+            .query(query);
+
+        return conteudoFilme.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
 
 const listConteudosSeries = async ()=> {
     try {
@@ -73,19 +92,42 @@ const listConteudosSeries = async ()=> {
     }
 }
 
+const listConteudoSerie = async (ConteudoId)=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
+            '[NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[Serie].[Id] as serieId ' +
+            'FROM [dbo].[Conteudo] ' +
+            'JOIN [dbo].[Serie] ON Conteudo.Id = Serie.ConteudoId ' +
+            'WHERE [ConteudoId] = @ConteudoId';
+
+        const conteudosSeries = await pool.request()
+            .input('ConteudoId', sql.Int, ConteudoId)
+            .query(query);
+
+        return conteudosSeries.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
+
 const createConteudo = async (conteudoData) => {
     try {
         let pool = await sql.connect(config.sql);
         let query = 'INSERT INTO [dbo].[Conteudo] ' +
-            '([Nome],[Realizador],[Rating],[DataReleased]) ' +
-            'VALUES (@Nome, @Realizador, @Rating, @DataReleased) ' +
+            '([Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse]) ' +
+            'VALUES (@Nome, @Poster, @Realizador, @Rating, @DataReleased, @Sinopse); ' +
             'SELECT SCOPE_IDENTITY() AS Id';
 
         const insertConteudo = await pool.request()
             .input('Nome', sql.VarChar(255), conteudoData.Nome)
+            .input('Poster', sql.VarBinary(sql.MAX), conteudoData.Poster)
             .input('Realizador', sql.VarChar(255), conteudoData.Realizador)
             .input('Rating', sql.Real, conteudoData.Rating)
             .input('DataReleased', sql.Date, conteudoData.DataReleased)
+            .input('Sinopse', sql.VarChar(255), conteudoData.Sinopse)
             .query(query);
 
         return insertConteudo.recordset;
@@ -95,63 +137,41 @@ const createConteudo = async (conteudoData) => {
     }
 }
 
-const createConteudoFilme = async (conteudoData) => {
+const createConteudoFilme = async (conteudoData, contId) => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'INSERT INTO [dbo].[Conteudo] ' +
-            '([Nome],[Realizador],[Rating],[DataReleased]) ' +
-            'VALUES (@Nome, @Realizador, @Rating, @DataReleased) ' +
-            'SELECT SCOPE_IDENTITY() AS Id';
-        let query2 = 'INSERT INTO [dbo].[Filme] ' +
+        let query = 'INSERT INTO [dbo].[Filme] ' +
             '([Duracao],[ConteudoId]) ' +
             'VALUES (@Duracao, @ConteudoId)';
 
-        const insertConteudo = await pool.request()
-            .input('Nome', sql.VarChar(255), conteudoData.Nome)
-            .input('Realizador', sql.VarChar(255), conteudoData.Realizador)
-            .input('Rating', sql.Real, conteudoData.Rating)
-            .input('DataReleased', sql.Time, conteudoData.DataReleased)
-            .query(query);
-
         const insertFilme = await pool.request()
             .input('Duracao', sql.VarChar(255), conteudoData.Duracao)
-            .input('ConteudoId', sql.Int, insertConteudo.recordset[0].Id)
-            .query(query2);
+            .input('ConteudoId', sql.Int, contId)
+            .query(query);
 
-        return insertConteudo.recordset;
+        return insertFilme.recordset;
     }
     catch (error) {
         return error.message;
     }
 }
 
-const createConteudoSerie = async (conteudoData) => {
+const createConteudoSerie = async (conteudoData, contId) => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'INSERT INTO [dbo].[Conteudo] ' +
-            '([Nome],[Realizador],[Rating],[DataReleased]) ' +
-            'VALUES (@Nome, @Realizador, @Rating, @DataReleased) ' +
-            'SELECT SCOPE_IDENTITY() AS Id';
-        let query2 = 'INSERT INTO [dbo].[Serie] ' +
+        let query = 'INSERT INTO [dbo].[Serie] ' +
             '([NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[ConteudoId]) ' +
             'VALUES (@NTemporadas, @Estado, @DataFim, @NEpisodiosTotais, @ConteudoId)';
-
-        const insertConteudo = await pool.request()
-            .input('Nome', sql.VarChar(255), conteudoData.Nome)
-            .input('Realizador', sql.VarChar(255), conteudoData.Realizador)
-            .input('Rating', sql.Real, conteudoData.Rating)
-            .input('DataReleased', sql.Date, conteudoData.DataReleased)
-            .query(query);
 
         const insertSerie = await pool.request()
             .input('NTemporadas', sql.Int, conteudoData.NTemporadas)
             .input('Estado', sql.VarChar(255), conteudoData.Estado)
             .input('DataFim', sql.Date, conteudoData.DataFim)
             .input('NEpisodiosTotais', sql.Int, conteudoData.NEpisodiosTotais)
-            .input('ConteudoId', sql.Int, insertConteudo.recordset[0].Id)
-            .query(query2);
+            .input('ConteudoId', sql.Int, contId)
+            .query(query);
 
-        return insertConteudo.recordset;
+        return insertSerie.recordset;
     }
     catch (error) {
         return error.message;
@@ -203,7 +223,9 @@ module.exports = {
     listConteudos,
     listConteudoById,
     listConteudosFilmes,
+    listConteudoFilme,
     listConteudosSeries,
+    listConteudoSerie,
     createConteudo,
     createConteudoFilme,
     createConteudoSerie,

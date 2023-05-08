@@ -25,6 +25,18 @@ const getPedido = async (req, res)=> {
     }
 }
 
+
+const getUserPedidos = async (req, res)=> {
+    try {
+        const UtilizadorId = req.body.UtilizadorId;
+        const onePedido = await pedidosData.listPedidosByUserId(UtilizadorId);
+        res.send(onePedido);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const addPedido = async (req, res)=> {
     try {
         let precoTotal = 0;
@@ -34,8 +46,8 @@ const addPedido = async (req, res)=> {
             const getProdutoByNome = await produtosData.listProdutoByNome(item.Nome);
 
             if (getProdutoByNome[0].Stock >= item.Quantidade) {
-                await pedidosProdutosData.createPedidoProduto(created[0].Id,
-                    getProdutoByNome[0].Id, getProdutoByNome[0].Preco, item.Quantidade);
+                await pedidosProdutosData.createPedidoProduto(created[0].Id,getProdutoByNome[0].Id, getProdutoByNome[0].Preco, item.Quantidade);
+                await produtosData.updateStockProduto(getProdutoByNome[0].Id, (getProdutoByNome[0].Stock - item.Quantidade));
                 precoTotal += (getProdutoByNome[0].Preco * item.Quantidade);
             }
         }
@@ -49,22 +61,9 @@ const addPedido = async (req, res)=> {
     }
 }
 
-
-// const updatePagamento = async (req, res)=> {
-//     try {
-//         const pagamentoId = req.params.Id;
-//         const data = req.body;
-//         const updated = await pagamentoData.updatePagamento(pagamentoId, data);
-//         res.send(updated);
-//     }
-//     catch (error) {
-//         res.status(400).send(error.message);
-//     }
-// }
-
 module.exports = {
     getPedidos,
     getPedido,
+    getUserPedidos,
     addPedido,
-    // updatePagamento
 }

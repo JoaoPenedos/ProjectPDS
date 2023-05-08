@@ -59,10 +59,23 @@ const updateConteudoInBiblioteca = async (req, res)=> {
     }
 }
 
+const updateVisibilidadeBiblioteca = async (req, res)=> {
+    try {
+        const userId = req.params.userId;
+        const data = req.body;
+        const created = await bibliotecaData.updateVisibilidadeBiblioteca(userId, data);
+        res.send(created);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
     getBibliotecas,
     getBiblioteca,
     getBibliotecasByVisibilidade,
     addConteudoInBiblioteca,
-    updateConteudoInBiblioteca
+    updateConteudoInBiblioteca,
+    updateVisibilidadeBiblioteca
 }

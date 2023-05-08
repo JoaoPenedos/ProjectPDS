@@ -39,12 +39,13 @@ const createAtor = async (atorData) => {
     try {
         let pool = await sql.connect(config.sql);
         let query = 'INSERT INTO [dbo].[Ator] ' +
-            '([Nome]) ' +
-            'VALUES (@Nome) ' +
+            '([Nome],[Imagem]) ' +
+            'VALUES (@Nome,@Imagem) ' +
             'SELECT SCOPE_IDENTITY() AS Id';
 
         const insertAtor = await pool.request()
             .input('Nome', sql.VarChar(255), atorData.Nome)
+            .input('Imagem', sql.VarBinary(sql.MAX), atorData.Imagem)
             .query(query);
 
         return insertAtor.recordset;

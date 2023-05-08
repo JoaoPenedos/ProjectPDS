@@ -19,33 +19,39 @@ const pagamentoPremiumVerify  = async (req, res, next) => {
         const userId = req.body;
         const user = await utilizadorData.listUtilizadorById(userId.UtilizadorId)
         const topPagP = await pagamentoData.listTopPagamentoPremium(userId.UtilizadorId);
-        const dateValue = topPagP[0].DataEmissao;
-        const monthValue = dateValue.getMonth() + 1;
-        const currentMonth = new Date().getMonth() + 1;
-        const currentDayMonth = new Date().getDate();
+        if (topPagP.length !== 0) {
+            const dateValue = topPagP[0].DataEmissao;
+            const monthValue = dateValue.getMonth() + 1;
+            const currentMonth = new Date().getMonth() + 1;
+            const currentDayMonth = new Date().getDate();
 
-        if (user[0].Utilizador_Roles == utils.user_roles.UR_Premium) {
-            if (monthValue === currentMonth) {
-                if(currentDayMonth > 8 && topPagP[0].Estado == utils.estadosPagamentos.EP_NaoPago) {
-                    await pagamentoData.updateTerminarPrazoPagamento(topPagP[0].Id);
-                    await utilizadorData.updateRolesUtilizador(userId.UtilizadorId,utils.user_roles.UR_Normal);
+            if (user[0].Utilizador_Roles == utils.user_roles.UR_Premium) {
+                if (monthValue === currentMonth) {
+                    if(currentDayMonth > 8 && topPagP[0].Estado == utils.estadosPagamentos.EP_NaoPago) {
+                        await pagamentoData.updateTerminarPrazoPagamento(topPagP[0].Id);
+                        await utilizadorData.updateRolesUtilizador(userId.UtilizadorId,utils.user_roles.UR_Normal);
+                    }
+                }
+                else if (monthValue < currentMonth) {
+                    if(currentDayMonth <= 8) {
+                        await pagamentoData.createPagamentoPremium(userId.UtilizadorId);
+                    }
+                    else if(currentDayMonth > 8) {
+                        await pagamentoData.createPagamentoPremium(userId.UtilizadorId);
+                        await pagamentoData.updateTerminarPrazoPagamento(topPagP[0].Id);
+                        await utilizadorData.updateRolesUtilizador(userId,utils.user_roles.UR_Normal);
+                    }
                 }
             }
             else if (monthValue < currentMonth) {
-                if(currentDayMonth <= 8) {
-                    await pagamentoData.createPagamentoPremium(userId.UtilizadorId);
-                }
-                else if(currentDayMonth > 8) {
-                    await pagamentoData.createPagamentoPremium(userId.UtilizadorId);
-                    await pagamentoData.updateTerminarPrazoPagamento(topPagP[0].Id);
-                    await utilizadorData.updateRolesUtilizador(userId,utils.user_roles.UR_Normal);
-                }
+                await pagamentoData.updateTerminarPrazoPagamento(topPagP[0].Id);
             }
         }
-        else if (monthValue < currentMonth) {
-            await pagamentoData.updateTerminarPrazoPagamento(topPagP[0].Id);
+        else {
+            return next();
         }
-        next();
+
+        return next();
     }
     catch (error){
         return res.status(400).send(error.message);

@@ -2,6 +2,7 @@
 const express = require('express');
 const utilizadorController = require('../controllers/utilizadorController');
 const authCookie = require("../middleware/authCookieVerify");
+const checkRoles = require("../middleware/rolesAuthorization");
 const router = express.Router();
 
 const {getUtilizadores, getUtilizador, getUtilizadorAmizade, addUtlizador, addUtlizadorAmizade,

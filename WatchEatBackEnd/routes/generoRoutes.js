@@ -2,6 +2,7 @@
 const express = require('express');
 const generoController = require('../controllers/generoController');
 const authCookie = require("../middleware/authCookieVerify");
+const checkRoles = require("../middleware/rolesAuthorization");
 const router = express.Router();
 
 const {getGeneros, getGeneroById, addGenero,
@@ -10,11 +11,11 @@ const {getGeneros, getGeneroById, addGenero,
 router.get('/Generos', getGeneros);
 router.get('/Genero/:Id', getGeneroById);
 
-router.post('/Genero/:Id', authCookie.authCookieVerify, addGenero);
+router.post('/Genero', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, addGenero);
 
-router.put('/Genero/:Id', authCookie.authCookieVerify, updateGenero);
+router.put('/Genero/:Id', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, updateGenero);
 
-router.delete('/Genero/:Id', authCookie.authCookieVerify, deleteGenero);
+router.delete('/Genero/:Id', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, deleteGenero);
 
 module.exports = {
     routes: router

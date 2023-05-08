@@ -1,19 +1,21 @@
 'use strict'
 const express = require('express');
 const atorController = require('../controllers/atorController');
+const authCookie = require("../middleware/authCookieVerify");
+const checkRoles = require("../middleware/rolesAuthorization");
 const router = express.Router();
 
 const {getAtores, getAtor,
     addAtor, updateAtor, deleteAtor} = atorController;
 
-router.get('/Atores', getAtores);
-router.get('/Ator/:Id', getAtor);
+router.get('/Atores', authCookie.authCookieVerify, getAtores);
+router.get('/Ator/:Id', authCookie.authCookieVerify, getAtor);
 
-router.post('/Ator', addAtor);
+router.post('/Ator', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, addAtor);
 
-router.put('/Ator/:Id', updateAtor);
+router.put('/Ator/:Id', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, updateAtor);
 
-router.delete('/Ator/:Id', deleteAtor);
+router.delete('/Ator/:Id', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, deleteAtor);
 
 
 module.exports = {

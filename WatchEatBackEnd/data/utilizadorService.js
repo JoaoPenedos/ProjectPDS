@@ -39,7 +39,7 @@ const listUtilizadorById = async (Id)=> {
 const listUtilizadorByEmail = async (Email)=> {
     try {
         let pool = await  sql.connect(config.sql);
-        let query = 'SELECT [Id],[Email],[Password]' +
+        let query = 'SELECT [Id],[Nome],[Apelido],[Password],[Email],[NTelemovel],[Morada],[NIF],[ImagemPerfil],[Estado],[Utilizador_Roles] ' +
             'FROM [dbo].[Utilizador]' +
             'WHERE [Email] = @Email';
 
@@ -208,6 +208,24 @@ const updateRolesUtilizador = async (Id, Utilizador_Roles) => {
     }
 }
 
+const updateEstadoUtilizador = async (Id, Estado) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'UPDATE [dbo].[Utilizador] SET Estado = @Estado ' +
+            'WHERE [Id]=@Id';
+
+        const update = await pool.request()
+            .input('Id', sql.Int, Id)
+            .input('Estado', sql.VarChar(255), Estado)
+            .query(query);
+
+        return update.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
 const updatePedidoAmizade = async (Id, utilizadorData) => {
     try {
         const currentDate = new Date();
@@ -279,6 +297,7 @@ module.exports = {
     createPedidoAmizade,
     updateUtilizador,
     updateRolesUtilizador,
+    updateEstadoUtilizador,
     updatePedidoAmizade,
     deleteUtilizador,
     deletePedidoAmizade

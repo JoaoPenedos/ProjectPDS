@@ -15,7 +15,6 @@ const authCookieVerify = async (req, res, next) => {
     }
 }
 
-
 const logOutClearCookie = async (req, res, next) => {
     res.clearCookie("token");
     return res.redirect("/login");

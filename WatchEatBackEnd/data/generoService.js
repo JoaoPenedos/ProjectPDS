@@ -36,6 +36,22 @@ const listGeneroById = async (Id) => {
     }
 }
 
+const listGeneroByNome = async (Nome) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'SELECT [Id],[Nome],[Descricao] ' +
+            'FROM [dbo].[Genero] ' +
+            'WHERE [Nome]=@Nome';
+
+        const list = await pool.request()
+            .input('Nome', sql.VarChar(255), Nome)
+            .query(query);
+        return list.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
 
 const createGenero = async (data) => {
     try {
@@ -96,6 +112,7 @@ const deleteGenero = async (Id) => {
 module.exports = {
     listGeneros,
     listGeneroById,
+    listGeneroByNome,
     createGenero,
     updateGenero,
     deleteGenero,
