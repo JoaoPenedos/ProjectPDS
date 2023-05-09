@@ -41,4 +41,6 @@ app.use('/api', require('./routes/generoRoutes').routes);
 app.use('/api', require('./routes/alteracaoConteudoRoutes').routes);
 
 
-app.listen(config.port, () => console.log('server is listening on https://localhost:' + config.port));
+let server = app.listen(config.port, () => console.log('server is listening on https://localhost:' + config.port));
+
+module.exports = server;

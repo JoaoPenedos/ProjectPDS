@@ -41,10 +41,10 @@ const alteracoesCountVerifyOnLogin  = async (req, res, next) => {
 
             if (findedUser[0].Utilizador_Roles !== utils.user_roles.UR_Admin) {
                 if (countAlter.length !== 0 && countAlter[0].numberOfEntrys >= 3) {
-                    await utilizadorData.updateEstadoUtilizador(findedUser.Id, utils.estadosUtilizadores.EU_Suspenso);
-                    return res.redirect("/login");
+                    await utilizadorData.updateEstadoUtilizador(findedUser[0].Id, utils.estadosUtilizadores.EU_Suspenso);
+                    return next();
                 } else {
-                    return res.redirect("/pagina-inicial");
+                    return next();
                 }
             } else {
                 return next();

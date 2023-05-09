@@ -59,7 +59,7 @@ const registerUtilizador = async (req, res)=> {
         if (Object.keys(user).length > 0) {
             if (user[0].Email == Email) {
                 return res.status(409).json({
-                    error: "email already in use"
+                    error: "Email already in use"
                 });
             }
         }
@@ -79,7 +79,7 @@ const registerUtilizador = async (req, res)=> {
             httpOnly: true,
         })
 
-        res.redirect("/pagina-inicial");
+        return res.redirect("/pagina-inicial");
     }
     catch (error) {
         res.status(400).send(error.message);
