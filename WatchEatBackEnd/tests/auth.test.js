@@ -1,11 +1,11 @@
 const request = require('supertest');
 const app = require('../index');
 
-describe('POST /api/authLogin', () => {
-    beforeAll(done => {
-        done()
-    })
+beforeAll(done => {
+    done()
+})
 
+describe('POST /api/authLogin', () => {
     it('should redirect to \'/pagina-inicial\' if valid login', async () => {
         const res = await request(app)
             .post('/api/authLogin')
@@ -42,18 +42,9 @@ describe('POST /api/authLogin', () => {
 
         expect(res.body.error).toBe('A conta deste utilizador está neste momento suspensa ou bloqueada, por favor tente mais tarde!');
     });
-
-    afterAll(done => {
-        app.close()
-        done()
-    })
 });
 
 describe('POST /api/authRegister', () => {
-    beforeAll(done => {
-        done()
-    })
-
     it('should return 409 if email is already in use', async () => {
         const res = await request(app)
             .post('/api/authRegister')
@@ -78,9 +69,9 @@ describe('POST /api/authRegister', () => {
 
         expect(res.body.error).toBe("Password doesn\'t match confirm_password field");
     });
-
-    afterAll(done => {
-        app.close()
-        done()
-    })
 });
+
+afterAll(done => {
+    app.close()
+    done()
+})

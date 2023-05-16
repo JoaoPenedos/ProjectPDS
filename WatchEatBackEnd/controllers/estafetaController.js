@@ -39,7 +39,7 @@ const updateEstafeta = async (req, res)=> {
         const data = req.body;
         const updated = await estafetaData.updateEstafeta(estafetaId, data);
         res.send(updated);
-    }
+    }   
     catch (error) {
         res.status(400).send(error.message);
     }

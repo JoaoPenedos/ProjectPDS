@@ -1,24 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from "@angular/router";
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { BibliotecaComponent } from './biblioteca/biblioteca.component';
-import { PerfilComponent } from './perfil/perfil.component';
-import { ListaFilmesComponent } from './lista-filmes/lista-filmes.component';
-import { ListaSeriesComponent } from './lista-series/lista-series.component';
-import { PaginaInicialComponent } from './pagina-inicial/pagina-inicial.component';
-import { LoginComponent } from './login/login.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { RegisterComponent } from './register/register.component';
+import { BibliotecaComponent } from './features/biblioteca/biblioteca.component';
+import { PerfilComponent } from './features/perfil/perfil.component';
+import { ListaFilmesComponent } from './features/lista-filmes/lista-filmes.component';
+import { ListaSeriesComponent } from './features/lista-series/lista-series.component';
+import { PaginaInicialComponent } from './features/pagina-inicial/pagina-inicial.component';
+import { LoginComponent } from './features/login/login.component';
+import { HeaderComponent } from './_shared/components/header/header.component';
+import { FooterComponent } from './_shared/components/footer/footer.component';
+import { RegisterComponent } from './features/register/register.component';
 
 
 
 @NgModule({
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'pagina-inicial', pathMatch: 'full' },

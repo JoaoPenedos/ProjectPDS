@@ -44,7 +44,7 @@ const authUtilizador = async (req, res, next)=> {
             httpOnly: true,
         })
 
-        res.redirect("/pagina-inicial");
+        return res.status(200).json({Authorization: `${token}`});
     }
     catch (error) {
         res.status(400).send(error.message);
@@ -79,7 +79,7 @@ const registerUtilizador = async (req, res)=> {
             httpOnly: true,
         })
 
-        return res.redirect("/pagina-inicial");
+        return res.status(200).json({Authorization: `${token}`});
     }
     catch (error) {
         res.status(400).send(error.message);
