@@ -1,8 +1,15 @@
+import * as path from "path";
+
 export class User {
-  id?: string;
-  username?: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
+  Id?: string;
+  Nome?: string;
+  Apelido?: string;
+  Email?: string;
+  NTelemovel?: bigint;
+  Morada?: string;
+  NIF?: string;
+  ImagemPerfil?: string;
+  Estado?: string;
+  Utilizador_Roles?: string;
   token?: string;
 }

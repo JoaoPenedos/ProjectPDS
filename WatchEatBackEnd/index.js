@@ -14,10 +14,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/pagina-inicial/pagina-inicial.component.html"));
+    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/pagina-inicial/pag-inicial.component.html"));
 });
 app.get('/pagina-inicial', (req, res) => {
-    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/pagina-inicial/pagina-inicial.component.html"));
+    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/pagina-inicial/pag-inicial.component.html"));
 });
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/login/login.component.html"));

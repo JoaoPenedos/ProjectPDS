@@ -3,10 +3,10 @@ import {ConteudosDataService} from "../../_shared/services/Conteudos/conteudos-d
 
 @Component({
   selector: 'app-lista-filmes',
-  templateUrl: './lista-filmes.component.html',
-  styleUrls: ['./lista-filmes.component.css']
+  templateUrl: './pag-filmes.component.html',
+  styleUrls: ['./pag-filmes.component.css']
 })
-export class ListaFilmesComponent {
+export class PagFilmesComponent {
   conteudosFilmes: any[] = [];
 
   constructor(private conteudoDataService: ConteudosDataService) {}

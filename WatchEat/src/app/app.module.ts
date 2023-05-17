@@ -5,15 +5,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { BibliotecaComponent } from './features/biblioteca/biblioteca.component';
-import { PerfilComponent } from './features/perfil/perfil.component';
-import { ListaFilmesComponent } from './features/lista-filmes/lista-filmes.component';
-import { ListaSeriesComponent } from './features/lista-series/lista-series.component';
-import { PaginaInicialComponent } from './features/pagina-inicial/pagina-inicial.component';
-import { LoginComponent } from './features/login/login.component';
+import { LoginComponent } from './features/_login/login.component';
+import { RegisterComponent } from './features/_register/register.component';
+import { PagBibliotecaComponent } from './features/pag-biblioteca/pag-biblioteca.component';
+import { PagPerfilComponent } from './features/pag-perfil/pag-perfil.component';
+import { PagFilmesComponent } from './features/pag-filmes/pag-filmes.component';
+import { PagSeriesComponent } from './features/pag-series/pag-series.component';
+import { PagInicialComponent } from './features/pag-inicial/pag-inicial.component';
 import { HeaderComponent } from './_shared/components/header/header.component';
 import { FooterComponent } from './_shared/components/footer/footer.component';
-import { RegisterComponent } from './features/register/register.component';
+import { PagConteudoComponent } from './features/pag-conteudo/pag-conteudo.component';
+import { PagProdutosComponent } from './features/pag-produtos/pag-produtos.component';
+import { PagPagamentosComponent } from './features/pag-pagamentos/pag-pagamentos.component';
+import { PagPedidosComponent } from './features/pag-pedidos/pag-pedidos.component';
+import { PagAddConteudoComponent } from './features/pag-add-conteudo/pag-add-conteudo.component';
+import { PagEstatisticasComponent } from './features/pag-estatisticas/pag-estatisticas.component';
+import { PagFriendsComponent } from './features/pag-friends/pag-friends.component';
+import { PagPremiumComponent } from './features/pag-premium/pag-premium.component';
 
 
 
@@ -25,26 +33,34 @@ import { RegisterComponent } from './features/register/register.component';
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'pagina-inicial', pathMatch: 'full' },
-      { path: 'pagina-inicial', component: PaginaInicialComponent },
-      { path: 'lista-filmes', component: ListaFilmesComponent },
-      { path: 'lista-series', component: ListaSeriesComponent },
-      { path: 'biblioteca', component: BibliotecaComponent },
-      { path: 'perfil/:UserId', component: PerfilComponent },
+      { path: 'pagina-inicial', component: PagInicialComponent },
+      { path: 'lista-filmes', component: PagFilmesComponent },
+      { path: 'lista-series', component: PagSeriesComponent },
+      { path: 'biblioteca', component: PagBibliotecaComponent },
+      { path: 'perfil/:UserId', component: PagPerfilComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
     ])
   ],
   declarations: [
     AppComponent,
-    BibliotecaComponent,
-    PerfilComponent,
-    ListaFilmesComponent,
-    ListaSeriesComponent,
-    PaginaInicialComponent,
+    PagBibliotecaComponent,
+    PagPerfilComponent,
+    PagFilmesComponent,
+    PagSeriesComponent,
+    PagInicialComponent,
     LoginComponent,
     HeaderComponent,
     FooterComponent,
-    RegisterComponent
+    RegisterComponent,
+    PagConteudoComponent,
+    PagProdutosComponent,
+    PagPagamentosComponent,
+    PagPedidosComponent,
+    PagAddConteudoComponent,
+    PagEstatisticasComponent,
+    PagFriendsComponent,
+    PagPremiumComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

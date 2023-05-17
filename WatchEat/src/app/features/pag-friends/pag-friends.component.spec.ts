@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PaginaInicialComponent } from './pagina-inicial.component';
+import { PagFriendsComponent } from './pag-friends.component';
 
-describe('PaginaInicialComponent', () => {
-  let component: PaginaInicialComponent;
-  let fixture: ComponentFixture<PaginaInicialComponent>;
+describe('PagFriendsComponent', () => {
+  let component: PagFriendsComponent;
+  let fixture: ComponentFixture<PagFriendsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaginaInicialComponent ]
+      declarations: [ PagFriendsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PaginaInicialComponent);
+    fixture = TestBed.createComponent(PagFriendsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

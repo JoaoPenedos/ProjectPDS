@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BibliotecaComponent } from './biblioteca.component';
+import { PagPremiumComponent } from './pag-premium.component';
 
-describe('BibliotecaComponent', () => {
-  let component: BibliotecaComponent;
-  let fixture: ComponentFixture<BibliotecaComponent>;
+describe('PagPremiumComponent', () => {
+  let component: PagPremiumComponent;
+  let fixture: ComponentFixture<PagPremiumComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BibliotecaComponent ]
+      declarations: [ PagPremiumComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BibliotecaComponent);
+    fixture = TestBed.createComponent(PagPremiumComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
