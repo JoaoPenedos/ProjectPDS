@@ -14,16 +14,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/pagina-inicial/pag-inicial.component.html"));
+    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/pag-inicial/pag-inicial.component.html"));
 });
 app.get('/pagina-inicial', (req, res) => {
-    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/pagina-inicial/pag-inicial.component.html"));
+    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/pag-inicial/pag-inicial.component.html"));
 });
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/login/login.component.html"));
+    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/_login/login.component.html"));
 });
 app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/register/register.component.html"));
+    res.sendFile(path.join(__dirname,"../WatchEat/src/app/features/_register/register.component.html"));
 });
 
 app.use('/api', require('./routes/conteudoRoutes').routes);
@@ -41,6 +41,6 @@ app.use('/api', require('./routes/generoRoutes').routes);
 app.use('/api', require('./routes/alteracaoConteudoRoutes').routes);
 
 
-let server = app.listen(config.port, () => console.log('server is listening on https://localhost:' + config.port));
+let server = app.listen(config.port, () => console.log('server is listening on http://localhost:' + config.port));
 
 module.exports = server;

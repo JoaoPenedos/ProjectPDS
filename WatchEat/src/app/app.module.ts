@@ -32,14 +32,21 @@ import { PagPremiumComponent } from './features/pag-premium/pag-premium.componen
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
       { path: '', redirectTo: 'pagina-inicial', pathMatch: 'full' },
       { path: 'pagina-inicial', component: PagInicialComponent },
       { path: 'lista-filmes', component: PagFilmesComponent },
       { path: 'lista-series', component: PagSeriesComponent },
       { path: 'biblioteca', component: PagBibliotecaComponent },
       { path: 'perfil/:UserId', component: PagPerfilComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
+      { path: 'addConteudo', component: PagAddConteudoComponent },
+      { path: 'conteudo', component: PagConteudoComponent },
+      { path: 'pagamentos', component: PagPagamentosComponent },
+      { path: 'pedidos', component: PagPedidosComponent },
+      { path: 'premium', component: PagPremiumComponent },
+      { path: 'produtos', component: PagProdutosComponent },
+      { path: 'estatisticas', component: PagEstatisticasComponent },
     ])
   ],
   declarations: [
