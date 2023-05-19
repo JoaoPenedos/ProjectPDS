@@ -5,12 +5,13 @@ const authCookie = require("../middleware/authCookieVerify");
 const checkRoles = require("../middleware/rolesAuthorization");
 const router = express.Router();
 
-const {getUtilizadores, getUtilizador, getUtilizadorAmizade, addUtlizador, addUtlizadorAmizade,
-    updateUtilizador, updatePedidoAmizade, deleteUtilizador} = utilizadorController;
+const {getUtilizadores, getUtilizador, getUtilizadorAmizade, getUtilizadorAmizadeTop6,
+    addUtlizador, addUtlizadorAmizade, updateUtilizador, updatePedidoAmizade, deleteUtilizador} = utilizadorController;
 
 router.get('/Utilizadores', authCookie.authCookieVerify, getUtilizadores);
 router.get('/Utilizador/:Id', authCookie.authCookieVerify, getUtilizador);
 router.get('/UtilizadorAmizade/:Id', authCookie.authCookieVerify, getUtilizadorAmizade);
+router.get('/UtilizadorAmizadeTop6/:Id', authCookie.authCookieVerify, getUtilizadorAmizadeTop6);
 
 router.post('/Utilizador', authCookie.authCookieVerify, addUtlizador);
 router.post('/UtilizadorAmizade/:Id', authCookie.authCookieVerify, addUtlizadorAmizade);

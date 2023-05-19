@@ -34,6 +34,17 @@ const getUtilizadorAmizade = async (req, res)=> {
     }
 }
 
+const getUtilizadorAmizadeTop6 = async (req, res)=> {
+    try {
+        const utilizadorId = req.params.Id;
+        const utilizadorAmizades = await utilizadorData.listUtilizadorAmizadesTop6(utilizadorId);
+        res.send(utilizadorAmizades);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const addUtlizador = async (req, res)=> {
     try {
         const data = req.body;
@@ -126,6 +137,7 @@ module.exports = {
     getUtilizadores,
     getUtilizador,
     getUtilizadorAmizade,
+    getUtilizadorAmizadeTop6,
     addUtlizador,
     addUtlizadorAmizade,
     updateUtilizador,

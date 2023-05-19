@@ -1,6 +1,6 @@
-import * as path from "path";
+import { Deserializable } from "./deserializable.model";
 
-export class User {
+export class UserModel implements Deserializable {
   Id?: string;
   Nome?: string;
   Apelido?: string;
@@ -11,5 +11,9 @@ export class User {
   ImagemPerfil?: string;
   Estado?: string;
   Utilizador_Roles?: string;
-  token?: string;
+
+  deserialize(input: any) {
+    Object.assign(this, input);
+    return this;
+  }
 }

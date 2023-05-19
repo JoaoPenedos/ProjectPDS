@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router} from "@angular/router";
+import {AuthService} from "./_shared/services/_Auth/auth.service";
 
 
 @Component({
@@ -14,7 +15,13 @@ export class AppComponent {
 
   constructor(
     private router: Router,
+    private authService: AuthService
   ) {}
+
+
+  // ngOnInit() {
+  //   this.authService.LogUser();
+  // }
 
   hasRoute(route: string) {
     return this.router.url.includes(route);

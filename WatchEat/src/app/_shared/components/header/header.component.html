@@ -49,7 +49,9 @@
             <!-- Active: "bg-gray-100", Not Active: "" -->
             <a [routerLink]="['/perfil']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-0">Perfil</a>
             <a [routerLink]="['/biblioteca']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-1">Biblioteca</a>
-            <a (click)="LogUser()" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-2">Sair</a>
+            <a [routerLink]="['/premium']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-2">Aderir Premium</a>
+            <a [routerLink]="['/biblioteca']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-3">Biblioteca</a>
+            <a (click)="LogoutUser()" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-4">Sair</a>
           </div>
         </div>
       </div>

@@ -34,4 +34,8 @@ export class HeaderComponent {
     this.IsUserLogged();
   }
 
+  LogoutUser(): void {
+    this.authService.LogoutUser();
+  }
+
 }

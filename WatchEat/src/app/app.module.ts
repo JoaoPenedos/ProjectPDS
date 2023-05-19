@@ -39,7 +39,7 @@ import { PagPremiumComponent } from './features/pag-premium/pag-premium.componen
       { path: 'lista-filmes', component: PagFilmesComponent },
       { path: 'lista-series', component: PagSeriesComponent },
       { path: 'biblioteca', component: PagBibliotecaComponent },
-      { path: 'perfil/:UserId', component: PagPerfilComponent },
+      { path: 'perfil', component: PagPerfilComponent },
       { path: 'addConteudo', component: PagAddConteudoComponent },
       { path: 'conteudo', component: PagConteudoComponent },
       { path: 'pagamentos', component: PagPagamentosComponent },

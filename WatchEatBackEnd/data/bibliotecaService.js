@@ -8,7 +8,7 @@ const listBibliotecas = async () => {
     try {
         let pool = await sql.connect(config.sql);
         let query = 'SELECT [Biblioteca].[UtilizadorId],[Utilizador].[Nome] as Nome,[Utilizador].[Apelido],[Conteudo].[Nome] as Conteudo,' +
-            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado] ' +
+            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade],[Biblioteca].[DataInsercao] ' +
             'FROM [dbo].[Biblioteca]' +
             'JOIN [dbo].[Utilizador] ON Utilizador.Id = Biblioteca.UtilizadorId ' +
             'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId';
@@ -26,7 +26,7 @@ const listBibliotecasByVisibilidade = async (Visibilidade) => {
     try {
         let pool = await sql.connect(config.sql);
         let query = 'SELECT [Biblioteca].[UtilizadorId],[Utilizador].[Nome] as Nome,[Utilizador].[Apelido],[Conteudo].[Nome] as Conteudo,' +
-            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado] ' +
+            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade],[Biblioteca].[DataInsercao] ' +
             'FROM [dbo].[Biblioteca]' +
             'JOIN [dbo].[Utilizador] ON Utilizador.Id = Biblioteca.UtilizadorId ' +
             'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId ' +
@@ -46,7 +46,7 @@ const listBibliotecaByUserId = async (Id) => {
     try {
         let pool = await sql.connect(config.sql);
         let query = 'SELECT [Biblioteca].[UtilizadorId],[Utilizador].[Nome] as Nome,[Utilizador].[Apelido],[Conteudo].[Nome] as Conteudo,' +
-            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade] ' +
+            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade],[Biblioteca].[DataInsercao] ' +
             'FROM [dbo].[Biblioteca]' +
             'JOIN [dbo].[Utilizador] ON Utilizador.Id = Biblioteca.UtilizadorId ' +
             'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId ' +
@@ -62,18 +62,65 @@ const listBibliotecaByUserId = async (Id) => {
     }
 }
 
-const createConteudoInBiblioteca = async (Id, data) => {
+const listBibliotecaFilmesTop5ByUserId = async (Id) => {
     try {
         let pool = await sql.connect(config.sql);
+        let query = 'SELECT TOP (5) [Biblioteca].[UtilizadorId],[Utilizador].[Nome] as Nome,[Utilizador].[Apelido],[Conteudo].[Nome] as Conteudo,' +
+            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade],[Biblioteca].[DataInsercao] ' +
+            'FROM [dbo].[Biblioteca]' +
+            'JOIN [dbo].[Utilizador] ON Utilizador.Id = Biblioteca.UtilizadorId ' +
+            'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId ' +
+            'JOIN [dbo].[Filme] ON Filme.ConteudoId = Conteudo.Id ' +
+            'WHERE [Biblioteca].[UtilizadorId] = @Id';
+
+        const list = await pool.request()
+            .input('Id', sql.Int, Id)
+            .query(query);
+        return list.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
+const listBibliotecaSeriesTop5ByUserId = async (Id) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'SELECT TOP (5) [Biblioteca].[UtilizadorId],[Utilizador].[Nome] as Nome,[Utilizador].[Apelido],[Conteudo].[Nome] as Conteudo,' +
+            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade],[Biblioteca].[DataInsercao] ' +
+            'FROM [dbo].[Biblioteca]' +
+            'JOIN [dbo].[Utilizador] ON Utilizador.Id = Biblioteca.UtilizadorId ' +
+            'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId ' +
+            'JOIN [dbo].[Serie] ON Serie.ConteudoId = Conteudo.Id ' +
+            'WHERE [Biblioteca].[UtilizadorId] = @Id';
+
+        const list = await pool.request()
+            .input('Id', sql.Int, Id)
+            .query(query);
+        return list.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
+
+const createConteudoInBiblioteca = async (Id, data) => {
+    try {
+        const currentDate = new Date();
+        const sqlCurrentDateString = currentDate.toISOString().slice(0, 19).replace('T', ' ');
+
+        let pool = await sql.connect(config.sql);
         let query = 'INSERT INTO [dbo].[Biblioteca] ' +
-            '([UtilizadorId],[ConteudoId],[Estado],[Visibilidade]) ' +
-            'VALUES (@UtilizadorId, @ConteudoId, @Estado, @Visibilidade) ';
+            '([UtilizadorId],[ConteudoId],[Estado],[Visibilidade],[DataInsercao]) ' +
+            'VALUES (@UtilizadorId, @ConteudoId, @Estado, @Visibilidade, @DataInsercao) ';
 
         const insertConteudo = await pool.request()
             .input('UtilizadorId', sql.Int, Id)
             .input('ConteudoId', sql.Int, data.ConteudoId)
             .input('Estado', sql.VarChar(255), utils.estadosConteudosBiblioteca.EB_Assistindo)
             .input('Visibilidade', sql.VarChar(255), utils.visibilidadeBiblioteca.VB_Publica)
+            .input('DataInsercao', sql.DateTime, sqlCurrentDateString)
             .query(query);
 
         return insertConteudo.recordset;
@@ -134,6 +181,8 @@ module.exports = {
     listBibliotecas,
     listBibliotecasByVisibilidade,
     listBibliotecaByUserId,
+    listBibliotecaFilmesTop5ByUserId,
+    listBibliotecaSeriesTop5ByUserId,
     createConteudoInBiblioteca,
     updateConteudoInBiblioteca,
     updateVisibilidadeBiblioteca

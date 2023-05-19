@@ -41,7 +41,7 @@ const authUtilizador = async (req, res, next)=> {
         const token = jwt.sign({user}, process.env.SECRET_TOKEN, { expiresIn: "1h"});
 
         res.cookie("token", token,{
-            httpOnly: true,
+            httpOnly: false,
         })
 
         return res.status(200).json({Authorization: `${token}`});
@@ -76,7 +76,7 @@ const registerUtilizador = async (req, res)=> {
         const token = jwt.sign({newUser}, process.env.SECRET_TOKEN, { expiresIn: "1h"});
 
         res.cookie("token", token,{
-            httpOnly: true,
+            httpOnly: false,
         })
 
         return res.status(200).json({Authorization: `${token}`});

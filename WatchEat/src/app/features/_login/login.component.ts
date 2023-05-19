@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from "../../_shared/services/_Auth/auth.service";
 import { first } from 'rxjs/operators';
+import decode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',

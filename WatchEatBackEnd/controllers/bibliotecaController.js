@@ -35,6 +35,28 @@ const getBiblioteca = async (req, res)=> {
     }
 }
 
+const getBibliotecaFilmesTop5 = async (req, res)=> {
+    try {
+        const userId = req.params.userId;
+        const oneBiblioteca = await bibliotecaData.listBibliotecaFilmesTop5ByUserId(userId);
+        res.send(oneBiblioteca);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const getBibliotecaSeriesTop5 = async (req, res)=> {
+    try {
+        const userId = req.params.userId;
+        const oneBiblioteca = await bibliotecaData.listBibliotecaSeriesTop5ByUserId(userId);
+        res.send(oneBiblioteca);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const addConteudoInBiblioteca = async (req, res)=> {
     try {
         const userId = req.params.userId;
@@ -74,6 +96,8 @@ const updateVisibilidadeBiblioteca = async (req, res)=> {
 module.exports = {
     getBibliotecas,
     getBiblioteca,
+    getBibliotecaFilmesTop5,
+    getBibliotecaSeriesTop5,
     getBibliotecasByVisibilidade,
     addConteudoInBiblioteca,
     updateConteudoInBiblioteca,

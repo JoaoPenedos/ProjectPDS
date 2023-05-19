@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { tap } from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,10 @@ export class AuthService {
   isUserLogged = false;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   authLogin(email: string, password: string) {
     const url = 'http://localhost:3000/api/authLogin';
@@ -37,6 +41,24 @@ export class AuthService {
     return this.isUserLogged;
   }
   LogUser() {
-    this.isUserLogged = !this.isUserLogged;
+    // Get the token from local storage or any other source
+    const token = localStorage.getItem('token');
+    // Set the token in the request headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    if (!token){
+      this.router.navigate(['/login']);
+    }
+    else {
+      this.isUserLogged = !this.isUserLogged;
+    }
+  }
+
+  LogoutUser() {
+    // Get the token from local storage or any other source
+    localStorage.removeItem('token');
+    // Set the token in the request headers
+
+    this.router.navigate(['/login']);
   }
 }

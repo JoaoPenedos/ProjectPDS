@@ -72,6 +72,27 @@ const listUtilizadorAmizades = async (Id)=> {
     }
 }
 
+const listUtilizadorAmizadesTop6 = async (Id)=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT [UtilizadorId],[UtilizadorId2],[DataPedidoEnviado],[DataPedidoAceite],' +
+            '[Utilizador_Utilizador].[Estado],[Utilizador].[Nome],[Utilizador].[Apelido]' +
+            'FROM [dbo].[Utilizador_Utilizador] ' +
+            'JOIN [Utilizador] ON [Utilizador].Id = [Utilizador_Utilizador].UtilizadorId2 ' +
+            'WHERE [UtilizadorId] = @UtilizadorId AND [Utilizador_Utilizador].[Estado] = @EstadoAmizade';
+
+        const oneUtilizador = await pool.request()
+            .input('UtilizadorId', sql.Int, Id)
+            .input('EstadoAmizade', sql.VarChar(255), utils.estadosAmizade.EA_Amigos)
+            .query(query);
+
+        return oneUtilizador.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
 const listAmizade = async (Id, Id2)=> {
     try {
         let pool = await  sql.connect(config.sql);
@@ -291,6 +312,7 @@ module.exports = {
     listUtilizadorById,
     listUtilizadorByEmail,
     listUtilizadorAmizades,
+    listUtilizadorAmizadesTop6,
     listAmizade,
     createUtilizador,
     createNewRegisterUtilizador,
