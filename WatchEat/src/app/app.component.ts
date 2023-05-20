@@ -19,9 +19,9 @@ export class AppComponent {
   ) {}
 
 
-  // ngOnInit() {
-  //   this.authService.LogUser();
-  // }
+  ngOnInit() {
+    this.authService.IsUserLogged();
+  }
 
   hasRoute(route: string) {
     return this.router.url.includes(route);

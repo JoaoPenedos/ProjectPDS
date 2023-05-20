@@ -25,17 +25,12 @@ export class HeaderComponent {
   toggleMenuMobile() {
     this.isOpenMobile = !this.isOpenMobile;
   }
+
   IsUserLogged(): void {
     this.isUserLogged = this.authService.IsUserLogged();
-  }
-
-  LogUser(): void {
-    this.authService.LogUser();
-    this.IsUserLogged();
   }
 
   LogoutUser(): void {
     this.authService.LogoutUser();
   }
-
 }

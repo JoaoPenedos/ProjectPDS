@@ -22,8 +22,9 @@ import { PagAddConteudoComponent } from './features/pag-add-conteudo/pag-add-con
 import { PagEstatisticasComponent } from './features/pag-estatisticas/pag-estatisticas.component';
 import { PagFriendsComponent } from './features/pag-friends/pag-friends.component';
 import { PagPremiumComponent } from './features/pag-premium/pag-premium.component';
+import { PagEditPerfilComponent } from './features/pag-edit-perfil/pag-edit-perfil.component';
 
-
+import { AuthService } from './_shared/services/_Auth/auth.service';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { PagPremiumComponent } from './features/pag-premium/pag-premium.componen
       { path: 'lista-filmes', component: PagFilmesComponent },
       { path: 'lista-series', component: PagSeriesComponent },
       { path: 'biblioteca', component: PagBibliotecaComponent },
-      { path: 'perfil', component: PagPerfilComponent },
+      { path: 'perfil', component: PagPerfilComponent, canActivate: [AuthService] },
+      { path: 'editPerfil', component: PagEditPerfilComponent, canActivate: [AuthService] },
       { path: 'addConteudo', component: PagAddConteudoComponent },
       { path: 'conteudo', component: PagConteudoComponent },
       { path: 'pagamentos', component: PagPagamentosComponent },
@@ -67,7 +69,8 @@ import { PagPremiumComponent } from './features/pag-premium/pag-premium.componen
     PagAddConteudoComponent,
     PagEstatisticasComponent,
     PagFriendsComponent,
-    PagPremiumComponent
+    PagPremiumComponent,
+    PagEditPerfilComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

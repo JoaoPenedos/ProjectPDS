@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { tap } from 'rxjs/operators';
-import {Router} from "@angular/router";
+import {CanActivate, Router} from "@angular/router";
+import decode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  isUserLogged = false;
-
+export class AuthService implements CanActivate {
+  isUserLogged = true;
 
   constructor(
     private http: HttpClient,
@@ -36,22 +36,41 @@ export class AuthService {
     return this.http.post(url, body, {observe: 'response'});
   }
 
-
-  IsUserLogged() {
-    return this.isUserLogged;
+  canActivate(): boolean {
+    if (this.IsUserLogged()) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
   }
-  LogUser() {
+
+
+
+  IsUserLogged() : boolean {
     // Get the token from local storage or any other source
     const token = localStorage.getItem('token');
-    // Set the token in the request headers
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     if (!token){
-      this.router.navigate(['/login']);
+      return false;
     }
     else {
-      this.isUserLogged = !this.isUserLogged;
+      const tokenPayload = decode(token) as { exp: number };
+      const currentTime = Math.floor(Date.now() / 1000);
+
+      if (tokenPayload.exp < currentTime) {
+        // Token has expired
+        console.log('Token has expired');
+        localStorage.removeItem('token');
+        return false;
+      } else {
+        return true;
+      }
     }
+  }
+
+  LogUser(authToken : any) {
+    localStorage.setItem('token', authToken);
+    this.router.navigate(['/pagina-inicial']);
   }
 
   LogoutUser() {
@@ -59,6 +78,7 @@ export class AuthService {
     localStorage.removeItem('token');
     // Set the token in the request headers
 
+    this.isUserLogged = false;
     this.router.navigate(['/login']);
   }
 }

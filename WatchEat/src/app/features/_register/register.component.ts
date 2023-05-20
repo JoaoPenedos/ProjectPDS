@@ -42,9 +42,7 @@ export class RegisterComponent {
         (response: any) => {
           const authToken = response.body.Authorization;
           if (authToken) {
-            localStorage.setItem('token', authToken);
-            this.router.navigate(['/pagina-inicial']);
-            this.authService.LogUser();
+            this.authService.LogUser(authToken);
           }
         },
         (error : any)  => {

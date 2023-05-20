@@ -4,7 +4,14 @@ const utilizadorData = require('../data/utilizadorService');
 const utils = require('../utils/utils');
 
 const checkRoleAdmin = async (req, res, next) => {
-    const token = req.cookies.token;
+    let token = req.headers.authorization?.split(' ')[1];
+
+    if (!token) {
+        token = req.cookies.token;
+        if (!token) {
+            return res.status(401).json({ message: 'Token not provided' });
+        }
+    }
 
     try{
         const user = jwt.verify(token, process.env.SECRET_TOKEN);
