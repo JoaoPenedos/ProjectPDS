@@ -1,3 +1,28 @@
-<p>
-  biblioteca works!
-</p>
+<div class="container" id="pagIni">
+  <form action="/api/teste" method="post">
+    <button>ola</button>
+  </form>
+
+  <button type="button" class="text-white hover:text-red-100 bg-red-600 hover:bg-red-700 rounded-md px-3 py-2 text-sm font-medium ml-5">Para Assistir</button>
+  <button type="button" class="text-white hover:text-red-100 bg-red-600 hover:bg-red-700 rounded-md px-3 py-2 text-sm font-medium ml-2">Terminado</button>
+  <button type="button" class="text-white hover:text-red-100 bg-red-600 hover:bg-red-700 rounded-md px-3 py-2 text-sm font-medium ml-2">Assistindo</button>
+  <button type="button" class="text-white hover:text-red-100 bg-red-600 hover:bg-red-700 rounded-md px-3 py-2 text-sm font-medium ml-2">Em espera</button>
+  <button type="button" class="text-white hover:text-red-100 bg-red-600 hover:bg-red-700 rounded-md px-3 py-2 text-sm font-medium ml-2">Cancelado</button>
+  <br><br>
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-7 gap-5">
+      <div class="row" *ngFor="let conteudo of conteudos">
+        <div class="max-w-lg rounded overflow-hidden shadow-lg mb-2 bg-gray-600">
+          <img class="w-full" src="https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_Ratio0.6904_AL_.jpg">
+          <div class="px-6 py-4">
+            <label [id]="conteudo.Id"></label>
+            <p class="font-bold text-black">
+              {{ conteudo.Nome }}
+            </p>
+            <div class="text-l mb-2">⭐Rating: {{ conteudo.Rating.toFixed(2) }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
