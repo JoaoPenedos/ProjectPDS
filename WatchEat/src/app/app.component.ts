@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
 import {AuthService} from "./_shared/services/_Auth/auth.service";
 
 
@@ -9,15 +9,21 @@ import {AuthService} from "./_shared/services/_Auth/auth.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
+  showFooter: boolean | undefined;
   title = 'WatchEat';
   currentUser = "";
 
   constructor(
     private router: Router,
     private authService: AuthService
-  ) {}
-
+  ) {
+    this.showFooter = true;
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.showFooter = !(this.hasRoute('login') || this.hasRoute('register'));
+      }
+    });
+  }
 
   ngOnInit() {
     this.authService.IsUserLogged();

@@ -44,6 +44,9 @@ export class RegisterComponent {
           if (authToken) {
             this.authService.LogUser(authToken);
           }
+          else {
+            console.log("fudeu gerau");
+          }
         },
         (error : any)  => {
           console.warn(error);

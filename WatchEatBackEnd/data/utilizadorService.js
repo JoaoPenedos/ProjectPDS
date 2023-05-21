@@ -21,7 +21,8 @@ const listUtilizadores = async () => {
 const listUtilizadorById = async (Id)=> {
     try {
         let pool = await  sql.connect(config.sql);
-        let query = 'SELECT [Id],[Nome],[Apelido],[Email],[NTelemovel],[Morada],[NIF],[ImagemPerfil],[Estado],[Utilizador_Roles]' +
+        let query = 'SELECT [Id],[Nome],[Apelido],[Email]' +
+            ',[NTelemovel],[Morada],[NIF],[ImagemPerfil],[Estado],[Utilizador_Roles]' +
             'FROM [dbo].[Utilizador]' +
             'WHERE [Id] = @Id';
 
@@ -39,7 +40,8 @@ const listUtilizadorById = async (Id)=> {
 const listUtilizadorByEmail = async (Email)=> {
     try {
         let pool = await  sql.connect(config.sql);
-        let query = 'SELECT [Id],[Nome],[Apelido],[Password],[Email],[NTelemovel],[Morada],[NIF],[ImagemPerfil],[Estado],[Utilizador_Roles] ' +
+        let query = 'SELECT [Id],[Nome],[Apelido],[Password],[Email],' +
+            '[NTelemovel],[Morada],[NIF],[ImagemPerfil],[Estado],[Utilizador_Roles] ' +
             'FROM [dbo].[Utilizador]' +
             'WHERE [Email] = @Email';
 

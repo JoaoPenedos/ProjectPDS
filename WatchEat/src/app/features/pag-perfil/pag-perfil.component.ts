@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { UtilizadoresDataService } from "../../_shared/services/Utilizadores/utilizadores-data.service";
 import { BibliotecaDataService } from "../../_shared/services/Bibliotecas/biblioteca-data.service";
 import decode from 'jwt-decode';
+import {Router} from "@angular/router";
+import {AuthService} from "../../_shared/services/_Auth/auth.service";
 
 @Component({
   selector: 'app-perfil',
@@ -9,6 +11,7 @@ import decode from 'jwt-decode';
   styleUrls: ['./pag-perfil.component.css']
 })
 export class PagPerfilComponent {
+  @ViewChild('staticModal') staticModal: any; // Reference to the modal element
   user: any[] = [];
   bibliotecaFilmes: any[] = [];
   bibliotecaSeries: any[] = [];
@@ -16,7 +19,9 @@ export class PagPerfilComponent {
 
   constructor(
     private utilizadoresDataService: UtilizadoresDataService,
-    private bibliotecaDataService: BibliotecaDataService
+    private bibliotecaDataService: BibliotecaDataService,
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -36,4 +41,21 @@ export class PagPerfilComponent {
     });
   }
 
+  openModal() {
+    this.staticModal.nativeElement.classList.remove('hidden');
+    this.staticModal.nativeElement.classList.add('flex');
+  }
+
+  closeModal() {
+    this.staticModal.nativeElement.classList.remove('flex');
+    this.staticModal.nativeElement.classList.add('hidden');
+  }
+
+  deleteUtilizador() {
+    const token = localStorage.getItem('token');
+    const tokenPayload = decode(token as string) as any;
+
+    this.utilizadoresDataService.deleteUtilizador(tokenPayload.user[0].Id).subscribe();
+    this.authService.LogoutUser();
+  }
 }

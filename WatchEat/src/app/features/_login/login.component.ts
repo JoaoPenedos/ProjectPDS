@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.authLogin(this.loginForm.get('Email')?.value ?? '', this.loginForm.get('Password')?.value ?? '')
+    this.authService.authLogin(this.loginForm.get('Email')?.value ?? '',
+      this.loginForm.get('Password')?.value ?? '')
       .pipe(first())
       .subscribe(
         (response: any) => {

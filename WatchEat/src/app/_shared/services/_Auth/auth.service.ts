@@ -36,6 +36,9 @@ export class AuthService implements CanActivate {
     return this.http.post(url, body, {observe: 'response'});
   }
 
+
+
+
   canActivate(): boolean {
     if (this.IsUserLogged()) {
       return true;
@@ -44,9 +47,6 @@ export class AuthService implements CanActivate {
       return false;
     }
   }
-
-
-
   IsUserLogged() : boolean {
     // Get the token from local storage or any other source
     const token = localStorage.getItem('token');

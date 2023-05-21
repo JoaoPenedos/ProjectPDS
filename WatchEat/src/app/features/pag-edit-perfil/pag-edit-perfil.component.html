@@ -1,4 +1,5 @@
 <div class="bg-gray-800 p-3 shadow-sm rounded-sm my-4 mx-4" >
+  <form [formGroup]="updateUtilizadorForm"  class="space-y-4 md:space-y-6" action="/api/authLogin" method="post">
   <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
             <span class="text-red-600">
               <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -8,34 +9,31 @@
             </span>
     <span class="text-red-600 tracking-wide font-bold">About</span>
     <button [routerLink]="['/perfil']" class="bg-gray-900 hover:bg-gray-950 py-1 px-2 rounded text-white text-sm">Cancelar</button>
-    <button [routerLink]="['/perfil']" class="bg-red-600 hover:bg-red-800 py-1 px-2 rounded text-white text-sm">Confirmar</button>
+    <button (click)="onSubmit()" class="bg-red-600 hover:bg-red-800 py-1 px-2 rounded text-white text-sm">Confirmar</button>
   </div>
   <div class="text-white" *ngFor="let u of user">
     <div class="grid md:grid-cols-2 text-sm">
       <div class="grid grid-cols-2">
         <div class="text-red-400 px-4 py-2 font-semibold">Nome</div>
-        <input class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.Nome }}">
+        <input formControlName="Nome" class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.Nome ? u.Nome : '' }}">
       </div>
       <div class="grid grid-cols-2">
         <div class="text-red-400 px-4 py-2 font-semibold">Apelido</div>
-        <input class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.Apelido }}">
-      </div>
-      <div class="grid grid-cols-2">
-        <div class="text-red-400 px-4 py-2 font-semibold">Email</div>
-        <input class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.Email }}">
+        <input formControlName="Apelido" class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.Apelido ? u.Apelido : '' }}">
       </div>
       <div class="grid grid-cols-2">
         <div class="text-red-400 px-4 py-2 font-semibold">Nº Telemovel</div>
-        <input class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.NTelemovel }}">
+        <input formControlName="NTelemovel" class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.NTelemovel ? u.NTelemovel : '' }}">
       </div>
       <div class="grid grid-cols-2">
         <div class="text-red-400 px-4 py-2 font-semibold">Morada</div>
-        <input class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.Morada }}">
+        <input formControlName="Morada" class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.Morada ? u.Morada : '' }}">
       </div>
       <div class="grid grid-cols-2">
         <div class="text-red-400 px-4 py-2 font-semibold">NIF</div>
-        <input class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.NIF }}">
+        <input formControlName="NIF" class="rounded bg-gray-700 px-4 py-2 my-0.5" value="{{ u.NIF ? u.NIF : '' }}">
       </div>
     </div>
   </div>
+    </form>
 </div>
