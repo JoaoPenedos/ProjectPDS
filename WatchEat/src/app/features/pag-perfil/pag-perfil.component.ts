@@ -11,11 +11,11 @@ import {AuthService} from "../../_shared/services/_Auth/auth.service";
   styleUrls: ['./pag-perfil.component.css']
 })
 export class PagPerfilComponent {
-  @ViewChild('staticModal') staticModal: any; // Reference to the modal element
   user: any[] = [];
   bibliotecaFilmes: any[] = [];
   bibliotecaSeries: any[] = [];
   userAmizades: any[] = [];
+  @ViewChild('staticModal') staticModal: any; // Reference to the modal element
 
   constructor(
     private utilizadoresDataService: UtilizadoresDataService,

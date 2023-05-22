@@ -49,6 +49,7 @@ import { AuthService } from './_shared/services/_Auth/auth.service';
       { path: 'premium', component: PagPremiumComponent },
       { path: 'produtos', component: PagProdutosComponent },
       { path: 'estatisticas', component: PagEstatisticasComponent },
+      { path: 'amigos', component: PagFriendsComponent },
     ])
   ],
   declarations: [

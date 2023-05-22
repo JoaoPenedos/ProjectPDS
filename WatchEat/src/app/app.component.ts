@@ -11,7 +11,6 @@ import {AuthService} from "./_shared/services/_Auth/auth.service";
 export class AppComponent {
   showFooter: boolean | undefined;
   title = 'WatchEat';
-  currentUser = "";
 
   constructor(
     private router: Router,

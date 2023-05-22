@@ -38,7 +38,9 @@ export class BibliotecaDataService {
     const token = localStorage.getItem('token');
     // Set the token in the request headers
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
+    console.log(token);
+    console.log(headers);
+    console.log(Id);
     const url = 'http://localhost:3000/api/BibliotecaSeriesTop6/' + Id;
     return this.http.get(url, { headers } );
   }

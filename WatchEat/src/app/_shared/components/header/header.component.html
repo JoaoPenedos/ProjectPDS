@@ -41,7 +41,7 @@
         <!-- Profile dropdown -->
         <div *ngIf="isUserLogged" class="relative ml-3">
           <div>
-            <button (click)="toggleMenu()" type="button" class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring focus:ring-red-600 focus:ring-offset-1 focus:ring-offset-red-700" id="user-menu-button" >
+            <button #toggleButton (click)="toggleMenu($event)" type="button" class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring focus:ring-red-600 focus:ring-offset-1 focus:ring-offset-red-700" id="user-menu-button" >
               <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
             </button>
           </div>
@@ -50,8 +50,9 @@
             <a [routerLink]="['/perfil']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-0">Perfil</a>
             <a [routerLink]="['/biblioteca']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-1">Biblioteca</a>
             <a [routerLink]="['/premium']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-2">Aderir Premium</a>
-            <a [routerLink]="['/biblioteca']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-3">Biblioteca</a>
-            <a (click)="LogoutUser()" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-4">Sair</a>
+            <a [routerLink]="['/estatisticas']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-3">Estatisticas</a>
+            <a [routerLink]="['/amigos']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-4">Amigos</a>
+            <a (click)="LogoutUser()" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-5">Sair</a>
           </div>
         </div>
       </div>
@@ -64,7 +65,7 @@
       <a [routerLink]="['/pagina-inicial']" routerLinkActive="bg-black text-white hover:bg-black" class="text-gray-300 hover:bg-black hover:text-white block rounded-md px-3 py-2 text-base font-medium">Página Inicial</a>
       <a [routerLink]="['/lista-filmes']" routerLinkActive="bg-black text-white hover:bg-black" class="text-gray-300 hover:bg-black hover:text-white block rounded-md px-3 py-2 text-base font-medium">Filmes</a>
       <a [routerLink]="['/lista-series']" routerLinkActive="bg-black text-white hover:bg-black" class="text-gray-300 hover:bg-black hover:text-white block rounded-md px-3 py-2 text-base font-medium">Séries</a>
-      <a [routerLink]="['/biblioteca']" routerLinkActive="bg-black text-white hover:bg-black" class="text-gray-300 hover:bg-black hover:text-white block rounded-md px-3 py-2 text-base font-medium">Produtos</a>
+      <a [routerLink]="['/produtos']" routerLinkActive="bg-black text-white hover:bg-black" class="text-gray-300 hover:bg-black hover:text-white block rounded-md px-3 py-2 text-base font-medium">Produtos</a>
       <form>
         <div class="relative">
           <input type="search" id="default-search-Mobile" class="block w-full px-4 py-1.5 pr-12 text-sm text-gray-900 border border-black rounded-md bg-gray-50 bg-gray-700" placeholder="Procurar Filmes/Series">
