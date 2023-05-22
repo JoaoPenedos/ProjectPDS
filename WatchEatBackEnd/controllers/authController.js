@@ -54,10 +54,10 @@ const authUtilizador = async (req, res, next)=> {
 const registerUtilizador = async (req, res)=> {
     try {
         const { Email, Password, confirm_password } = req.body;
-        const user = await utilizadoresData.listUtilizadorByEmail(Email);
+        const userCheck = await utilizadoresData.listUtilizadorByEmail(Email);
 
-        if (Object.keys(user).length > 0) {
-            if (user[0].Email == Email) {
+        if (Object.keys(userCheck).length > 0) {
+            if (userCheck[0].Email == Email) {
                 return res.status(409).json({
                     error: "Email already in use"
                 });
@@ -72,10 +72,10 @@ const registerUtilizador = async (req, res)=> {
 
         const newUserdata = req.body;
         await utilizadoresData.createNewRegisterUtilizador(newUserdata);
-        const newUser = await utilizadoresData.listUtilizadorByEmail(Email);
+        const user = await utilizadoresData.listUtilizadorByEmail(Email);
 
-        delete newUser[0].Password;
-        const token = jwt.sign({newUser}, process.env.SECRET_TOKEN, { expiresIn: "1h"});
+        delete user[0].Password;
+        const token = jwt.sign({user}, process.env.SECRET_TOKEN, { expiresIn: "1h"});
 
         res.cookie("token", token,{
             httpOnly: false,
