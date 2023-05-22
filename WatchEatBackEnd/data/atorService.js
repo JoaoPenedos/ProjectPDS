@@ -45,7 +45,7 @@ const createAtor = async (atorData) => {
 
         const insertAtor = await pool.request()
             .input('Nome', sql.VarChar(255), atorData.Nome)
-            .input('Imagem', sql.VarBinary(sql.MAX), atorData.Imagem)
+            .input('Imagem', sql.VarChar(sql.MAX), atorData.Imagem)
             .query(query);
 
         return insertAtor.recordset;
@@ -69,7 +69,7 @@ const updateAtor = async (Id, atorData) => {
         const update = await pool.request()
             .input('Id', sql.Int, Id)
             .input('Nome', sql.VarChar(255), atorData.Nome)
-            .input('Imagem', sql.VarBinary(sql.MAX), atorData.Imagem)
+            .input('Imagem', sql.VarChar(sql.MAX), atorData.Imagem)
             .query(query);
 
         return update.recordset;

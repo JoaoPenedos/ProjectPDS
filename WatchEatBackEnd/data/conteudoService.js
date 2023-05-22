@@ -123,7 +123,7 @@ const createConteudo = async (conteudoData) => {
 
         const insertConteudo = await pool.request()
             .input('Nome', sql.VarChar(255), conteudoData.Nome)
-            .input('Poster', sql.VarBinary(sql.MAX), conteudoData.Poster)
+            .input('Poster', sql.VarChar(sql.MAX), conteudoData.Poster)
             .input('Realizador', sql.VarChar(255), conteudoData.Realizador)
             .input('Rating', sql.Real, conteudoData.Rating)
             .input('DataReleased', sql.Date, conteudoData.DataReleased)

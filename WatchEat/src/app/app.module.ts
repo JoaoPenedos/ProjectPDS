@@ -43,13 +43,14 @@ import { AuthService } from './_shared/services/_Auth/auth.service';
       { path: 'perfil', component: PagPerfilComponent, canActivate: [AuthService] },
       { path: 'editPerfil', component: PagEditPerfilComponent, canActivate: [AuthService] },
       { path: 'addConteudo', component: PagAddConteudoComponent },
-      { path: 'conteudo', component: PagConteudoComponent },
+      { path: 'conteudo/:id', component: PagConteudoComponent },
       { path: 'pagamentos', component: PagPagamentosComponent },
       { path: 'pedidos', component: PagPedidosComponent },
       { path: 'premium', component: PagPremiumComponent },
       { path: 'produtos', component: PagProdutosComponent },
       { path: 'estatisticas', component: PagEstatisticasComponent },
       { path: 'amigos', component: PagFriendsComponent },
+      // { path: '**', component: PageNotFoundComponent },
     ])
   ],
   declarations: [

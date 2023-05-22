@@ -91,7 +91,7 @@ const updateProduto = async (Id, produtoData) => {
             .input('Nome', sql.VarChar(255), produtoData.Nome)
             .input('Preco', sql.Real, produtoData.Preco)
             .input('Stock', sql.Int, produtoData.Stock)
-            .input('Imagem', sql.VarBinary(sql.MAX), produtoData.Imagem)
+            .input('Imagem', sql.VarChar(sql.MAX), produtoData.Imagem)
             .query(query);
 
         return update.recordset;
