@@ -25,6 +25,7 @@ import { PagPremiumComponent } from './features/pag-premium/pag-premium.componen
 import { PagEditPerfilComponent } from './features/pag-edit-perfil/pag-edit-perfil.component';
 
 import { AuthService } from './_shared/services/_Auth/auth.service';
+import { PagNotFoundComponent } from './_shared/components/pag-not-found/pag-not-found.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,7 @@ import { AuthService } from './_shared/services/_Auth/auth.service';
       { path: 'produtos', component: PagProdutosComponent },
       { path: 'estatisticas', component: PagEstatisticasComponent },
       { path: 'amigos', component: PagFriendsComponent },
-      // { path: '**', component: PageNotFoundComponent },
+      { path: '**', component: PagNotFoundComponent },
     ])
   ],
   declarations: [
@@ -72,7 +73,8 @@ import { AuthService } from './_shared/services/_Auth/auth.service';
     PagEstatisticasComponent,
     PagFriendsComponent,
     PagPremiumComponent,
-    PagEditPerfilComponent
+    PagEditPerfilComponent,
+    PagNotFoundComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
