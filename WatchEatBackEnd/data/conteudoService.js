@@ -19,6 +19,20 @@ const listConteudos = async () => {
     }
 }
 
+const list10RandomConteudos = async () => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'SELECT TOP 55 PERCENT * FROM [Conteudo] ORDER BY newid()';
+
+        const list = await pool.request()
+            .query(query);
+        return list.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
 const listConteudoById = async (Id)=> {
     try {
         let pool = await  sql.connect(config.sql);
@@ -263,6 +277,7 @@ const deleteConteudo = async (Id) => {
 
 module.exports = {
     listConteudos,
+    list10RandomConteudos,
     listConteudoById,
     listConteudosFilmes,
     listConteudoFilme,

@@ -13,6 +13,11 @@ export class ConteudosDataService {
     return this.http.get(url);
   }
 
+  getConteudosRandom10() {
+    const url = 'http://localhost:3000/api/ConteudosRandom10';
+    return this.http.get(url);
+  }
+
   getConteudoById(currentUrl : string) {
     const Id = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
     const url = 'http://localhost:3000/api/Conteudo/' + Id;

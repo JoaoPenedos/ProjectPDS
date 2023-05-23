@@ -17,6 +17,16 @@ const getConteudos = async (req, res) => {
     }
 }
 
+const get10RandomConteudos = async (req, res) => {
+    try {
+        const conteudos = await conteudoData.list10RandomConteudos();
+        res.send(conteudos);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const getConteudoById = async (req, res)=> {
     try {
         const conteudoId = req.params.Id;
@@ -155,6 +165,7 @@ const deleteConteudo = async (req, res)=> {
 
 module.exports = {
     getConteudos,
+    get10RandomConteudos,
     getConteudoById,
     getConteudoByNome,
     getConteudosFilmes,
