@@ -14,7 +14,7 @@ export class UtilizadoresDataService {
     return this.http.get(url);
   }
 
-  getUtilizadorById(Id : bigint) {
+  getUtilizadorById(Id : string) {
     // Get the token from local storage or any other source
     const token = localStorage.getItem('token');
     // Set the token in the request headers
@@ -34,7 +34,7 @@ export class UtilizadoresDataService {
     return this.http.get(url, { headers } );
   }
 
-  getUtilizadorAmizadeTop6(Id : bigint) {
+  getUtilizadorAmizadeTop6(Id : string) {
     // Get the token from local storage or any other source
     const token = localStorage.getItem('token');
     // Set the token in the request headers

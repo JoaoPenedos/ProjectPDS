@@ -1,53 +1,62 @@
 <div class="flex ml-10 mt-10 bg-gray-800 shadow-2xl rounded-lg p-5 m-10">
-  <div class="w-1/4 ">
-    <div class="">
-      <h3 class="ml-3 text-left text-xl text-red-600 font-medium leading-8">Top Gun: Maverick <button type="button" class="text-white hover:text-red-100 bg-red-600 hover:bg-red-700 rounded-md px-2 py-1 text-sm font-medium ml-2">Add to Watch'List</button></h3>
-      <div class=" text-left ml-3 text-gray-400 text-xs font-semibold">
-        <p>Filme | 2022 | 130 min</p>
+  <div class="w-full ml-1">
+    <div *ngFor="let c of conteudo">
+      <h3 class="ml-3 mt-1 text-left text-xl text-red-600 font-semibold leading-8">
+        {{ c.Nome }}
+        <button type="button" class="text-white hover:text-red-100 bg-red-600 hover:bg-red-700 rounded-md px-2 py-1 text-sm font-medium ml-2">
+          Add to Watch'List
+        </button>
+      </h3>
+      <div class=" text-left ml-3 mt-3 text-gray-400 text-sm font-semibold flex">
+        <p class="mr-5">{{ c.NTemporadas ? 'Serie' : 'Filme' }}</p>
+        <p class="mr-5">{{ c.DataReleased | date:'yyyy-MM-dd' }} {{ c.NTemporadas ? c.DataFim ? " - " + (c.DataFim | date:'yyyy-MM-dd') : " - ongoing" : ""}}</p>
+        <p>{{ c.Duracao ? c.Duracao + " horas" : c.NTemporadas + " Temporada/s" }}</p>
       </div>
-      <div class="photo-wrapper p-2">
-        <img class="w-90 h-90 mx-auto" src="https://imagens.publicocdn.com/imagens.aspx/778948?tp=KM" alt="John Doe">
+      <div class="p-2 flex">
+        <img class="ml-1 w-[20rem] h-[29rem]" src="{{ c.Poster }}" alt="John Doe">
+        <div class="ml-[5rem] relative w-[56rem]" >
+          <iframe class="absolute top-0 left-0 w-full h-full" [src]="getTrustedUrl(c.Trailer)" allowfullscreen></iframe>
+        </div>
       </div>
-      <table class="text-xs my-3">
-        <tbody>
-        <tr>
-          <td class="px-2 py-2 text-red-600 font-semibold text-base">Género</td>
-          <td class="px-2 py-2 text-base text-white">Ação, Drama</td>
-        </tr>
-        <tr>
-          <td class="px-2 py-2 text-red-600 font-semibold text-base">Direção</td>
-          <td class="px-2 py-2 text-base text-white">Joseph Kosinski</td>
-        </tr>
-        <tr>
-          <td class="px-2 py-2 text-red-600 font-semibold text-base">Elenco</td>
-          <td class="px-2 py-2 text-base text-white">Tom Cruise</td>
-        </tr>
-        <tr>
-          <td class="px-2 py-2 text-red-600 font-semibold text-base">Rating</td>
-          <td class="px-2 py-2 text-base text-white">8,9</td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="grid grid-cols-2 gap-2">
+        <div class="ml-1 w-1/2">
+          <table class="text-xs my-3">
+            <tbody>
+            <tr>
+              <td class="px-2 py-2 text-red-600 font-semibold text-base">Género</td>
+              <td class="px-2 py-2 text-base text-white">Ação, Drama</td>
+            </tr>
+            <tr>
+              <td class="px-2 py-2 text-red-600 font-semibold text-base">Direção</td>
+              <td class="px-2 py-2 text-base text-white">{{ c.Realizador }}</td>
+            </tr>
+            <tr>
+              <td class="px-2 py-2 text-red-600 font-semibold text-base">Elenco</td>
+              <td class="px-2 py-2 text-base text-white">Tom Cruise</td>
+            </tr>
+            <tr>
+              <td class="px-2 py-2 text-red-600 font-semibold text-base">Rating</td>
+              <td class="px-2 py-2 text-base text-white">{{ c.Rating.toFixed(2) }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="-ml-[19.2rem] mr-24 ">
+          <table class="text-xs my-3">
+            <tr>
+              <td class="px-2 py-2 text-red-600 font-semibold text-base">Sinopse</td>
+            </tr>
+            <tr>
+              <td class="px-2 py-2 text-base text-white">{{ c.Sinopse }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="w-3/4 pt-14 ">
-    <div class="relative " style="padding-top: 47.70%;">
-      <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/giXco2jaZ_4" allowfullscreen></iframe>
-    </div>
-    <table class="text-xs my-3">
-    <tr>
-      <td class="px-2 py-2 text-red-600 font-semibold text-base">Sinopse</td>
-    </tr>
-      <tr>
-        <td class="px-2 py-2 text-base text-white">After thirty years, Maverick is still pushing the envelope as a top naval aviator, but must confront ghosts of his past when he leads TOP GUN's elite graduates on a mission that demands the ultimate sacrifice from those chosen to fly it.</td>
-      </tr>
-    </table>
-  </div>
-
 </div>
 
 <div class="border-t-2 m-10 border-red-600"></div>
-
 
 <article class="ml-10 mt-10 mb-10">
   <div class="flex items-center mb-4 space-x-4">

@@ -1,12 +1,11 @@
 'use strict'
 
 const conteudoData = require('../data/conteudoService');
-const produtosData = require("../data/produtoService");
 const generosData = require("../data/generoService");
 const atoresData = require("../data/atorService");
-const pedidosProdutosData = require("../data/pedidoProdutoService");
 const conteudosGeneroData = require("../data/conteudoGeneroService")
 const conteudosAtorData = require("../data/conteudoAtorService")
+const conteudosData = require("../data/conteudoService");
 
 const getConteudos = async (req, res) => {
     try {
@@ -18,11 +17,38 @@ const getConteudos = async (req, res) => {
     }
 }
 
-const getConteudo = async (req, res)=> {
+const getConteudoById = async (req, res)=> {
     try {
         const conteudoId = req.params.Id;
-        const oneConteudo = await conteudoData.listConteudoById(conteudoId);
-        res.send(oneConteudo);
+        const cF = await conteudosData.listConteudoFilme(conteudoId);
+        const cS = await conteudosData.listConteudoSerie(conteudoId);
+        if (cF.length !== 0) {
+            return res.send(cF);
+        }
+        else if (cS.length !== 0) {
+            return res.send(cS);
+        }
+
+        return res.status(404).json({error: 'Not Found'});
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const getConteudoByNome = async (req, res)=> {
+    try {
+        const conteudoNome = req.params.Nome;
+        const cF = await conteudosData.listConteudoFilmeByNome(conteudoNome);
+        const cS = await conteudosData.listConteudoSerieByNome(conteudoNome);
+        if (cF.length !== 0) {
+            return res.send(cF);
+        }
+        else if (cS.length !== 0) {
+            return res.send(cS);
+        }
+
+        return res.status(404).json({error: 'Not Found'});
     }
     catch (error) {
         res.status(400).send(error.message);
@@ -129,7 +155,8 @@ const deleteConteudo = async (req, res)=> {
 
 module.exports = {
     getConteudos,
-    getConteudo,
+    getConteudoById,
+    getConteudoByNome,
     getConteudosFilmes,
     getConteudosSeries,
     addConteudo,

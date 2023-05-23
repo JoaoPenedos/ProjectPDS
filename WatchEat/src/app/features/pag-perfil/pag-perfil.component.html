@@ -57,9 +57,9 @@
               </svg>
             </span>
             <span class="text-red-600 tracking-wide font-bold">About</span>
-            <button [routerLink]="['/editPerfil']" class="bg-red-600 hover:bg-red-800 py-1 px-2 rounded text-white text-sm">Editar Perfil</button>
-            <!-- Modal toggle -->
-            <button (click)="openModal()" class="bg-gray-900 hover:bg-gray-950 py-1 px-2 rounded text-white text-sm">Apagar Conta</button>
+            <button *ngIf="showEditPerfilButton" [routerLink]="['/editPerfil']" class="bg-red-600 hover:bg-red-800 py-1 px-2 rounded text-white text-sm">Editar Perfil</button>
+            <button *ngIf="showDeleteAccountButton" (click)="openModal()" class="bg-gray-900 hover:bg-gray-950 py-1 px-2 rounded text-white text-sm">Apagar Conta</button>
+            <button *ngIf="showAddFriendButton" class="bg-red-600 hover:bg-red-800 py-1 px-2 rounded text-white text-sm">Adicionar Amigo</button>
           </div>
           <div class="text-white">
             <div class="grid md:grid-cols-2 text-sm">

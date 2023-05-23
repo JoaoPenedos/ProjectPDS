@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, HostListener, ElementRef} from '@angular/core';
 import { AuthService } from "../../services/_Auth/auth.service";
+import decode from "jwt-decode";
 
 @Component({
   selector: 'app-header',
@@ -13,13 +14,17 @@ export class HeaderComponent {
   isOpen = false;
   isOpenMobile = false;
   isUserLogged = false;
+  currentUser : number = -1;
 
   constructor(
-    private authService: AuthService,
-    private elementRef: ElementRef
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    const tokenPayload = decode(token as string) as any;
+    this.currentUser = tokenPayload.user[0].Id;
+
     this.IsUserLogged();
   }
 

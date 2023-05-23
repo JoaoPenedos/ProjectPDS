@@ -15,6 +15,9 @@ export class PagPerfilComponent {
   bibliotecaFilmes: any[] = [];
   bibliotecaSeries: any[] = [];
   userAmizades: any[] = [];
+  showEditPerfilButton: boolean = true;
+  showDeleteAccountButton: boolean = true;
+  showAddFriendButton: boolean = true;
   @ViewChild('staticModal') staticModal: any; // Reference to the modal element
 
   constructor(
@@ -25,20 +28,29 @@ export class PagPerfilComponent {
   ) {}
 
   ngOnInit() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token as string) as any;
-    this.utilizadoresDataService.getUtilizadorById(tokenPayload.user[0].Id).subscribe((data: Object) => {
+
+    const currentUrl = this.router.url;
+    const userId : string = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
+    this.utilizadoresDataService.getUtilizadorById(userId).subscribe((data: Object) => {
       this.user = data as any[]; // Cast the data to an array type
     });
-    this.bibliotecaDataService.getBibliotecaFilmesTop6ById(tokenPayload.user[0].Id).subscribe((data: Object) => {
+    this.bibliotecaDataService.getBibliotecaFilmesTop6ById(userId).subscribe((data: Object) => {
       this.bibliotecaFilmes = data as any[]; // Cast the data to an array type
     });
-    this.bibliotecaDataService.getBibliotecaSeriesTop6ById(tokenPayload.user[0].Id).subscribe((data: Object) => {
+    this.bibliotecaDataService.getBibliotecaSeriesTop6ById(userId).subscribe((data: Object) => {
       this.bibliotecaSeries = data as any[]; // Cast the data to an array type
     });
-    this.utilizadoresDataService.getUtilizadorAmizadeTop6(tokenPayload.user[0].Id).subscribe((data: Object) => {
+    this.utilizadoresDataService.getUtilizadorAmizadeTop6(userId).subscribe((data: Object) => {
       this.userAmizades = data as any[]; // Cast the data to an array type
     });
+
+    this.showEditPerfilButton = tokenPayload.user[0].Id == userId;
+    this.showDeleteAccountButton = tokenPayload.user[0].Id == userId;
+    this.showAddFriendButton = tokenPayload.user[0].Id != userId;
   }
 
   openModal() {

@@ -23,9 +23,9 @@ import { PagEstatisticasComponent } from './features/pag-estatisticas/pag-estati
 import { PagFriendsComponent } from './features/pag-friends/pag-friends.component';
 import { PagPremiumComponent } from './features/pag-premium/pag-premium.component';
 import { PagEditPerfilComponent } from './features/pag-edit-perfil/pag-edit-perfil.component';
+import { PagNotFoundComponent } from './_shared/components/pag-not-found/pag-not-found.component';
 
 import { AuthService } from './_shared/services/_Auth/auth.service';
-import { PagNotFoundComponent } from './_shared/components/pag-not-found/pag-not-found.component';
 
 @NgModule({
   imports: [
@@ -41,7 +41,7 @@ import { PagNotFoundComponent } from './_shared/components/pag-not-found/pag-not
       { path: 'lista-filmes', component: PagFilmesComponent },
       { path: 'lista-series', component: PagSeriesComponent },
       { path: 'biblioteca', component: PagBibliotecaComponent },
-      { path: 'perfil', component: PagPerfilComponent, canActivate: [AuthService] },
+      { path: 'perfil/:id', component: PagPerfilComponent, canActivate: [AuthService] },
       { path: 'editPerfil', component: PagEditPerfilComponent, canActivate: [AuthService] },
       { path: 'addConteudo', component: PagAddConteudoComponent },
       { path: 'conteudo/:id', component: PagConteudoComponent },

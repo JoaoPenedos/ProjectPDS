@@ -13,6 +13,12 @@ export class ConteudosDataService {
     return this.http.get(url);
   }
 
+  getConteudoById(currentUrl : string) {
+    const Id = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
+    const url = 'http://localhost:3000/api/Conteudo/' + Id;
+    return this.http.get(url);
+  }
+
   getConteudosFilmes() {
     const url = 'http://localhost:3000/api/Conteudos/Filmes';
     return this.http.get(url);

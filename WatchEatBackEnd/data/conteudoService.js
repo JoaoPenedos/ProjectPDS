@@ -7,7 +7,7 @@ const utils = require('../utils/utils');
 const listConteudos = async () => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'SELECT [Id],[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse]' +
+        let query = 'SELECT [Id],[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],[Trailer]' +
             'FROM [dbo].[Conteudo]';
 
         const list = await pool.request()
@@ -22,7 +22,7 @@ const listConteudos = async () => {
 const listConteudoById = async (Id)=> {
     try {
         let pool = await  sql.connect(config.sql);
-        let query = 'SELECT [Id],[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse]' +
+        let query = 'SELECT [Id],[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],[Trailer]' +
             'FROM [dbo].[Conteudo]' +
             'WHERE [Id] = @Id';
 
@@ -41,7 +41,7 @@ const listConteudosFilmes = async ()=> {
     try {
         let pool = await  sql.connect(config.sql);
         let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
-            '[Duracao],[Filme].[Id] as filmeId ' +
+            '[Trailer],[Duracao],[Filme].[Id] as filmeId ' +
             'FROM [dbo].[Conteudo] ' +
             'JOIN [dbo].[Filme] ON Conteudo.Id = Filme.ConteudoId';
 
@@ -58,7 +58,7 @@ const listConteudoFilme = async (ConteudoId)=> {
     try {
         let pool = await  sql.connect(config.sql);
         let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
-            '[Duracao],[Filme].[Id] as filmeId ' +
+            '[Trailer],[Duracao],[Filme].[Id] as filmeId ' +
             'FROM [dbo].[Conteudo] ' +
             'JOIN [dbo].[Filme] ON Conteudo.Id = Filme.ConteudoId ' +
             'WHERE [ConteudoId] = @ConteudoId';
@@ -74,11 +74,31 @@ const listConteudoFilme = async (ConteudoId)=> {
     }
 }
 
+const listConteudoFilmeByNome = async (ConteudoNome)=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
+            '[Trailer],[Duracao],[Filme].[Id] as filmeId ' +
+            'FROM [dbo].[Conteudo] ' +
+            'JOIN [dbo].[Filme] ON Conteudo.Id = Filme.ConteudoId ' +
+            'WHERE [Nome] = @ConteudoNome';
+
+        const conteudoFilme = await pool.request()
+            .input('ConteudoNome', sql.VarChar(255), ConteudoNome)
+            .query(query);
+
+        return conteudoFilme.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
 const listConteudosSeries = async ()=> {
     try {
         let pool = await  sql.connect(config.sql);
         let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
-            '[NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[Serie].[Id] as serieId ' +
+            '[Trailer],[NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[Serie].[Id] as serieId ' +
             'FROM [dbo].[Conteudo] ' +
             'JOIN [dbo].[Serie] ON Conteudo.Id = Serie.ConteudoId';
 
@@ -96,7 +116,7 @@ const listConteudoSerie = async (ConteudoId)=> {
     try {
         let pool = await  sql.connect(config.sql);
         let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
-            '[NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[Serie].[Id] as serieId ' +
+           '[Trailer],[NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[Serie].[Id] as serieId ' +
             'FROM [dbo].[Conteudo] ' +
             'JOIN [dbo].[Serie] ON Conteudo.Id = Serie.ConteudoId ' +
             'WHERE [ConteudoId] = @ConteudoId';
@@ -112,13 +132,32 @@ const listConteudoSerie = async (ConteudoId)=> {
     }
 }
 
+const listConteudoSerieByNome = async (ConteudoNome)=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT [Conteudo].[Id] as conteudoId,[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],' +
+            '[Trailer],[NTemporadas],[Estado],[DataFim],[NEpisodiosTotais],[Serie].[Id] as serieId ' +
+            'FROM [dbo].[Conteudo] ' +
+            'JOIN [dbo].[Serie] ON Conteudo.Id = Serie.ConteudoId ' +
+            'WHERE [Nome] = @ConteudoNome';
+
+        const conteudosSeries = await pool.request()
+            .input('ConteudoNome', sql.VarChar(255), ConteudoNome)
+            .query(query);
+
+        return conteudosSeries.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
 
 const createConteudo = async (conteudoData) => {
     try {
         let pool = await sql.connect(config.sql);
         let query = 'INSERT INTO [dbo].[Conteudo] ' +
-            '([Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse]) ' +
-            'VALUES (@Nome, @Poster, @Realizador, @Rating, @DataReleased, @Sinopse); ' +
+            '([Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],[Trailer]) ' +
+            'VALUES (@Nome, @Poster, @Realizador, @Rating, @DataReleased, @Sinopse, @Trailer); ' +
             'SELECT SCOPE_IDENTITY() AS Id';
 
         const insertConteudo = await pool.request()
@@ -128,6 +167,7 @@ const createConteudo = async (conteudoData) => {
             .input('Rating', sql.Real, conteudoData.Rating)
             .input('DataReleased', sql.Date, conteudoData.DataReleased)
             .input('Sinopse', sql.VarChar(255), conteudoData.Sinopse)
+            .input('Trailer', sql.VarChar(sql.MAX), conteudoData.Trailer)
             .query(query);
 
         return insertConteudo.recordset;
@@ -182,7 +222,7 @@ const updateConteudo = async (Id, conteudoData) => {
     try {
         let pool = await sql.connect(config.sql);
         let query = 'UPDATE [dbo].[Conteudo] SET ';
-        const inputParams = ['Nome', 'Poster', 'Realizador', 'Rating', 'DataReleased', 'Sinopse'];
+        const inputParams = ['Nome', 'Poster', 'Realizador', 'Rating', 'DataReleased', 'Sinopse', 'Trailer'];
         for (const param of inputParams) {
             query += conteudoData[param] ? `${param} = @${param}, ` : '';
         }
@@ -192,10 +232,12 @@ const updateConteudo = async (Id, conteudoData) => {
         const update = await pool.request()
             .input('Id', sql.Int, Id)
             .input('Nome', sql.VarChar(255), conteudoData.Nome)
+            .input('Poster', sql.VarChar(sql.MAX), conteudoData.Poster)
             .input('Realizador', sql.VarChar(255), conteudoData.Realizador)
             .input('Rating', sql.Real, conteudoData.Rating)
             .input('DataReleased', sql.Date, conteudoData.DataReleased)
             .input('Sinopse', sql.VarChar(255), conteudoData.Sinopse)
+            .input('Trailer', sql.VarChar(sql.MAX), conteudoData.Trailer)
             .query(query);
         return update.recordset;
     }
@@ -224,8 +266,10 @@ module.exports = {
     listConteudoById,
     listConteudosFilmes,
     listConteudoFilme,
+    listConteudoFilmeByNome,
     listConteudosSeries,
     listConteudoSerie,
+    listConteudoSerieByNome,
     createConteudo,
     createConteudoFilme,
     createConteudoSerie,

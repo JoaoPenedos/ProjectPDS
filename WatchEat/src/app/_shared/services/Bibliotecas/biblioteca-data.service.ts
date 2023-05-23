@@ -23,7 +23,7 @@ export class BibliotecaDataService {
     return this.http.get(url, { headers } );
   }
 
-  getBibliotecaFilmesTop6ById(Id : bigint) {
+  getBibliotecaFilmesTop6ById(Id : string) {
     // Get the token from local storage or any other source
     const token = localStorage.getItem('token');
     // Set the token in the request headers
@@ -33,7 +33,7 @@ export class BibliotecaDataService {
     return this.http.get(url, { headers } );
   }
 
-  getBibliotecaSeriesTop6ById(Id : bigint) {
+  getBibliotecaSeriesTop6ById(Id : string) {
     // Get the token from local storage or any other source
     const token = localStorage.getItem('token');
     // Set the token in the request headers
