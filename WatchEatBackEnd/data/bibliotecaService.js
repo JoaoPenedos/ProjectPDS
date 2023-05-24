@@ -110,6 +110,27 @@ const listBibliotecaSeriesTop5ByUserId = async (Id) => {
 const listConteudoInBiblioteca = async (Id, data) => {
     try {
         let pool = await sql.connect(config.sql);
+        let query = 'SELECT [Conteudo].[Nome],[Biblioteca].[UtilizadorId],[Biblioteca].[ConteudoId], ' +
+            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade],[Biblioteca].[DataInsercao] ' +
+            'FROM [dbo].[Biblioteca] ' +
+            'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId ' +
+            'WHERE [Biblioteca].[UtilizadorId] = @Id ' +
+            'AND [Biblioteca].[ConteudoId] = @ConteudoId';
+
+        const list = await pool.request()
+            .input('Id', sql.Int, Id)
+            .input('ConteudoId', sql.Int, data.ConteudoId)
+            .query(query);
+        return list.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
+const checkConteudoInBiblioteca = async (Id, data) => {
+    try {
+        let pool = await sql.connect(config.sql);
         let query = 'SELECT * ' +
             'FROM [dbo].[Biblioteca]' +
             'WHERE [Biblioteca].[UtilizadorId] = @Id ' +
@@ -205,6 +226,7 @@ module.exports = {
     listBibliotecaFilmesTop5ByUserId,
     listBibliotecaSeriesTop5ByUserId,
     listConteudoInBiblioteca,
+    checkConteudoInBiblioteca,
     createConteudoInBiblioteca,
     updateConteudoInBiblioteca,
     updateVisibilidadeBiblioteca

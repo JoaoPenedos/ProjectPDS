@@ -34,7 +34,7 @@ export class PagConteudoComponent {
       this.conteudo = data as any[]; // Cast the data to an array type
     });
 
-    this.bibliotecaDataService.getConteudoInBiblioteca(currentUrl, tokenPayload.user[0].Id).subscribe((data: Object) => {
+    this.bibliotecaDataService.checkConteudoInBiblioteca(currentUrl, tokenPayload.user[0].Id).subscribe((data: Object) => {
       this.checkConteudo = data as any[]; // Cast the data to an array type
     });
   }
@@ -55,7 +55,7 @@ export class PagConteudoComponent {
     this.isButtonLoading = true; // Set the loading state to true
 
     this.bibliotecaDataService.addConteudoInBiblioteca(currentUrl, tokenPayload.user[0].Id).subscribe(() => {
-      this.bibliotecaDataService.getConteudoInBiblioteca(currentUrl, tokenPayload.user[0].Id).subscribe((data: Object) => {
+      this.bibliotecaDataService.checkConteudoInBiblioteca(currentUrl, tokenPayload.user[0].Id).subscribe((data: Object) => {
         this.checkConteudo = data as any[]; // Cast the data to an array type
 
         this.isButtonLoading = false; // Set the loading state back to false after receiving the response

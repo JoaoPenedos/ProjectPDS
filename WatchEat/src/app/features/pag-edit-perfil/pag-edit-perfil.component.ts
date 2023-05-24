@@ -13,8 +13,6 @@ import {AuthService} from "../../_shared/services/_Auth/auth.service";
 export class PagEditPerfilComponent {
   user: any[] = [];
   currentUser : number = -1;
-  form!: FormGroup;
-  //
   updateUtilizadorForm = this.formBuilder.group({
     Nome: '',
     Apelido: '',

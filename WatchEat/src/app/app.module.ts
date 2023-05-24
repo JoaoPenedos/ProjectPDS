@@ -40,7 +40,7 @@ import { AuthService } from './_shared/services/_Auth/auth.service';
       { path: 'pagina-inicial', component: PagInicialComponent },
       { path: 'lista-filmes', component: PagFilmesComponent },
       { path: 'lista-series', component: PagSeriesComponent },
-      { path: 'biblioteca', component: PagBibliotecaComponent },
+      { path: 'biblioteca', component: PagBibliotecaComponent, canActivate: [AuthService] },
       { path: 'perfil/:id', component: PagPerfilComponent, canActivate: [AuthService] },
       { path: 'editPerfil', component: PagEditPerfilComponent, canActivate: [AuthService] },
       { path: 'addConteudo', component: PagAddConteudoComponent },
