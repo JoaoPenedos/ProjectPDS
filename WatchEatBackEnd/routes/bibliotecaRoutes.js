@@ -5,7 +5,7 @@ const authCookie = require("../middleware/authCookieVerify");
 const checkRoles = require("../middleware/rolesAuthorization");
 const router = express.Router();
 
-const {getBibliotecas, getBibliotecasByVisibilidade, getBiblioteca, getBibliotecaFilmesTop5, getBibliotecaSeriesTop5,
+const {getBibliotecas, getBibliotecasByVisibilidade, getBiblioteca, getBibliotecaFilmesTop5, getBibliotecaSeriesTop5, getBibliotecaCheckConteudo,
     addConteudoInBiblioteca, updateConteudoInBiblioteca, updateVisibilidadeBiblioteca} = bibliotecaController;
 
 router.get('/Bibliotecas', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, getBibliotecas);
@@ -14,6 +14,7 @@ router.get('/Biblioteca/:userId', authCookie.authCookieVerify, getBiblioteca);
 router.get('/BibliotecaFilmesTop6/:userId', authCookie.authCookieVerify, getBibliotecaFilmesTop5);
 router.get('/BibliotecaSeriesTop6/:userId', authCookie.authCookieVerify, getBibliotecaSeriesTop5);
 
+router.post('/CheckConteudoInBiblioteca/:userId', authCookie.authCookieVerify, getBibliotecaCheckConteudo);
 router.post('/Biblioteca/:userId', authCookie.authCookieVerify, addConteudoInBiblioteca);
 
 router.put('/Biblioteca/:userId', authCookie.authCookieVerify, updateConteudoInBiblioteca);

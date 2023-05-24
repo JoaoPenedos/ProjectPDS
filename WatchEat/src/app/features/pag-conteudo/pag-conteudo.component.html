@@ -3,8 +3,8 @@
     <div *ngFor="let c of conteudo">
       <h3 class="ml-3 mt-1 text-left text-xl text-red-600 font-semibold leading-8">
         {{ c.Nome }}
-        <button type="button" class="text-white hover:text-red-100 bg-red-600 hover:bg-red-700 rounded-md px-2 py-1 text-sm font-medium ml-2">
-          Add to Watch'List
+        <button (click)="AddWatchList()" type="button" [disabled]="isButtonLoading || checkConteudo.length > 0" [class]="checkConteudo.length > 0 ? 'pointer-events-none bg-gray-900 py-1 px-2 rounded text-white text-sm ml-3' : 'text-white hover:text-red-100 bg-red-600 hover:bg-red-700 rounded-md px-2 py-1 text-sm font-medium ml-3'">
+          {{ checkConteudo.length > 0 ? 'Watch\'Listed &check;' : 'Add to Watch\'List' }}
         </button>
       </h3>
       <div class=" text-left ml-3 mt-3 text-gray-400 text-sm font-semibold flex">
@@ -30,10 +30,10 @@
               <td class="px-2 py-2 text-red-600 font-semibold text-base">Direção</td>
               <td class="px-2 py-2 text-base text-white">{{ c.Realizador }}</td>
             </tr>
-            <tr>
-              <td class="px-2 py-2 text-red-600 font-semibold text-base">Elenco</td>
-              <td class="px-2 py-2 text-base text-white">Tom Cruise</td>
-            </tr>
+<!--            <tr>-->
+<!--              <td class="px-2 py-2 text-red-600 font-semibold text-base">Elenco</td>-->
+<!--              <td class="px-2 py-2 text-base text-white">Tom Cruise</td>-->
+<!--            </tr>-->
             <tr>
               <td class="px-2 py-2 text-red-600 font-semibold text-base">Rating</td>
               <td class="px-2 py-2 text-base text-white">{{ c.Rating.toFixed(2) }}</td>

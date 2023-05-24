@@ -26,7 +26,6 @@ export class BibliotecaDataService {
   getBibliotecaFilmesTop6ById(Id : string) {
     // Get the token from local storage or any other source
     const token = localStorage.getItem('token');
-    // Set the token in the request headers
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     const url = 'http://localhost:3000/api/BibliotecaFilmesTop6/' + Id;
@@ -36,9 +35,35 @@ export class BibliotecaDataService {
   getBibliotecaSeriesTop6ById(Id : string) {
     // Get the token from local storage or any other source
     const token = localStorage.getItem('token');
-    // Set the token in the request headers
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
     const url = 'http://localhost:3000/api/BibliotecaSeriesTop6/' + Id;
     return this.http.get(url, { headers } );
+  }
+
+  getConteudoInBiblioteca(currentUrl : string, Id : string) {
+    // Get the token from local storage or any other source
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    const conteudoId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
+    const body = {
+      ConteudoId: conteudoId
+    };
+    const url = 'http://localhost:3000/api/CheckConteudoInBiblioteca/' + Id;
+    return this.http.post(url, body ,{ headers } );
+  }
+
+  addConteudoInBiblioteca(currentUrl : string, userId : bigint) {
+    const Id = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
+    const body = {
+      ConteudoId: Id
+    };
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    const url = 'http://localhost:3000/api/Biblioteca/' + userId;
+    return this.http.post(url, body,{ headers } );
   }
 }

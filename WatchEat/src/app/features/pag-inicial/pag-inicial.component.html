@@ -1,8 +1,8 @@
-<div id="app" class="w-[1465px] mx-auto px-4 md:px-8 py-12 transition-all duration-500 ease-linear">
+<div id="app" class="w-[1465px] mx-auto px-4 my-5 md:px-8 py-12 transition-all duration-500 ease-linear">
   <div class="relative">
     <div id="slidesContainer" class="slides-container h-[30rem] flex snap-x snap-mandatory overflow-hidden overflow-x-auto space-x-2 rounded scroll-smooth before:w-[45vw] before:shrink-0 after:w-[45vw] after:shrink-0 md:before:w-0 md:after:w-0">
       <div *ngFor="let cont of randomConteudos" class="slide aspect-square h-full flex-shrink-0 snap-center rounded overflow-hidden w-[19rem]">
-        <img id="{{ cont.Id }}" class="w-full h-full object-cover" src="{{ cont.Poster }}" alt="mountain_image">
+        <img [routerLink]="['/conteudo', cont.Id]" id="{{ cont.Id }}" class="hover:cursor-pointer w-full h-full object-cover" src="{{ cont.Poster }}" alt="mountain_image">
       </div>
     </div>
 
@@ -22,10 +22,7 @@
     </div>
   </div>
 </div>
-
-
-
-<div class="container" id="pagIni">
+<div class="container my-5" id="pagIni">
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 gap-5">
       <div class="row" *ngFor="let conteudo of conteudos">

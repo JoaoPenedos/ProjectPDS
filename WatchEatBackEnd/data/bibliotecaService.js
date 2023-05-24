@@ -45,12 +45,15 @@ const listBibliotecasByVisibilidade = async (Visibilidade) => {
 const listBibliotecaByUserId = async (Id) => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'SELECT [Biblioteca].[UtilizadorId],[Utilizador].[Nome] as Nome,[Utilizador].[Apelido],[Conteudo].[Nome] as Conteudo,' +
-            '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade],[Biblioteca].[DataInsercao] ' +
-            'FROM [dbo].[Biblioteca]' +
+        let query = 'SELECT [Biblioteca].[UtilizadorId],[Biblioteca].[ConteudoId],[Biblioteca].[Review],[Biblioteca].[Rating],' +
+            '[Biblioteca].[Estado],[Biblioteca].[Visibilidade],[Biblioteca].[DataInsercao],' +
+            '[Conteudo].[Nome] as conteudoNome,[Poster],[Realizador],[Conteudo].[Rating] as ConteudoRating,[DataReleased],[Sinopse],[Trailer],' +
+            '[Utilizador].[Nome] as userNome ' +
+            'FROM [dbo].[Biblioteca] ' +
             'JOIN [dbo].[Utilizador] ON Utilizador.Id = Biblioteca.UtilizadorId ' +
             'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId ' +
-            'WHERE [Biblioteca].[UtilizadorId] = @Id';
+            'WHERE [Biblioteca].[UtilizadorId] = @Id ' +
+            'ORDER BY [Conteudo].[Nome]';
 
         const list = await pool.request()
             .input('Id', sql.Int, Id)
@@ -104,6 +107,24 @@ const listBibliotecaSeriesTop5ByUserId = async (Id) => {
     }
 }
 
+const listConteudoInBiblioteca = async (Id, data) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'SELECT * ' +
+            'FROM [dbo].[Biblioteca]' +
+            'WHERE [Biblioteca].[UtilizadorId] = @Id ' +
+            'AND [Biblioteca].[ConteudoId] = @ConteudoId';
+
+        const list = await pool.request()
+            .input('Id', sql.Int, Id)
+            .input('ConteudoId', sql.Int, data.ConteudoId)
+            .query(query);
+        return list.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
 
 const createConteudoInBiblioteca = async (Id, data) => {
     try {
@@ -183,6 +204,7 @@ module.exports = {
     listBibliotecaByUserId,
     listBibliotecaFilmesTop5ByUserId,
     listBibliotecaSeriesTop5ByUserId,
+    listConteudoInBiblioteca,
     createConteudoInBiblioteca,
     updateConteudoInBiblioteca,
     updateVisibilidadeBiblioteca

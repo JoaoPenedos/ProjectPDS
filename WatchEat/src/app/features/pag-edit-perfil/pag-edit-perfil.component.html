@@ -8,7 +8,7 @@
               </svg>
             </span>
     <span class="text-red-600 tracking-wide font-bold">About</span>
-    <button [routerLink]="['/perfil']" class="bg-gray-900 hover:bg-gray-950 py-1 px-2 rounded text-white text-sm">Cancelar</button>
+    <button [routerLink]="['/perfil', currentUser]" class="bg-gray-900 hover:bg-gray-950 py-1 px-2 rounded text-white text-sm">Cancelar</button>
     <button (click)="onSubmit()" class="bg-red-600 hover:bg-red-800 py-1 px-2 rounded text-white text-sm">Confirmar</button>
   </div>
   <div class="text-white" *ngFor="let u of user">

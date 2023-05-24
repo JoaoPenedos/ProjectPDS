@@ -12,6 +12,7 @@ import {AuthService} from "../../_shared/services/_Auth/auth.service";
 })
 export class PagEditPerfilComponent {
   user: any[] = [];
+  currentUser : number = -1;
   form!: FormGroup;
   //
   updateUtilizadorForm = this.formBuilder.group({
@@ -33,6 +34,8 @@ export class PagEditPerfilComponent {
   ngOnInit() {
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token as string) as any;
+    this.currentUser = tokenPayload.user[0].Id;
+
     this.utilizadoresDataService.getUtilizadorById(tokenPayload.user[0].Id).subscribe((data: Object) => {
       this.user = data as any[]; // Cast the data to an array type
 
@@ -53,6 +56,8 @@ export class PagEditPerfilComponent {
     this.utilizadoresDataService.updateUtilizador(tokenPayload.user[0].Id, this.updateUtilizadorForm).subscribe((data: Object) => {
       this.user = data as any[]; // Cast the data to an array type
     });
-    this.router.navigate(['/perfil']);
+    setTimeout(() => {
+      this.router.navigate(['/perfil', this.currentUser]);
+    }, 250);
   }
 }
