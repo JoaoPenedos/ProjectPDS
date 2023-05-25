@@ -13,8 +13,7 @@ export class PagSeriesComponent {
 
   ngOnInit() {
     this.conteudoDataService.getConteudosSeries().subscribe((data: Object) => {
-      this.conteudosSeries = data as any[]; // Cast the data to an array type
-      console.log(this.conteudosSeries);
+      this.conteudosSeries = data as any[];
     });
   }
 }

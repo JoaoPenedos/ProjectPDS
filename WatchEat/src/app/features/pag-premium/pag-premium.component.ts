@@ -27,5 +27,6 @@ export class PagPremiumComponent {
 
     this.pagamentosDataService.createPagamentoPremium(tokenPayload.user[0].Id).subscribe();
     window.alert("Obrigado por aderir ao Watch'Eat Premium!");
+    window.location.reload();
   }
 }

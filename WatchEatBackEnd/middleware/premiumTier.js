@@ -17,7 +17,7 @@ const utils = require('../utils/utils');
 const pagamentoPremiumVerify  = async (req, res, next) => {
     try{
         const userId = req.params.userId;
-        const user = await utilizadorData.listUtilizadorById(userId)
+        const user = await utilizadorData.listUtilizadorById(userId);
         const topPagP = await pagamentoData.listTopPagamentoPremium(userId);
         if (topPagP.length !== 0) {
             const dateValue = topPagP[0].DataEmissao;

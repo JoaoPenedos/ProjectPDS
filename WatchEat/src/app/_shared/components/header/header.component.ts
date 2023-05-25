@@ -24,7 +24,6 @@ export class HeaderComponent {
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token as string) as any;
     this.currentUser = tokenPayload.user[0];
-
     this.IsUserLogged();
   }
 
@@ -32,6 +31,7 @@ export class HeaderComponent {
     this.isUserLogged = this.authService.IsUserLogged();
   }
   LogoutUser(): void {
+    this.currentUser = null;
     this.authService.LogoutUser();
   }
 

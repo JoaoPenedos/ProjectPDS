@@ -80,9 +80,4 @@ import { AuthService } from './_shared/services/_Auth/auth.service';
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  // constructor(
-  //   @Optional() @Inject('body') private body: any
-  // ) {
-  //   console.log(`body`, body);
-  // }
 }

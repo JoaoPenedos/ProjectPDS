@@ -81,7 +81,7 @@ const listPagamentoPremiumNaoPago = async (userId)=> {
 
         const pagamentosPremium = await pool.request()
             .input('TipoPagamento', sql.VarChar(255), "Tier premium")
-            .input('Estado', sql.VarChar(255), utils.estadosPagamentos.EP_Pago)
+            .input('Estado', sql.VarChar(255), utils.estadosPagamentos.EP_NaoPago)
             .input('UtilizadorId', sql.Int, userId)
             .query(query);
 

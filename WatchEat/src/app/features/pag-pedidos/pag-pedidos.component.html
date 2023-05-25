@@ -64,13 +64,14 @@
                 </p>
               </td>
               <td class="px-5 py-5 border-b border-gray-400 bg-gray-800 text-sm">
-                <button class="rounded py-1 px-2 relative inline-block font-semibold text-white leading-tight"
-                  [ngClass]="{
-                    'bg-green-500 pointer-events-none': p.Estado == 'Pago',
-                    'bg-yellow-500': p.Estado == 'Não Pago',
-                    'bg-red-600 hover:bg-red-800 pointer-events-none': p.Estado == 'Terminou o Prazo' }">
-                  <p>{{ p.Estado }}</p>
-                </button>
+                <div class="rounded py-1 px-2 relative inline-block font-semibold text-white leading-tight">
+                  <p [ngClass]="{
+                    'text-green-500': p.Estado == 'Pago',
+                    'text-yellow-500': p.Estado == 'Não Pago',
+                    'text-red-600': p.Estado == 'Terminou o Prazo'}">
+                    {{ p.Estado }}
+                  </p>
+                </div>
               </td>
             </tr>
             </tbody>
