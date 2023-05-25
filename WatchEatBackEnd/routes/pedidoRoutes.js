@@ -9,7 +9,7 @@ const { getPedidos, getPedido, getUserPedidos, addPedido } = pedidoController;
 
 router.get('/Pedidos', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, getPedidos);
 router.get('/Pedido/:Id', authCookie.authCookieVerify, getPedido);
-router.get('/UserPedidos', authCookie.authCookieVerify, getUserPedidos);
+router.get('/UserPedidos/:userId', authCookie.authCookieVerify, getUserPedidos);
 
 router.post('/Pedido', authCookie.authCookieVerify, addPedido);
 

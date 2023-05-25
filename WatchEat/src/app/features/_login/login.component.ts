@@ -12,6 +12,7 @@ import decode from 'jwt-decode';
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
+  errorMessage: string | null = null;
 
   loginForm = this.formBuilder.group({
     Email: '',
@@ -41,10 +42,11 @@ export class LoginComponent implements OnInit {
           const authToken = response.body.Authorization;
           if (authToken) {
             this.authService.LogUser(authToken);
+            this.errorMessage = null;
           }
         },
         (error : any)  => {
-          console.warn(error);
+          this.errorMessage = error.error.error;
         }
       );
   }

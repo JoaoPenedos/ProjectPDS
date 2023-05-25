@@ -28,7 +28,7 @@ const getPedido = async (req, res)=> {
 
 const getUserPedidos = async (req, res)=> {
     try {
-        const UtilizadorId = req.body.UtilizadorId;
+        const UtilizadorId = req.params.userId;
         const onePedido = await pedidosData.listPedidosByUserId(UtilizadorId);
         res.send(onePedido);
     }

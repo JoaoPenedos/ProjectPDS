@@ -28,7 +28,7 @@ const authUtilizador = async (req, res, next)=> {
 
         if (!user || !user.length || user[0].Password != Password) {
             return res.status(403).json({
-                error: "invalid login"
+                error: "Login invalido!"
             });
         }
         if (user[0].Estado !== utils.estadosUtilizadores.EU_Ativo) {
@@ -59,14 +59,14 @@ const registerUtilizador = async (req, res)=> {
         if (Object.keys(userCheck).length > 0) {
             if (userCheck[0].Email == Email) {
                 return res.status(409).json({
-                    error: "Email already in use"
+                    error: "Email já em uso!"
                 });
             }
         }
 
         if (Password !== confirm_password) {
             return res.status(409).json({
-                error: "Password doesn't match confirm_password field"
+                error: "Password não é igual ao campo Confirm Password!"
             });
         }
 

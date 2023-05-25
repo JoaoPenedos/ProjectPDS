@@ -13,8 +13,9 @@ const getPagamentos = async (req, res) => {
 
 const getUserPagamentos = async (req, res) => {
     try {
-        const userId = req.body;
-        const pagamentos = await pagamentoData.listUserPagamentos(userId.UtilizadorId);
+        // const userId = req.body;
+        const userId = req.params.userId;
+        const pagamentos = await pagamentoData.listUserPagamentos(userId);
         res.send(pagamentos);
     }
     catch (error) {
@@ -27,6 +28,17 @@ const getPagamento = async (req, res)=> {
         const pagamentoId = req.params.Id;
         const onePagamento = await pagamentoData.listPagamentoById(pagamentoId);
         res.send(onePagamento);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const getPagamentoPremiumNaoPago = async (req, res)=> {
+    try {
+        const userId = req.params.userId;
+        const pagamentosPremium = await pagamentoData.listPagamentoPremiumNaoPago(userId);
+        res.send(pagamentosPremium);
     }
     catch (error) {
         res.status(400).send(error.message);
@@ -93,6 +105,7 @@ module.exports = {
     getUserPagamentos,
     getPagamento,
     getPagamentosPremium,
+    getPagamentoPremiumNaoPago,
     getTopPagamentoPremium,
     addPagamentoPedido,
     addPagamentoPremium,

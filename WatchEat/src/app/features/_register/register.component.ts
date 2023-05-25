@@ -11,6 +11,7 @@ import { first } from 'rxjs/operators';
 })
 export class RegisterComponent {
   form!: FormGroup;
+  errorMessage: string | null = null;
 
   registerForm = this.formBuilder.group({
     Email: '',
@@ -49,7 +50,7 @@ export class RegisterComponent {
           }
         },
         (error : any)  => {
-          console.warn(error);
+          this.errorMessage = error.error.error;
         }
       );
   }

@@ -7,12 +7,13 @@ const premiumTier = require("../middleware/premiumTier");
 const pagamentoPedidos = require("../middleware/pagamentoPedido")
 const router = express.Router();
 
-const {getPagamentos, getUserPagamentos, getPagamento, getPagamentosPremium, getTopPagamentoPremium,
+const {getPagamentos, getUserPagamentos, getPagamento, getPagamentosPremium, getPagamentoPremiumNaoPago, getTopPagamentoPremium,
     addPagamentoPedido, addPagamentoPremium, updatePagamento } = pagamentoController;
 
 router.get('/Pagamentos', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, getPagamentos);
-router.get('/UserPagamentos', authCookie.authCookieVerify, premiumTier.pagamentoPremiumVerify, pagamentoPedidos.pagamentoPedidosVerify, getUserPagamentos);
+router.get('/UserPagamentos/:userId', authCookie.authCookieVerify, premiumTier.pagamentoPremiumVerify, pagamentoPedidos.pagamentoPedidosVerify, getUserPagamentos);
 router.get('/Pagamento/:Id', authCookie.authCookieVerify, getPagamento);
+router.get('/PagamentoPremiumNaoPago/:userId', authCookie.authCookieVerify, getPagamentoPremiumNaoPago);
 router.get('/PagamentosPremium', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, getPagamentosPremium);
 router.get('/TopPagamentoPremium', authCookie.authCookieVerify, getTopPagamentoPremium);
 

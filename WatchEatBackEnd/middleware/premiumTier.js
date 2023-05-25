@@ -16,9 +16,9 @@ const utils = require('../utils/utils');
 
 const pagamentoPremiumVerify  = async (req, res, next) => {
     try{
-        const userId = req.body;
-        const user = await utilizadorData.listUtilizadorById(userId.UtilizadorId)
-        const topPagP = await pagamentoData.listTopPagamentoPremium(userId.UtilizadorId);
+        const userId = req.params.userId;
+        const user = await utilizadorData.listUtilizadorById(userId)
+        const topPagP = await pagamentoData.listTopPagamentoPremium(userId);
         if (topPagP.length !== 0) {
             const dateValue = topPagP[0].DataEmissao;
             const monthValue = dateValue.getMonth() + 1;
@@ -29,15 +29,15 @@ const pagamentoPremiumVerify  = async (req, res, next) => {
                 if (monthValue === currentMonth) {
                     if(currentDayMonth > 8 && topPagP[0].Estado == utils.estadosPagamentos.EP_NaoPago) {
                         await pagamentoData.updateTerminarPrazoPagamento(topPagP[0].Id);
-                        await utilizadorData.updateRolesUtilizador(userId.UtilizadorId,utils.user_roles.UR_Normal);
+                        await utilizadorData.updateRolesUtilizador(userId,utils.user_roles.UR_Normal);
                     }
                 }
                 else if (monthValue < currentMonth) {
                     if(currentDayMonth <= 8) {
-                        await pagamentoData.createPagamentoPremium(userId.UtilizadorId);
+                        await pagamentoData.createPagamentoPremium(userId);
                     }
                     else if(currentDayMonth > 8) {
-                        await pagamentoData.createPagamentoPremium(userId.UtilizadorId);
+                        await pagamentoData.createPagamentoPremium(userId);
                         await pagamentoData.updateTerminarPrazoPagamento(topPagP[0].Id);
                         await utilizadorData.updateRolesUtilizador(userId,utils.user_roles.UR_Normal);
                     }

@@ -12,9 +12,9 @@ const utils = require('../utils/utils');
 
 const pagamentoPedidosVerify  = async (req, res, next) => {
     try{
-        const userId = req.body;
-        const user = await utilizadorData.listUtilizadorById(userId.UtilizadorId);
-        const userPedidosPagaments = await pedidoData.listPedidoPagamentoByUserId(userId.UtilizadorId)
+        const userId = req.params.userId;
+        const user = await utilizadorData.listUtilizadorById(userId);
+        const userPedidosPagaments = await pedidoData.listPedidoPagamentoByUserId(userId)
 
         if (userPedidosPagaments.length !== 0) {
             const currentDate = new Date();

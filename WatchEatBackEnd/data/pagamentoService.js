@@ -70,6 +70,28 @@ const listPagamentosPremium = async ()=> {
     }
 }
 
+const listPagamentoPremiumNaoPago = async (userId)=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT [Id],[ValorPagar],[Estado],[DataEmissao],[DataPagamento],[Descricao],[TipoPagamento]' +
+            'FROM [dbo].[Pagamento]' +
+            'WHERE [TipoPagamento] = @TipoPagamento ' +
+            'AND [Estado] = @Estado ' +
+            'AND [UtilizadorId] = @UtilizadorId';
+
+        const pagamentosPremium = await pool.request()
+            .input('TipoPagamento', sql.VarChar(255), "Tier premium")
+            .input('Estado', sql.VarChar(255), utils.estadosPagamentos.EP_Pago)
+            .input('UtilizadorId', sql.Int, userId)
+            .query(query);
+
+        return pagamentosPremium.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
 const listTopPagamentoPremium = async (UtilizadorId)=> {
     try {
         let pool = await  sql.connect(config.sql);
@@ -193,6 +215,7 @@ module.exports = {
     listUserPagamentos,
     listPagamentoById,
     listPagamentosPremium,
+    listPagamentoPremiumNaoPago,
     listTopPagamentoPremium,
     createPagamentoPedido,
     createPagamentoPremium,

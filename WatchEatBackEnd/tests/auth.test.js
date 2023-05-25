@@ -1,9 +1,15 @@
 const request = require('supertest');
 const app = require('../index');
 
+const testPort = 3002; // Choose a different port for testing
+let server; // Define a variable to hold the server instance
+
 beforeAll(done => {
-    done()
-})
+    server = app.listen(testPort, () => {
+        console.log('Test server is listening on http://localhost:' + testPort);
+        done();
+    });
+});
 
 describe('POST /api/authLogin', () => {
     // it('should redirect to \'/pagina-inicial\' if valid login', async () => {
@@ -27,7 +33,7 @@ describe('POST /api/authLogin', () => {
             })
             .expect(403);
 
-        expect(res.body.error).toBe('invalid login');
+        expect(res.body.error).toBe('Login invalido!');
     });
 
 
@@ -54,7 +60,7 @@ describe('POST /api/authRegister', () => {
                 confirm_password: 'svdsdv'
             })
             .expect(409);
-        expect(res.body.error).toBe("Email already in use");
+        expect(res.body.error).toBe("Email já em uso!");
     });
 
     it('should return 409 if password doesn\'t match confirm_password', async () => {
@@ -67,11 +73,13 @@ describe('POST /api/authRegister', () => {
             })
             .expect(409);
 
-        expect(res.body.error).toBe("Password doesn\'t match confirm_password field");
+        expect(res.body.error).toBe("Password não é igual ao campo Confirm Password!");
     });
 });
 
 afterAll(done => {
-    app.close()
-    done()
-})
+    server.close(() => {
+        console.log('Test server closed');
+        done();
+    });
+});

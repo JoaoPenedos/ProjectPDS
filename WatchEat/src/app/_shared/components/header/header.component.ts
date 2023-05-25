@@ -14,7 +14,7 @@ export class HeaderComponent {
   isOpen = false;
   isOpenMobile = false;
   isUserLogged = false;
-  currentUser : number = -1;
+  currentUser : any = null;
 
   constructor(
     private authService: AuthService
@@ -23,7 +23,7 @@ export class HeaderComponent {
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token as string) as any;
-    this.currentUser = tokenPayload.user[0].Id;
+    this.currentUser = tokenPayload.user[0];
 
     this.IsUserLogged();
   }

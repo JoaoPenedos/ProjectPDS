@@ -45,14 +45,15 @@
           </div>
           <div *ngIf="isOpen" class="bg-gray-700 border border-black absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
             <!-- Active: "bg-gray-100", Not Active: "" -->
-            <a [routerLink]="['/perfil', currentUser]" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-0">Perfil</a>
+            <a [routerLink]="['/perfil', currentUser.Id]" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-0">Perfil</a>
             <a [routerLink]="['/biblioteca']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-1">Watch'List</a>
-            <a [routerLink]="['/premium']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-2">Aderir Premium</a>
-            <a [routerLink]="['/estatisticas']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-3">Estatisticas</a>
+            <a *ngIf="currentUser.Utilizador_Roles == 'Normal'" [routerLink]="['/premium']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-2">Aderir Premium</a>
+            <a *ngIf="currentUser.Utilizador_Roles == 'Admin' || currentUser.Utilizador_Roles == 'Premium'" [routerLink]="['/estatisticas']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-3">Estatisticas</a>
             <a [routerLink]="['/amigos']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-4">Amigos</a>
             <a [routerLink]="['/pedidos']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-5">Pedidos</a>
             <a [routerLink]="['/pagamentos']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-6">Pagamentos</a>
-            <a (click)="LogoutUser()" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-7">Sair</a>
+            <a *ngIf="currentUser.Utilizador_Roles == 'Admin'" [routerLink]="['/addConteudo']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-7">Adicionar Conteudo</a>
+            <a (click)="LogoutUser()" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-8">Sair</a>
           </div>
         </div>
       </div>

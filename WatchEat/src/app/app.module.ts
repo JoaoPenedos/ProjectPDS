@@ -44,7 +44,7 @@ import { AuthService } from './_shared/services/_Auth/auth.service';
       { path: 'perfil/:id', component: PagPerfilComponent, canActivate: [AuthService] },
       { path: 'editPerfil', component: PagEditPerfilComponent, canActivate: [AuthService] },
       { path: 'addConteudo', component: PagAddConteudoComponent },
-      { path: 'conteudo/:id', component: PagConteudoComponent },
+      { path: 'conteudo/:id', component: PagConteudoComponent, canActivate: [AuthService] },
       { path: 'pagamentos', component: PagPagamentosComponent },
       { path: 'pedidos', component: PagPedidosComponent },
       { path: 'premium', component: PagPremiumComponent },
