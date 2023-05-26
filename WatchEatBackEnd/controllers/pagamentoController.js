@@ -1,5 +1,8 @@
 'use strict'
 const pagamentoData = require('../data/pagamentoService');
+const pedidosData = require('../data/pedidoService')
+const utilizadorData = require("../data/utilizadorService");
+const utils = require("../utils/utils");
 
 const getPagamentos = async (req, res) => {
     try {
@@ -93,6 +96,15 @@ const updatePagamento = async (req, res)=> {
         const pagamentoId = req.params.Id;
         const data = req.body;
         const updated = await pagamentoData.updatePagamento(pagamentoId, data);
+
+        const onePagamento = await pagamentoData.listPagamentoById(pagamentoId);
+        if (onePagamento[0].TipoPagamento == "Tier premium") {
+            await utilizadorData.updateRolesUtilizador(onePagamento[0].UtilizadorId,utils.user_roles.UR_Premium);
+        }
+        else {
+            await pedidosData.updatePedidoPago(onePagamento[0].PedidoId);
+        }
+
         res.send(updated);
     }
     catch (error) {

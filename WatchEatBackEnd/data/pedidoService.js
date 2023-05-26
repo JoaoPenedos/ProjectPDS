@@ -129,6 +129,22 @@ const createPedido = async (pedidoData) => {
     }
 }
 
+const updatePedidoPago = async (Id) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'UPDATE [dbo].[Pedido] SET Estado=@Estado WHERE [Id]=@Id';
+
+        const update = await pool.request()
+            .input('Id', sql.Int, Id)
+            .input('Estado', sql.VarChar(255), utils.estadosPagamentos.EP_Pago)
+            .query(query);
+
+        return update.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const updateTerminarPrazoPedido = async (Id) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -140,27 +156,7 @@ const updateTerminarPrazoPedido = async (Id) => {
             .query(query);
 
         return update.recordset;
-    }
-    catch (error) {
-        return error.message;
-    }
-
-    try {
-        const currentDate = new Date();
-        const sqlCurrentDateString = currentDate.toISOString().slice(0, 19).replace('T', ' ');
-
-        let pool = await sql.connect(config.sql);
-        let query = 'UPDATE [dbo].[Pedido] SET [HoraEntrega] = @HoraEntrega ' +
-            'WHERE [Id]=@Id';
-
-        const update = await pool.request()
-            .input('Id', sql.Int, Id)
-            .input('HoraEntrega', sql.DateTime, sqlCurrentDateString)
-            .query(query);
-
-        return update.recordset;
-    }
-    catch (error) {
+    } catch (error) {
         return error.message;
     }
 }
@@ -211,6 +207,7 @@ module.exports = {
     listPedidoPagamentoById,
     listPedidoPagamentoByUserId,
     createPedido,
+    updatePedidoPago,
     updateTerminarPrazoPedido,
     updateHoraEntregaPedido,
     updatePrecoTotalPedido

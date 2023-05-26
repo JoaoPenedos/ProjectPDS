@@ -39,6 +39,7 @@ export class HeaderComponent {
     event.stopPropagation();
     this.isOpen = !this.isOpen;
   }
+
   toggleMenuMobile() {
     this.isOpenMobile = !this.isOpenMobile;
   }

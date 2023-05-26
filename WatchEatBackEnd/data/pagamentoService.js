@@ -172,13 +172,7 @@ const updatePagamento = async (Id, pagamentoData) => {
         const sqlCurrentDateString = currentDate.toISOString().slice(0, 19).replace('T', ' ');
 
         let pool = await sql.connect(config.sql);
-        let query = 'UPDATE [dbo].[Pagamento] SET ';
-        const inputParams = ['Estado', 'DataPagamento'];
-        for (const param of inputParams) {
-            query += pagamentoData[param] ? `${param} = @${param}, ` : '';
-        }
-        query = query.slice(0, -2); // remove trailing comma and space
-        query +=` WHERE [Id]=@Id`
+        let query = 'UPDATE [dbo].[Pagamento] SET Estado=@Estado, DataPagamento=@DataPagamento WHERE [Id]=@Id';
 
         const update = await pool.request()
             .input('Id', sql.Int, Id)

@@ -50,7 +50,7 @@
             <a *ngIf="currentUser.Utilizador_Roles == 'Normal'" [routerLink]="['/premium']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-2">Aderir Premium</a>
             <a *ngIf="currentUser.Utilizador_Roles == 'Admin' || currentUser.Utilizador_Roles == 'Premium'" [routerLink]="['/estatisticas']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-3">Estatisticas</a>
             <a [routerLink]="['/amigos']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-4">Amigos</a>
-            <a [routerLink]="['/pedidos']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-5">Pedidos</a>
+            <a [routerLink]="['/pedidos']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-5">Historico Pedidos</a>
             <a [routerLink]="['/pagamentos']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-6">Pagamentos</a>
             <a *ngIf="currentUser.Utilizador_Roles == 'Admin'" [routerLink]="['/addConteudo']" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-7">Adicionar Conteudo</a>
             <a (click)="LogoutUser()" class="block px-4 py-2 text-sm text-white hover:bg-black" role="menuitem" tabindex="-1" id="user-menu-item-8">Sair</a>
