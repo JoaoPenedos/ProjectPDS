@@ -1,103 +1,148 @@
 <!-- component -->
 <!-- This is an example component -->
 <div class="flex justify-center items-center h-screen">
-<div class="max-w-2xl mx-auto">
-  <div class="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-xl font-bold leading-none text-gray-900 text-red-600">Amigos</h3>
-      <a href="#" class="text-sm font-medium text-red-600 hover:underline text-red-600">
-        Adicionar Amigo
-      </a>
-    </div>
-    <div class="flow-root">
-      <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-        <li class="py-3 sm:py-4">
-          <div class="flex items-center space-x-4">
-            <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-1.jpg" alt="">
+  <div class="w-full">
+    <div class="max-w-2xl mx-auto p-4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold leading-none text-gray-900 text-red-600">
+          Amigos
+        </h3>
+        <div>
+          <button class="px-3 py-1 rounded-md bg-red-600 text-white text-sm font-medium hover:bg-red-700 mr-2">
+            Todos os Amigos
+          </button>
+          <button class="px-3 py-1 rounded-md bg-red-600 text-white text-sm font-medium hover:bg-red-700 mr-2">
+            Pendentes
+          </button>
+          <button class="px-3 py-1 rounded-md bg-red-600 text-white text-sm font-medium hover:bg-red-700">
+            Adicionar Amigos
+          </button>
+        </div>
+      </div>
+      <div class="flow-root">
+        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-1.jpg" alt="">
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                  João Pinedos
+                </p>
+                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                  joaopinedos@gmail.com
+                </p>
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                <button class="px-2 py-1 rounded-md bg-red-600 text-white hover:bg-red-700">
+                  <div class="inline-flex items-center text-base text-gray-900 dark:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>
+                  </div>
+                </button>
+              </div>
             </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                João Pinedos
-              </p>
-              <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                joaopinedos@gmail.com
-              </p>
+          </li>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Amigo 2">
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                  Danilo Pireira
+                </p>
+                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                  danielpereira@gmail.com
+                </p>
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                <button class="px-2 py-1 rounded-md bg-red-600 text-white hover:bg-red-700">
+                  <div class="inline-flex items-center text-base text-gray-900 dark:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>
+                  </div>
+                </button>
+              </div>
             </div>
-            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+          </li>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Amigo 3">
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                  Manuel Fernandes
+                </p>
+                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                  manuelfernandes14@gmail.com
+                </p>
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                <button class="px-2 py-1 rounded-md bg-red-600 text-white hover:bg-red-700">
+                  <div class="inline-flex items-center text-base text-gray-900 dark:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>
+                  </div>
+                </button>
+              </div>
             </div>
-          </div>
-        </li>
-        <li class="py-3 sm:py-4">
-          <div class="flex items-center space-x-4">
-            <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Amigo 2">
+          </li>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="Amigo 4">
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                  Filipe Loureiro
+                </p>
+                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                  filipelouras@gmail.com
+                </p>
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                <button class="px-2 py-1 rounded-md bg-red-600 text-white hover:bg-red-700">
+                  <div class="inline-flex items-center text-base text-gray-900 dark:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>
+                  </div>
+                </button>
+              </div>
             </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                Danilo Pireira
-              </p>
-              <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                danielpereira@gmail.com
-              </p>
+          </li>
+          <li class="pt-3 pb-0 sm:pt-4">
+            <div class="flex items-center space-x-4">
+              <div class="flex-shrink-0">
+                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Amigo 5">
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                  João Meirão
+                </p>
+                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                  joaomeirao401@gmail.com
+                </p>
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                <button class="px-2 py-1 rounded-md bg-red-600 text-white hover:bg-red-700">
+                  <div class="inline-flex items-center text-base text-gray-900 dark:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>
+                  </div>
+                </button>
+              </div>
             </div>
-            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-            </div>
-          </div>
-        </li>
-        <li class="py-3 sm:py-4">
-          <div class="flex items-center space-x-4">
-            <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Amigo 3">
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                Manuel Fernandes
-              </p>
-              <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                manuelfernandes14@gmail.com
-              </p>
-            </div>
-            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-            </div>
-          </div>
-        </li>
-        <li class="py-3 sm:py-4">
-          <div class="flex items-center space-x-4">
-            <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="Amigo 4">
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                Filipe Loureiro
-              </p>
-              <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                filipelouras@gmail.com
-              </p>
-            </div>
-            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-            </div>
-          </div>
-        </li>
-        <li class="pt-3 pb-0 sm:pt-4">
-          <div class="flex items-center space-x-4">
-            <div class="flex-shrink-0">
-              <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Amigo 5">
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                João Meirão
-              </p>
-              <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                joaomeirao401@gmail.com
-              </p>
-            </div>
-            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-            </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 </div>
