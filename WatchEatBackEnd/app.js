@@ -40,8 +40,4 @@ app.use('/api', require('./routes/reviewsPremiumRoutes').routes);
 app.use('/api', require('./routes/generoRoutes').routes);
 app.use('/api', require('./routes/alteracaoConteudoRoutes').routes);
 
-const appTesting = app;
-
-let server = app.listen(config.port, () => console.log('server is listening on http://localhost:' + config.port));
-
-module.exports = appTesting;
+module.exports = app;

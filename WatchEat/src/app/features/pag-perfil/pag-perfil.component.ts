@@ -11,6 +11,7 @@ import {AuthService} from "../../_shared/services/_Auth/auth.service";
   styleUrls: ['./pag-perfil.component.css']
 })
 export class PagPerfilComponent {
+  currentUserId: number = 0;
   user: any[] = [];
   bibliotecaFilmes: any[] = [];
   bibliotecaSeries: any[] = [];
@@ -37,6 +38,7 @@ export class PagPerfilComponent {
     const userId : string = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
     this.utilizadoresDataService.getUtilizadorById(userId).subscribe((data: Object) => {
       this.user = data as any[]; // Cast the data to an array type
+      this.currentUserId = this.user[0].Id;
     });
     this.bibliotecaDataService.getBibliotecaFilmesTop6ById(userId).subscribe((data: Object) => {
       this.bibliotecaFilmes = data as any[]; // Cast the data to an array type

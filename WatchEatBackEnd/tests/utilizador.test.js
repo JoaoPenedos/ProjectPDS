@@ -1,40 +1,36 @@
 const request = require('supertest');
-const app = require('../index');
-const utilizadorData = require('../data/utilizadorService');
-
-const testPort = 3001; // Choose a different port for testing
-let server; // Define a variable to hold the server instance
-
-beforeAll(done => {
-    server = app.listen(testPort, () => {
-        console.log('Test server is listening on http://localhost:' + testPort);
-        done();
-    });
-});
+const app = require('../app');
+const jwt = require('jsonwebtoken');
 
 describe('GET /Utilizadores', () => {
-    it('should return utilizadores', async () => {
-        const response = await request(app).get('/api/Utilizadores');
+    it('should return utilizadores with valid token', async () => {
+        // Create a mock token with the necessary user data
+        const token = jwt.sign({ user: 'mockUser' }, process.env.SECRET_TOKEN);
+
+        // Make the test request with the token in the headers
+        const response = await request(app)
+            .get('/api/Utilizadores')
+            .set('Authorization', `Bearer ${token}`);
+
         expect(response.status).toBe(200);
         expect(Array.isArray(response.body)).toBe(true);
     });
 
-    // it('should handle errors when retrieving utilizadores', async () => {
-    //     // Mock the listUtilizadores function to throw an error
-    //     jest.mock('/api/Utilizadores', () => ({
-    //         listUtilizadores: jest.fn().mockRejectedValue(new Error('Database connection failed')),
-    //     }));
-    //
-    //     const res = await request(app).get('/Utilizadores').expect(400);
-    //
-    //     expect(res.text).toBe('Database connection failed');
-    // });
+    it('should return 401 error without token', async () => {
+        // Make the test request without providing a token in the headers
+        const response = await request(app).get('/api/Utilizadores');
 
-});
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({ message: 'Token not provided' });
+    });
 
-afterAll(done => {
-    server.close(() => {
-        console.log('Test server closed');
-        done();
+    it('should return 401 error with invalid token', async () => {
+        const token = 'invalid-token';
+
+        const response = await request(app)
+            .get('/api/Utilizadores')
+            .set('Authorization', `Bearer ${token}`);
+
+        expect(response.status).toBe(401);
     });
 });

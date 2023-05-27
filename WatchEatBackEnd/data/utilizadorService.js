@@ -41,7 +41,7 @@ const listUtilizadorByEmail = async (Email)=> {
     try {
         let pool = await  sql.connect(config.sql);
         let query = 'SELECT [Id],[Nome],[Apelido],[Password],[Email],' +
-            '[NTelemovel],[Morada],[NIF],[ImagemPerfil],[Estado],[Utilizador_Roles] ' +
+            '[NTelemovel],[Morada],[NIF],[ImagemPerfil],[Estado],[Utilizador_Roles],[Status] ' +
             'FROM [dbo].[Utilizador]' +
             'WHERE [Email] = @Email';
 
@@ -61,7 +61,8 @@ const listUtilizadorAmizades = async (Id)=> {
         let pool = await  sql.connect(config.sql);
         let query = 'SELECT [UtilizadorId],[UtilizadorId2],[DataPedidoEnviado],[DataPedidoAceite],[Estado]' +
             'FROM [dbo].[Utilizador_Utilizador]' +
-            'WHERE [UtilizadorId] = @UtilizadorId';
+            'WHERE [UtilizadorId] = @UtilizadorId ' +
+            'OR [UtilizadorId2] = @UtilizadorId';
 
         const oneUtilizador = await pool.request()
             .input('UtilizadorId', sql.Int, Id)
@@ -77,11 +78,17 @@ const listUtilizadorAmizades = async (Id)=> {
 const listUtilizadorAmizadesTop6 = async (Id)=> {
     try {
         let pool = await  sql.connect(config.sql);
-        let query = 'SELECT [UtilizadorId],[UtilizadorId2],[DataPedidoEnviado],[DataPedidoAceite],' +
-            '[Utilizador_Utilizador].[Estado],[Utilizador].[Nome],[Utilizador].[Apelido]' +
-            'FROM [dbo].[Utilizador_Utilizador] ' +
-            'JOIN [Utilizador] ON [Utilizador].Id = [Utilizador_Utilizador].UtilizadorId2 ' +
-            'WHERE [UtilizadorId] = @UtilizadorId AND [Utilizador_Utilizador].[Estado] = @EstadoAmizade';
+        let query = 'SELECT [Utilizador_Utilizador].[UtilizadorId], [Utilizador_Utilizador].[UtilizadorId2],' +
+            ' [Utilizador_Utilizador].[DataPedidoEnviado], [Utilizador_Utilizador].[DataPedidoAceite],' +
+            ' [Utilizador_Utilizador].[Estado],' +
+            ' [Utilizador1].[Nome] AS Nome1, [Utilizador1].[Apelido] AS Apelido1,' +
+            ' [Utilizador2].[Nome] AS Nome2, [Utilizador2].[Apelido] AS Apelido2' +
+            ' FROM [dbo].[Utilizador_Utilizador]' +
+            ' JOIN [Utilizador] AS [Utilizador1] ON [Utilizador1].Id = [Utilizador_Utilizador].UtilizadorId' +
+            ' JOIN [Utilizador] AS [Utilizador2] ON [Utilizador2].Id = [Utilizador_Utilizador].UtilizadorId2' +
+            ' WHERE ([Utilizador_Utilizador].[UtilizadorId] = @UtilizadorId OR' +
+            ' [Utilizador_Utilizador].[UtilizadorId2] = @UtilizadorId)' +
+            ' AND [Utilizador_Utilizador].[Estado] = @EstadoAmizade';
 
         const oneUtilizador = await pool.request()
             .input('UtilizadorId', sql.Int, Id)

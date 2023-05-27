@@ -53,7 +53,9 @@ const authUtilizador = async (req, res, next)=> {
 
 const registerUtilizador = async (req, res)=> {
     try {
-        const { Email, Password, confirm_password } = req.body;
+        const Email = req.body.Email;
+        const Password = req.body.Password;
+        const confirm_password = req.body.confirm_password;
         const userCheck = await utilizadoresData.listUtilizadorByEmail(Email);
 
         if (Object.keys(userCheck).length > 0) {
