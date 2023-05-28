@@ -5,7 +5,7 @@ const authCookieVerify = async (req, res, next) => {
     let token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
-        token = req.cookies.token;
+        token = req.cookies?.token;
         if (!token) {
             return res.status(401).json({ message: 'Token not provided' });
         }
@@ -22,17 +22,6 @@ const authCookieVerify = async (req, res, next) => {
     }
 }
 
-const logOutClearCookie = async (req, res, next) => {
-    res.clearCookie("token");
-    return res.redirect("/login");
-}
-
-const testeMiddleware = async (req, res, next) => {
-    next();
-}
-
 module.exports = {
-    authCookieVerify,
-    logOutClearCookie,
-    testeMiddleware,
+    authCookieVerify
 }

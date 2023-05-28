@@ -16,7 +16,6 @@ describe('POST /api/authLogin', () => {
         expect(res.body.Authorization).toBeDefined();
     });
 
-
     it('should return 403 if invalid login', async () => {
         const res = await request(app)
             .post('/api/authLogin')
@@ -69,7 +68,6 @@ describe('POST /api/authRegister', () => {
     });
 
     it('should register a new user', async () => {
-        // Mock the required dependencies or functions
         const listUtilizadorByEmailMock = jest.spyOn(utilizadorData, 'listUtilizadorByEmail').mockResolvedValue([]);
         const createNewRegisterUtilizadorMock = jest.spyOn(utilizadorData, 'createNewRegisterUtilizador').mockResolvedValue();
 
@@ -81,10 +79,9 @@ describe('POST /api/authRegister', () => {
                 confirm_password: 'password123'
             });
 
-        expect(res.status).toBe(200); // Expect a status code of 200
+        expect(res.status).toBe(200);
         expect(res.body.Authorization).toBeDefined();
 
-        // Verify that the necessary functions are called with the expected parameters
         expect(listUtilizadorByEmailMock).toHaveBeenCalledWith('test@example.com');
         expect(createNewRegisterUtilizadorMock).toHaveBeenCalledWith({
             Email: 'test@example.com',
