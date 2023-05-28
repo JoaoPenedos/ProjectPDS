@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const authCookie = require('../middleware/authCookieVerify')
+const authCookie = require('../middleware/authCookieVerify');
+require('dotenv').config();
 
 describe('USE authCookieVerify middleware', () => {
     it('should call next with valid token from headers', async () => {

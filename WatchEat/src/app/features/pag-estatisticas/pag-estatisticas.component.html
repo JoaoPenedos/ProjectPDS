@@ -1,217 +1,169 @@
-<div class="flex justify-center  py-10 p-14">
-  <!---== First Stats Container ====--->
-  <div class="container mx-auto pr-4">
-    <div class="w-72 bg-gray-800 max-w-xs mx-auto rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
-      <div class="h-14 bg-red-500 flex items-center justify-between">
-        <p class="mr-0 text-white text-lg pl-5">MELHOR CLASSIFICAÇÃO</p>
-
-      </div>
-      <div class="flex justify-between px-5 pt-6 mb-2 text-sm text-white">
-        <p>Classificação</p>
-      </div>
-      <div class="py-4 flex items-center ml-5">
-        <p class="text-3xl text-white">8,9</p>
-      </div>
-      <!-- <hr > -->
-    </div>
-  </div>
-  <!---== First Stats Container ====--->
-
-  <!---== Second Stats Container ====--->
-  <div class="container mx-auto pr-4">
-    <div class="w-72 bg-gray-800 max-w-xs mx-auto rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
-      <div class="h-14 bg-red-500 flex items-center justify-between">
-        <p class="mr-0 text-white text-lg pl-5">PIOR CLASSIFICAÇÃO</p>
-      </div>
-      <div class="flex justify-between px-5 pt-6 mb-2 text-sm text-white">
-        <p>Classificação</p>
-      </div>
-      <p class="py-4 text-3xl ml-5 text-white">1,6</p>
-      <!-- <hr > -->
-    </div>
-  </div>
-  <!---== Second Stats Container ====--->
-
-  <!---== Third Stats Container ====--->
-  <div class="container mx-auto pr-4">
-    <div class="w-72 bg-gray-800 max-w-xs mx-auto rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
-      <div class="h-14 bg-red-500 flex items-center justify-between">
-        <p class="mr-0 text-white text-lg pl-5">CLASSIFICAÇÃO MÉDIA</p>
-      </div>
-      <div class="flex justify-between pt-6 px-5 mb-2 text-sm text-white">
-        <p>Total</p>
-      </div>
-      <p class="py-4 text-3xl ml-5 text-white">5,7</p>
-      <!-- <hr > -->
-    </div>
-  </div>
-  <!---== Third Stats Container ====--->
-
-  <!---== Fourth Stats Container ====--->
-  <div class="container mx-auto">
-    <div class="w-72 bg-gray-800 max-w-xs mx-auto rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
-      <div class="h-14 bg-red-500 flex items-center justify-between">
-        <p class="mr-0 text-white text-lg pl-5">UTILIZADORES PREMIUM</p>
-      </div>
-      <div class="flex justify-between pt-6 px-5 mb-2 text-sm text-white">
-        <p>Total</p>
-      </div>
-      <div class="py-4 flex items-center ml-5">
-        <p class="text-3xl text-white">50</p>
-        <p class="ml-1 text-1xl text-green-400">+10</p>
+<!-- component -->
+<div class="font-sans bg-grey-lighter flex flex-col min-h-screen w-full">
+  <div class="flex-grow container mx-auto sm:px-4 pt-6 pb-8">
+    <div class="bg-gray-800 border-t border-b sm:border-l sm:border-r sm:rounded shadow mb-6">
+      <div class="lg:flex lg:flex-row lg:justify-center">
+        <div class="w-full lg:w-1/3 text-center py-8">
+          <div class="border-r">
+            <div class="text-md uppercase text-red-600 tracking-wide">
+              Melhor Classificação
+            </div>
+            <div class="text-white mb-2">
+              <span class="text-5xl">9.3</span>
+            </div>
+            <div class="text-sm text-red-400 tracking-wide">
+              The Shawshank Redemption
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-1/3 text-center py-8">
+          <div class="border-r">
+            <div class="text-md uppercase text-red-600 tracking-wide">
+              Pior Classificação
+            </div>
+            <div class="text-white mb-2">
+              <span class="text-5xl">6.3</span>
+            </div>
+            <div class="text-sm text-red-400 tracking-wide">
+              Fast X
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-1/3 text-center py-8">
+          <div class="border-r">
+            <div class="text-md uppercase text-red-600 tracking-wide">
+              Classificação Média
+            </div>
+            <div class="text-white mb-2">
+              <span class="text-5xl">8.5</span>
+            </div>
+            <div class="text-sm text-white tracking-wide">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <!---== Fourth Stats Container ====--->
-</div>
-<!---===================== FIRST ROW CONTAINING THE  STATS CARD ENDS HERE =============================-->
-
-<!------===================== SECOND ROW CONTAINING THE TABLE STATS STARTS HERE =============================-->
-<div class="flex justify-center py-10 p-5">
-  <!--==== frist div begins here ====--->
-  <div class="container mr-5 ml-2 mx-auto bg-gray-800 shadow-xl rounded-lg">
-    <div class="w-11/12 mx-auto">
-      <div class="bg-gray-800 my-6">
-        <table class="text-left w-full border-collapse"> <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
-          <thead>
-          <tr>
-            <th class="py-4 px-6 bg-red-500 font-bold uppercase text-sm text-white border-b border-gray-800">Géneros Mais Assitidos</th>
-            <th class="py-4 px-6 text-center bg-red-500 font-bold uppercase text-sm text-white border-b border-gray-800">Total</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Ação</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              11980
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Comédia</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              340
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Romance</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              901
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Terror</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              11950
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Desporto</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              459
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <!--==== frist div ends here ====--->
-
-  <!--==== Second div begins here ====--->
-  <div class="container mr-5 mx-auto bg-gray-800 shadow-xl rounded-lg">
-    <div class="w-11/12 mx-auto">
-      <div class="bg-gray-800 my-6 ">
-        <table class="text-left w-full border-collapse"> <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
-          <thead>
-          <tr>
-            <th class="py-4 px-6 bg-red-500 font-bold uppercase text-sm text-white border-b border-gray-800">Generos adicionados (%)</th>
-            <th class="py-4 px-6 text-center bg-red-500 font-bold uppercase text-sm text-white border-b border-gray-800">total</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Ação</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              27%
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">História</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              24%
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Terror</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              21%
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter ">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Comédia</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
+    <div class="flex flex-wrap -mx-4">
+      <div class="w-full mb-6 lg:mb-0 lg:w-1/2 px-4 flex flex-col">
+        <div class="flex-grow flex flex-col bg-gray-800 border-t border-b sm:rounded sm:border shadow overflow-hidden">
+          <div class="border-b">
+            <div class="flex justify-between px-6 -mb-px">
+              <h3 class="text-red-600 py-4 font-normal text-lg">Mais Populares</h3>
+            </div>
+          </div>
+          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
+            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
+              <span class="text-lg">Ação</span>
+            </div>
+            <div class="flex w-3/5 md:w/12">
+            </div>
+            <div class=" text-white">
+              17%
+            </div>
+          </div>
+          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
+            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
+              <span class="text-lg">Desporto</span>
+            </div>
+            <div class="flex w-3/5 md:w/12">
+            </div>
+            <div class=" text-grey">
+              12%
+            </div>
+          </div>
+          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
+            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
+              <span class="text-lg">Documentário</span>
+            </div>
+            <div class="flex w-3/5 md:w/12">
+            </div>
+            <div class=" text-grey">
+              23%
+            </div>
+          </div>
+          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
+            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
+              <span class="text-lg">Terror</span>
+            </div>
+            <div class="flex w-3/5 md:w/12">
+            </div>
+            <div class=" text-grey">
               15%
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Crime</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              13%
-            </td>
-          </tr>
-          </tbody>
-        </table>
+            </div>
+          </div>
+          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
+            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
+              <span class="text-lg">Romance</span>
+            </div>
+            <div class="flex w-3/5 md:w/12">
+            </div>
+            <div class=" text-grey">
+              33%
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>
+        .piechart {
+          width: 400px;
+          height: 400px;
+          border-radius: 50%;
+          margin: auto;
+          background-image: conic-gradient(
+            red 70deg,
+            lightcoral 0 235deg,
+            lightsalmon 0);
+        }
+        body,
+        .piechart {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      </style>
+      <div class="piechart"></div>
+    </div>
+    <div class="mt-5 bg-gray-800 border-t border-b sm:border-l sm:border-r sm:rounded shadow mb-6">
+      <div class="lg:flex lg:flex-row lg:justify-center">
+        <div class="w-full lg:w-1/3 text-center py-8">
+          <div class="border-r">
+            <div class="text-md uppercase text-red-600 tracking-wide">
+              Melhor Classificação
+            </div>
+            <div class="text-white mb-2">
+              <span class="text-5xl">9.3</span>
+            </div>
+            <div class="text-sm text-red-400 tracking-wide">
+              The Shawshank Redemption
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-1/3 text-center py-8">
+          <div class="border-r">
+            <div class="text-md uppercase text-red-600 tracking-wide">
+              Pior Classificação
+            </div>
+            <div class="text-white mb-2">
+              <span class="text-5xl">6.3</span>
+            </div>
+            <div class="text-sm text-red-400 tracking-wide">
+              Fast X
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-1/3 text-center py-8">
+          <div class="border-r">
+            <div class="text-md uppercase text-red-600 tracking-wide">
+              Classificação Média
+            </div>
+            <div class="text-white mb-2">
+              <span class="text-5xl">8.5</span>
+            </div>
+            <div class="text-sm text-white tracking-wide">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <!--==== Second div ends here ====--->
-
-  <!--==== Third div begins here ====--->
-  <div class="container mx-auto bg-gray-800 shadow-xl rounded-lg">
-    <div class="w-11/12 mx-auto">
-      <div class="bg-gray-800 my-6">
-        <table class="text-left w-full border-collapse"> <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
-          <thead>
-          <tr>
-            <th class="py-4 px-6 bg-red-500 font-bold uppercase text-sm text-white border-b border-gray-800">Conteúdo Mais Assistido</th>
-            <th class="py-4 px-6 text-center bg-red-500 font-bold uppercase text-sm text-white border-b border-gray-800">total</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Senhor dos Anéis</td>
-            <td class="py-4 text-center px-6 border-b border-grey-light text-white">
-              11,290
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Top Gun:Maverick</td>
-            <td class="py-4 text-center px-6 border-b border-grey-light text-white">
-              9,230
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter ">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Outer Banks</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              234
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Coach Carter</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              56,230
-            </td>
-          </tr>
-          <tr class="hover:bg-grey-lighter">
-            <td class="py-4 px-6 border-b border-grey-light text-white">Project X</td>
-            <td class="py-4 px-6 text-center border-b border-grey-light text-white">
-              323
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <!--==== Third div ends here ====--->
 </div>
