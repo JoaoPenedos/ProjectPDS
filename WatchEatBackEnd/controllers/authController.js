@@ -4,23 +4,6 @@ const jwt = require('jsonwebtoken');
 const utilizadoresData = require('../data/utilizadorService');
 const utils = require('../utils/utils');
 
-/*
-const data = { }
-data["data"] = ` ${Email} ${Password}` // ${user[0].Password}`
- */
-
-const getUtilizador = async (req, res)=> {
-    try {
-        const email = req.body.Email;
-        const user = await utilizadoresData.listUtilizadorByEmail(email);
-
-        res.send(user);
-    }
-    catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
 const authUtilizador = async (req, res, next)=> {
     try {
         const { Email, Password } = req.body;
@@ -61,10 +44,15 @@ const registerUtilizador = async (req, res)=> {
         if (Object.keys(userCheck).length > 0) {
             if (userCheck[0].Email == Email) {
                 return res.status(409).json({
-                    error: "Email já em uso!"
+                    error: "Email já em uso!",
                 });
             }
+
+            if (userCheck[0].Password) {
+                delete userCheck[0].Password;
+            }
         }
+
 
         if (Password !== confirm_password) {
             return res.status(409).json({
@@ -74,10 +62,7 @@ const registerUtilizador = async (req, res)=> {
 
         const newUserdata = req.body;
         await utilizadoresData.createNewRegisterUtilizador(newUserdata);
-        const user = await utilizadoresData.listUtilizadorByEmail(Email);
-
-        delete user[0].Password;
-        const token = jwt.sign({user}, process.env.SECRET_TOKEN, { expiresIn: "1h"});
+        const token = jwt.sign({userCheck}, process.env.SECRET_TOKEN, { expiresIn: "1h"});
 
         res.cookie("token", token,{
             httpOnly: false,
@@ -91,7 +76,6 @@ const registerUtilizador = async (req, res)=> {
 }
 
 module.exports = {
-    getUtilizador,
     authUtilizador,
     registerUtilizador
 }

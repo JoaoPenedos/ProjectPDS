@@ -67,32 +67,32 @@ describe('POST /api/authRegister', () => {
         expect(res.body.error).toBe("Password não é igual ao campo Confirm Password!");
     });
 
-    // it('should register a new user', async () => {
-    //     // Mock the required dependencies or functions
-    //     const listUtilizadorByEmailMock = jest.spyOn(utilizadorData, 'listUtilizadorByEmail').mockResolvedValue([]);
-    //     const createNewRegisterUtilizadorMock = jest.spyOn(utilizadorData, 'createNewRegisterUtilizador').mockResolvedValue();
-    //
-    //     const res = await request(app)
-    //         .post('/api/authRegister')
-    //         .send({
-    //             Email: 'test@example.com',
-    //             Password: 'password123',
-    //             confirm_password: 'password123'
-    //         });
-    //
-    //     expect(res.status).toBe(200); // Expect a status code of 200
-    //     expect(res.body.Authorization).toBeDefined();
-    //
-    //     // Verify that the necessary functions are called with the expected parameters
-    //     expect(listUtilizadorByEmailMock).toHaveBeenCalledWith('test@example.com');
-    //     expect(createNewRegisterUtilizadorMock).toHaveBeenCalledWith({
-    //         Email: 'test@example.com',
-    //         Password: 'password123',
-    //         confirm_password: 'password123'
-    //     });
-    //
-    //     // Restore the mocked functions
-    //     listUtilizadorByEmailMock.mockRestore();
-    //     createNewRegisterUtilizadorMock.mockRestore();
-    // });
+    it('should register a new user', async () => {
+        // Mock the required dependencies or functions
+        const listUtilizadorByEmailMock = jest.spyOn(utilizadorData, 'listUtilizadorByEmail').mockResolvedValue([]);
+        const createNewRegisterUtilizadorMock = jest.spyOn(utilizadorData, 'createNewRegisterUtilizador').mockResolvedValue();
+
+        const res = await request(app)
+            .post('/api/authRegister')
+            .send({
+                Email: 'test@example.com',
+                Password: 'password123',
+                confirm_password: 'password123'
+            });
+
+        expect(res.status).toBe(200); // Expect a status code of 200
+        expect(res.body.Authorization).toBeDefined();
+
+        // Verify that the necessary functions are called with the expected parameters
+        expect(listUtilizadorByEmailMock).toHaveBeenCalledWith('test@example.com');
+        expect(createNewRegisterUtilizadorMock).toHaveBeenCalledWith({
+            Email: 'test@example.com',
+            Password: 'password123',
+            confirm_password: 'password123'
+        });
+
+        // Restore the mocked functions
+        listUtilizadorByEmailMock.mockRestore();
+        createNewRegisterUtilizadorMock.mockRestore();
+    });
 });

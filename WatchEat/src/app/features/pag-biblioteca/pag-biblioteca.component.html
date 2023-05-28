@@ -43,7 +43,7 @@
     <div *ngFor="let cont of modalConteudo" class="relative bg-white rounded-lg shadow dark:bg-gray-800">
       <form [formGroup]="contInBibliotecaForm">
         <!-- Modal header -->
-        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+        <div class="flex items-start justify-between p-4 border-b-2 rounded-t dark:border-gray-600">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
             {{ cont.Nome }}
           </h3>
@@ -56,8 +56,8 @@
         <div class="p-5 space-y-6">
           <div class="grid gap-6 mt-4 ">
             <div>
-              <label id="{{ cont.Estado }}" class="text-white dark:text-gray-200" for="tipodeconteudo">Estado</label>
-              <select formControlName="Estado" id="tipodeconteudo"
+              <label id="{{ cont.Estado }}" class="text-white dark:text-gray-200" for="estado">Estado</label>
+              <select formControlName="Estado" id="estado"
                       class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                 <option [value]="'Terminado'" [selected]="cont.Estado == 'Terminado'">Terminado</option>
                 <option [value]="'Para Assistir'" [selected]="cont.Estado == 'Para Assistir'">Para Assistir</option>
@@ -68,15 +68,15 @@
             </div>
             <div>
               <div>
-                <label class="text-white dark:text-gray-200" for="titulo">Rating</label>
-                <input formControlName="Rating" id="titulo" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                <label class="text-white dark:text-gray-200" for="rating">Rating</label>
+                <input formControlName="Rating" id="rating" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                 <div *ngIf="contInBibliotecaForm.get('Rating')?.invalid && (contInBibliotecaForm.get('Rating')?.dirty || contInBibliotecaForm.get('Rating')?.touched)">
                   <div *ngIf="contInBibliotecaForm.get('Rating')?.hasError('pattern')" class="text-red-500 mt-1">Invalid rating format</div>
                 </div>
               </div>
-              <div>
-                <label class="text-white dark:text-gray-200" for="sinopse">Sinopse</label>
-                <textarea formControlName="Review" id="sinopse" class="resize-none block w-full h-36 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+              <div class="mt-2">
+                <label class="text-white dark:text-gray-200" for="review">Review</label>
+                <textarea formControlName="Review" id="review" class="resize-none block w-full h-36 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
               </div>
             </div>
           </div>

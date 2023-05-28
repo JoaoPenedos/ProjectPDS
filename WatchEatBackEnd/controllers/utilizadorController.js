@@ -82,7 +82,43 @@ const addUtlizadorAmizade = async (req, res)=> {
                 });
             }
             else {
-                const created = await utilizadorData.createPedidoAmizade(utilizadorId, data);
+                const created = await utilizadorData.createPedidoAmizade(utilizadorId, data.UtilizadorId2);
+                res.send(created);
+            }
+        }
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const addUtlizadorAmizadeByEmail = async (req, res)=> {
+    try {
+        const utilizadorId = req.params.userId;
+        const email = req.body.Email;
+        const user1 = await utilizadorData.listUtilizadorById(utilizadorId);
+        const user2 = await utilizadorData.listUtilizadorByEmail(email);
+        const checkAmizade = await utilizadorData.listAmizade(utilizadorId, user2[0].Id);
+        const checkAmizadeReverse = await utilizadorData.listAmizade(user2[0].Id, utilizadorId);
+
+        if (user1.length === 0 || user2.length === 0) {
+            return res.status(409).json({
+                error: `Utilizador (${utilizadorId}) ou Utilizador (${user2[0].Id}) não existem na BD`
+            });
+        }
+        else {
+            if (checkAmizade.length !== 0) {
+                return res.status(409).json({
+                    error: `Utilizador (${utilizadorId}) e (${ser2[0].Id}) já são amigos ou já existe um pedido enviado`
+                });
+            }
+            else if (checkAmizadeReverse.length !== 0) {
+                return res.status(409).json({
+                    error: `Utilizador (${utilizadorId}) e (${ser2[0].Id}) já são amigos ou já existe um pedido enviado`
+                });
+            }
+            else {
+                const created = await utilizadorData.createPedidoAmizade(utilizadorId, user2[0].Id);
                 res.send(created);
             }
         }
@@ -140,6 +176,7 @@ module.exports = {
     getUtilizadorAmizadeTop6,
     addUtlizador,
     addUtlizadorAmizade,
+    addUtlizadorAmizadeByEmail,
     updateUtilizador,
     updatePedidoAmizade,
     deleteUtilizador

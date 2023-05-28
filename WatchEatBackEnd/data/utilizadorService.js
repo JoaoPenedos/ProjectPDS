@@ -168,7 +168,7 @@ const createNewRegisterUtilizador = async (utilizadorData) => {
     }
 }
 
-const createPedidoAmizade = async (Id, utilizadorData) => {
+const createPedidoAmizade = async (Id, UtilizadorId2) => {
     try {
         const currentDate = new Date();
         const sqlCurrentDateString = currentDate.toISOString().slice(0, 19).replace('T', ' ');
@@ -181,7 +181,7 @@ const createPedidoAmizade = async (Id, utilizadorData) => {
 
         const insertUtilizador = await pool.request()
             .input('UtilizadorId', sql.Int, Id)
-            .input('UtilizadorId2', sql.Int, utilizadorData.UtilizadorId2)
+            .input('UtilizadorId2', sql.Int, UtilizadorId2)
             .input('DataPedidoEnviado', sql.DateTime, sqlCurrentDateString)
             .input('Estado', sql.VarChar(255), utils.estadosAmizade.EA_PedidoEnviado)
             .query(query);
