@@ -1,93 +1,75 @@
-<div class="flex justify-center items-center w-screen"></div>
-<section class="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
+<section class="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 my-14">
   <h1 class="text-xl font-bold text-red capitalize text-red-600">Adicionar Conteudo</h1>
-  <form>
-    <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-      <div>
-        <label for="tipoconteudo">Tipo de conteúdo</label>
-        <select id="tipoconteudo" [(ngModel)]="tipoconteudo" name="tipoconteudo" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-          <option>Selecione o tipo de conteúdo</option>
+  <form [formGroup]="newConteudoForm">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <!-- Common labels here -->
+      <div id="common-labels">
+        <!-- Add other series-specific labels here -->
+        <div class="mb-2">
+          <div class="text-red-400 px-4 py-2 font-semibold">Titulo</div>
+          <input formControlName="Titulo" class="w-full rounded bg-gray-700 px-3 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Titulo">
+        </div>
+        <div class="mb-2">
+          <div class="text-red-400 px-4 py-2 font-semibold">Direção</div>
+          <input formControlName="Direcao" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Direção">
+        </div>
+        <div class="mb-2">
+          <div class="text-red-400 px-4 py-2 font-semibold">Rating</div>
+          <input formControlName="Rating" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Rating">
+        </div>
+        <div class="mb-2">
+          <div class="text-red-400 px-4 py-2 font-semibold">Sinopse</div>
+          <input formControlName="Sinopse" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Sinopse">
+        </div>
+        <div class="mb-2">
+          <div class="text-red-400 px-4 py-2 font-semibold">Data de Lançamento</div>
+          <input formControlName="DataReleased" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Data de Lançamento">
+        </div>
+        <div class="mb-2">
+          <div class="text-red-400 px-4 py-2 font-semibold">Poster</div>
+          <input formControlName="Poster" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Poster">
+        </div>
+        <div class="mb-2">
+          <div class="text-red-400 px-4 py-2 font-semibold">Trailer</div>
+          <input formControlName="Trailer" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Trailer">
+        </div>
+      </div>
+      <div class="mb-3">
+        <div class="text-red-400 px-4 py-2 font-semibold">Tipo de conteúdo</div>
+        <select formControlName="TipoConteudo" id="tipoconteudo" name="tipoconteudo" class="mb-[13px] rounded px-4 py-2 my-0.5 block w-full border bg-gray-700 dark:text-gray-300 border-gray-600 focus:border-red-600 active:border-red-600 focus:outline-none">
           <option value="filmes">Filmes</option>
           <option value="series">Séries</option>
         </select>
-      </div>
-
-      <div id="filmes-labels" *ngIf="tipoconteudo === 'filmes'">
-        <!-- Add other movie-specific labels here -->
-        <div>
-          <label for="duracao">Duração (minutos)</label>
-          <input id="duracao" type="text" [(ngModel)]="duracao" name="duracao">
+        <div id="filmes-labels" *ngIf="isFilmesSelected()">
+          <!-- Add other movie-specific labels here -->
+          <div class="mb-2">
+            <div class="text-red-400 px-4 py-2 font-semibold">Duração</div>
+            <input formControlName="Duracao" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Duração">
+          </div>
         </div>
-        <div>
-          <label for="conteudoid">ID Conteudo</label>
-          <input id="conteudoid" type="number" [(ngModel)]="conteudoid" name="conteudoid">
-        </div>
-      </div>
-
-      <div id="series-labels" *ngIf="tipoconteudo === 'series'">
-        <!-- Add other series-specific labels here -->
-        <div>
-          <label for="ntemporadas">Número de Temporadas</label>
-          <input id="ntemporadas" type="number" [(ngModel)]="ntemporadas" name="ntemporadas">
-        </div>
-        <div>
-          <label for="nepisodios">Número de Episódio</label>
-          <input id="nepisodios" type="number" [(ngModel)]="nepisodios" name="nepisodios">
-        </div>
-        <div>
-          <label for="estado">Estado</label>
-          <input id="estado" type="text" [(ngModel)]="estado" name="estado">
-        </div>
-        <div>
-          <label for="datafim">Data do Fim</label>
-          <input id="datafim" type="date" [(ngModel)]="datafim" name="datafim">
-        </div>
-        <div>
-          <label for="conteudoidserie">ID Conteudo</label>
-          <input id="conteudoidserie" type="number" [(ngModel)]="conteudoidserie" name="conteudoidserie">
-        </div>
-      </div>
-
-      <!-- Common labels here -->
-      <div>
-        <label for="titulo">Título</label>
-        <input id="titulo" type="text" [(ngModel)]="titulo" name="titulo">
-      </div>
-      <div>
-        <label for="direcao">Direção</label>
-        <input id="direcao" type="text" [(ngModel)]="direcao" name="direcao">
-      </div>
-      <div>
-        <label for="rating">Rating (0-10)</label>
-        <input id="rating" type="number" [(ngModel)]="rating" name="rating">
-      </div>
-      <div>
-        <label for="sinopse">Sinopse</label>
-        <input id="sinopse" type="text" [(ngModel)]="sinopse" name="sinopse">
-      </div>
-      <div>
-        <label for="trailer">Trailer (URL)</label>
-        <input id="trailer" type="url" [(ngModel)]="trailer" name="trailer">
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Imagem</label>
-        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-          <div class="space-y-1 text-center">
-            <div class="flex text-sm text-gray-600">
-              <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                <span class="">Submeter imagem</span>
-                <input id="file-upload" name="file-upload" type="file" class="sr-only">
-              </label>
-              <p class="pl-1">Ou arrasta e larga</p>
-            </div>
-            <p class="text-xs">PNG, JPG, GIF até 10MB</p>
+        <div id="series-labels" *ngIf="isSeriesSelected()">
+          <!-- Add other series-specific labels here -->
+          <div class="mb-2">
+            <div class="text-red-400 px-4 py-2 font-semibold">Nº de Temporada</div>
+            <input formControlName="NTemporadas" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Nº de Temporada">
+          </div>
+          <div class="mb-2">
+            <div class="text-red-400 px-4 py-2 font-semibold">Nº Total de Episodios</div>
+            <input formControlName="NTEpisodios" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Nº total de Episodios">
+          </div>
+          <div class="mb-2">
+            <div class="text-red-400 px-4 py-2 font-semibold">Estado</div>
+            <input formControlName="Estado" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Estado">
+          </div>
+          <div class="mb-2">
+            <div class="text-red-400 px-4 py-2 font-semibold">Data do Fim</div>
+            <input formControlName="DataFim" class="w-full rounded bg-gray-700 px-4 py-2 my-0.5 focus:outline-none border border-gray-600 focus:border-red-600 active:border-red-600" placeholder="Data do Fim">
           </div>
         </div>
       </div>
     </div>
-
     <div class="flex justify-end mt-6">
-      <button class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">Submeter</button>
+      <button (click)="onSubmit()" class="px-6 py-2 leading-5 text-white transition-colors duration-150 transform bg-red-600 rounded-md hover:bg-red-800 focus:outline-none focus:bg-gray-600">Submeter</button>
     </div>
   </form>
 </section>

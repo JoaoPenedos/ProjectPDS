@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,70 @@ export class ConteudosDataService {
   getConteudosSeries() {
     const url = 'http://localhost:3000/api/Conteudos/Series';
     return this.http.get(url);
+  }
+
+  addConteudoFilme(conteudoData : FormGroup) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    const body = {
+      Nome: conteudoData.get('Nome')?.value,
+      Poster: conteudoData.get('Poster')?.value,
+      Realizador: conteudoData.get('Realizador')?.value,
+      Rating: conteudoData.get('Rating')?.value,
+      DataReleased: conteudoData.get('DataReleased')?.value,
+      Sinopse: conteudoData.get('Sinopse')?.value,
+      Trailer: conteudoData.get('Trailer')?.value,
+      Duracao: conteudoData.get('Duracao')?.value,
+      generos: [
+        {
+          Nome: "Action"
+        },
+        {
+          Nome: "Thriller"
+        },
+        {
+          Nome: "Comedy"
+        }
+      ],
+      atores:[]
+    };
+
+    const url = 'http://localhost:3000/api/Conteudo/Filme';
+    return this.http.post(url, body, {headers});
+  }
+
+  addConteudoSerie(conteudoData : FormGroup) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    const body = {
+      Nome: conteudoData.get('Nome')?.value,
+      Poster: conteudoData.get('Poster')?.value,
+      Realizador: conteudoData.get('Realizador')?.value,
+      Rating: conteudoData.get('Rating')?.value,
+      DataReleased: conteudoData.get('DataReleased')?.value,
+      Sinopse: conteudoData.get('Sinopse')?.value,
+      Trailer: conteudoData.get('Trailer')?.value,
+      NTemporadas: conteudoData.get('NTemporadas')?.value,
+      Estado: conteudoData.get('Estado')?.value,
+      DataFim: conteudoData.get('DataFim')?.value,
+      NEpisodiosTotais: conteudoData.get('NTEpisodios')?.value,
+      generos: [
+        {
+          Nome: "Action"
+        },
+        {
+          Nome: "Thriller"
+        },
+        {
+          Nome: "Comedy"
+        }
+      ],
+      atores:[]
+    };
+
+    const url = 'http://localhost:3000/api/Conteudo/Serie';
+    return this.http.post(url, body, {headers});
   }
 }

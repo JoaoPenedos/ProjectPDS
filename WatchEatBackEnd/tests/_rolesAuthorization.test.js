@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const utilizadorData = require('../data/utilizadorService');
-const checkRoles = require('../middleware/rolesAuthorization')
+const checkRoles = require('../middleware/rolesAuthorization');
+require('dotenv').config();
 
 describe('USE checkRolePremium middleware', () => {
     it('should call next if user has premium role', async () => {

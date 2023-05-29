@@ -9,7 +9,7 @@
       </h3>
       <div class=" text-left ml-3 mt-3 text-gray-400 text-sm font-semibold flex">
         <p class="mr-5">{{ c.NTemporadas ? 'Serie' : 'Filme' }}</p>
-        <p class="mr-5">{{ c.DataReleased | date:'yyyy-MM-dd' }} {{ c.NTemporadas ? c.DataFim ? " - " + (c.DataFim | date:'yyyy-MM-dd') : " - ongoing" : ""}}</p>
+        <p class="mr-5">{{ c.DataReleased | date:'yyyy-MM-dd' }} {{ c.NTemporadas ? (c.DataFim && (c.DataFim | date:'yyyy-MM-dd') != '1899-12-31' ? " - " + (c.DataFim | date:'yyyy-MM-dd') : " - ongoing") : ""}}</p>
         <p>{{ c.Duracao ? c.Duracao + " horas" : c.NTemporadas + " Temporada/s" }}</p>
       </div>
       <div class="p-2 flex">

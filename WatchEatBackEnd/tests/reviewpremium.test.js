@@ -3,6 +3,7 @@ const request = require('supertest');
 const jwt = require('jsonwebtoken');
 const utilizadorData = require("../data/utilizadorService");
 const reviewPremiumData = require("../data/reviewsPremiumService");
+require('dotenv').config();
 
 describe('POST /ReviewPremium/:userId', () => {
     it('should create new review Premium if user is a premium (user1 is Premium)', async () => {

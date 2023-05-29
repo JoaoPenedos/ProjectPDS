@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../app');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 describe('GET /Utilizadores', () => {
     it('should return utilizadores list when using valid token', async () => {
