@@ -62,7 +62,8 @@ const registerUtilizador = async (req, res)=> {
 
         const newUserdata = req.body;
         await utilizadoresData.createNewRegisterUtilizador(newUserdata);
-        const token = jwt.sign({userCheck}, process.env.SECRET_TOKEN, { expiresIn: "1h"});
+        const user = await utilizadoresData.listUtilizadorByEmail(Email);
+        const token = jwt.sign({user}, process.env.SECRET_TOKEN, { expiresIn: "1h"});
 
         res.cookie("token", token,{
             httpOnly: false,
