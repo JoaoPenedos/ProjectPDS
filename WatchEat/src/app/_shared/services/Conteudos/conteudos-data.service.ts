@@ -35,7 +35,7 @@ export class ConteudosDataService {
     return this.http.get(url);
   }
 
-  addConteudoFilme(conteudoData : FormGroup) {
+  addConteudoFilme(conteudoData : FormGroup, generosArray : any) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
@@ -48,25 +48,16 @@ export class ConteudosDataService {
       Sinopse: conteudoData.get('Sinopse')?.value,
       Trailer: conteudoData.get('Trailer')?.value,
       Duracao: conteudoData.get('Duracao')?.value,
-      generos: [
-        {
-          Nome: "Action"
-        },
-        {
-          Nome: "Thriller"
-        },
-        {
-          Nome: "Comedy"
-        }
-      ],
-      atores:[]
+      generos: generosArray,
+      atores: []
     };
+    console.log("filmes" + body)
 
     const url = 'http://localhost:3000/api/Conteudo/Filme';
     return this.http.post(url, body, {headers});
   }
 
-  addConteudoSerie(conteudoData : FormGroup) {
+  addConteudoSerie(conteudoData : FormGroup, generosArray : any) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
@@ -80,21 +71,12 @@ export class ConteudosDataService {
       Trailer: conteudoData.get('Trailer')?.value,
       NTemporadas: conteudoData.get('NTemporadas')?.value,
       Estado: conteudoData.get('Estado')?.value,
-      DataFim: conteudoData.get('DataFim')?.value,
+      DataFim: conteudoData.get('DataFim')?.value ? conteudoData.get('DataFim')?.value : '1899-12-31',
       NEpisodiosTotais: conteudoData.get('NTEpisodios')?.value,
-      generos: [
-        {
-          Nome: "Action"
-        },
-        {
-          Nome: "Thriller"
-        },
-        {
-          Nome: "Comedy"
-        }
-      ],
+      generos: generosArray,
       atores:[]
     };
+    console.log("series" + body)
 
     const url = 'http://localhost:3000/api/Conteudo/Serie';
     return this.http.post(url, body, {headers});

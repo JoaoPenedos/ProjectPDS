@@ -1,72 +1,23 @@
 <div class="text-white ml-6 mt-6">
 <!-- Component Start -->
-<h1 class="text-3xl">Lista de Produtos</h1>
-<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mt-6">
-  <span class="text-sm font-semibold">1-16 of 148 Products</span>
+<h1 class="text-3xl mt-8 ml-4">Lista de Produtos</h1>
+<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mt-4 ml-4">
+  <span class="text-sm font-semibold">{{ produtos.length + " Produtos "}}</span>
 </div>
 </div>
-<div class="flex-col min-h-screen p-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-12 w-full mt-6">
+<div class="flex-col min-h-screen p-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-12 w-full mt-4">
   <!-- Product Tile Start -->
-  <div>
-    <a href="#" class="block h-64 rounded-lg shadow-lg bg-white"></a>
+  <div *ngFor="let prod of produtos">
+    <img alt="produto" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" class="block h-64 rounded shadow-lg bg-gray-700"/>
     <div class="flex items-center justify-between mt-3">
       <div class="text-white">
-        <a href="#" class="font-medium">Product Name</a>
-        <a class="flex items-center" href="#">
+        <p class="font-medium">{{ prod.Nome}}</p>
+        <div class="flex items-center" >
           <span class="text-xs font-medium">Stock</span>
-          <span class="text-xs font-extrabold ml-1 text-red-600">5</span>
-        </a>
+          <span class="text-xs font-extrabold ml-1 text-red-600">{{ prod.Stock }}</span>
+        </div>
       </div>
-      <span class="flex items-center h-8 bg-red-600 text-black text-sm px-2 rounded">$34</span>
+      <span class="flex items-center mr-4 h-8 bg-red-600 text-black text-sm px-2 rounded">{{ prod.Preco.toFixed(2) + "€"}}</span>
     </div>
-  </div>
-  <!-- Product Tile End -->
-  <!-- Product Tile Start -->
-  <div>
-    <a href="#" class="block h-64 rounded-lg shadow-lg bg-white"></a>
-    <div class="flex items-center justify-between mt-3">
-      <div>
-        <a href="#" class="font-medium">Product Name</a>
-        <a class="flex items-center" href="#">
-          <span class="text-xs font-medium text-gray-600">by</span>
-          <span class="text-xs font-medium ml-1 text-indigo-500">Store Name</span>
-        </a>
-      </div>
-      <span class="flex items-center h-8 bg-indigo-200 text-indigo-600 text-sm px-2 rounded">$34</span>
-    </div>
-  </div>
-  <!-- Product Tile End -->
-  <!-- Product Tile Start -->
-  <div>
-    <a href="#" class="block h-64 rounded-lg shadow-lg bg-white"></a>
-    <div class="flex items-center justify-between mt-3">
-      <div>
-        <a href="#" class="font-medium">Product Name</a>
-        <a class="flex items-center" href="#">
-          <span class="text-xs font-medium text-gray-600">by</span>
-          <span class="text-xs font-medium ml-1 text-indigo-500">Store Name</span>
-        </a>
-      </div>
-      <span class="flex items-center h-8 bg-indigo-200 text-indigo-600 text-sm px-2 rounded">$34</span>
-    </div>
-  </div>
-  <!-- Product Tile End -->
-  <!-- Product Tile Start -->
-  <div>
-    <a href="#" class="block h-64 rounded-lg shadow-lg bg-white"></a>
-    <div class="flex items-center justify-between mt-3">
-      <div>
-        <a href="#" class="font-medium">Product Name</a>
-        <a class="flex items-center" href="#">
-          <span class="text-xs font-medium text-gray-600">by</span>
-          <span class="text-xs font-medium ml-1 text-indigo-500">Store Name</span>
-        </a>
-      </div>
-      <span class="flex items-center h-8 bg-indigo-200 text-indigo-600 text-sm px-2 rounded">$34</span>
-    </div>
-  </div>
-  <!-- Product Tile End -->
-  <!-- Product Tile Start -->
-  <div>
   </div>
 </div>

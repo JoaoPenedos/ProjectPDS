@@ -13,18 +13,20 @@ export class PagAddConteudoComponent implements OnInit {
   submitted = false;
   newConteudoForm = this.formBuilder.group({
     TipoConteudo: '',
-    Duracao: '',
+    Realizador: '',
     NTemporadas: '',
     NTEpisodios: '',
     Estado: '',
-    DataFim: '',
-    Titulo: '',
+    DataFim: ' ',
+    Nome: '',
     Direcao: '',
     Rating: '',
     Sinopse: '',
     DataReleased: '',
+    Duracao: '',
     Trailer: '',
-    Poster: ''
+    Poster: '',
+    GenerosInput: ''
   });
 
   constructor(
@@ -36,18 +38,20 @@ export class PagAddConteudoComponent implements OnInit {
   ngOnInit() {
     this.newConteudoForm = this.formBuilder.group({
       TipoConteudo: ['filmes', Validators.required],
-      Duracao: ['', Validators.required],
+      Realizador: ['', Validators.required],
       NTemporadas: ['', Validators.required],
       NTEpisodios: ['', Validators.required],
       Estado: ['', Validators.required],
-      DataFim: ['', Validators.required],
-      Titulo: ['', Validators.required],
+      DataFim: [' ', Validators.required],
+      Nome: ['', Validators.required],
       Direcao: ['', Validators.required],
       Rating: ['', Validators.required],
       Sinopse: ['', Validators.required],
       DataReleased: ['', Validators.required],
+      Duracao: ['', Validators.required],
       Trailer: ['', Validators.required],
-      Poster: ['', Validators.required]
+      Poster: ['', Validators.required],
+      GenerosInput: ['', Validators.required]
     });
   }
 
@@ -60,16 +64,29 @@ export class PagAddConteudoComponent implements OnInit {
   }
 
   onSubmit() {
-    const token = localStorage.getItem('token');
-    const tokenPayload = decode(token as string) as any;
-    this.submitted = true;
+    console.log("ola1")
 
-    if (this.newConteudoForm.invalid) {
-      return;
+    console.log("ola1")
+
+    const generosInput = this.newConteudoForm.get('GenerosInput')?.value;
+    const generosArray = generosInput?.split(';').map((genre: string) => genre.trim());
+
+    // Create an array of objects for the generos
+    const generos = generosArray?.map((genre: string) => {
+      return { Nome: genre };
+    });
+
+    if (this.isFilmesSelected()) {
+      console.log("olafilmes")
+      this.conteudosDataService.addConteudoFilme(this.newConteudoForm, generos).subscribe(() => {
+        window.location.reload();
+      });
     }
-
-    // this.conteudosDataService.(tokenPayload.user[0].Id, this.updateUtilizadorForm).subscribe((data: Object) => {
-    //   this.user = data as any[]; // Cast the data to an array type
-    // });
+    else if (this.isSeriesSelected()) {
+      console.log("olaseries")
+      this.conteudosDataService.addConteudoSerie(this.newConteudoForm, generos).subscribe(() => {
+        window.location.reload();
+      });
+    }
   }
 }
