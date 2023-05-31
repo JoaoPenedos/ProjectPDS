@@ -1,23 +1,30 @@
 <div class="text-white ml-6 mt-6">
-<!-- Component Start -->
-<h1 class="text-3xl mt-8 ml-4">Lista de Produtos</h1>
-<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mt-4 ml-4">
-  <span class="text-sm font-semibold">{{ produtos.length + " Produtos "}}</span>
-</div>
+  <!-- Component Start -->
+  <h1 class="text-3xl mt-8 ml-4">Lista de Produtos</h1>
+  <div class="flex flex-row-reverse">
+    <button class="bg-red-600 hover:bg-red-700 text-black font-bold py-1 rounded px-2 mr-12" id="concluir-pedido">Concluir Pedido</button>
+    <span id="quantidade-produtos"></span>
+  </div>
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mt-4 ml-4">
+    <span class="text-sm font-semibold">{{ produtos.length + " Produtos "}}</span>
+  </div>
 </div>
 <div class="flex-col min-h-screen p-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-12 w-full mt-4">
   <!-- Product Tile Start -->
   <div *ngFor="let prod of produtos">
-    <img alt="produto" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" class="block h-64 rounded shadow-lg bg-gray-700"/>
+    <img alt="produto" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" class="hover:!opacity-90 block h-64 rounded shadow-lg bg-gray-700"/>
     <div class="flex items-center justify-between mt-3">
       <div class="text-white">
         <p class="font-medium">{{ prod.Nome}}</p>
-        <div class="flex items-center" >
+        <div class="flex items-center">
           <span class="text-xs font-medium">Stock</span>
           <span class="text-xs font-extrabold ml-1 text-red-600">{{ prod.Stock }}</span>
         </div>
       </div>
-      <span class="flex items-center mr-4 h-8 bg-red-600 text-black text-sm px-2 rounded">{{ prod.Preco.toFixed(2) + "€"}}</span>
+      <div class="flex items-center">
+        <button class="bg-gray-800 hover:bg-gray-950 text-white font-bold py-1 px-2 rounded" (click)="adicionarProduto(prod.Id)">+</button>
+        <span class="flex items-center mr-4 h-8 bg-red-600 text-black text-sm px-2 rounded">{{ prod.Preco.toFixed(2) + "€"}}</span>
+      </div>
     </div>
   </div>
 </div>
