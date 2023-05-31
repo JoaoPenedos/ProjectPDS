@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {PagamentosDataService} from "../../_shared/services/Pagamentos/pagamentos-data.service";
 import {ProdutosDataService} from "../../_shared/services/Produtos/produtos-data.service";
 import decode from "jwt-decode";
 import {formatNumber} from "@angular/common";
+import {Router} from "@angular/router";
+import {PedidosDataService} from "../../_shared/services/Pedidos/pedidos-data.service";
+import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-pagina-produtos',
@@ -10,10 +13,22 @@ import {formatNumber} from "@angular/common";
   styleUrls: ['./pag-produtos.component.css']
 })
 export class PagProdutosComponent {
+  produtosArray: any[] = [];
   produtos: any[] = [];
+  produtosQuantidades: { [key: string]: number } = {};
+  @ViewChild('staticModal') staticModal: any; // Reference to the modal element
+
+  pedidoForm = this.formBuilder.group({
+    Descricao: '',
+    Morada: '',
+    HoraReservada: ''
+  });
 
   constructor(
-    private produtosDataService: ProdutosDataService
+    private produtosDataService: ProdutosDataService,
+    private pedidosDataService: PedidosDataService,
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -21,27 +36,41 @@ export class PagProdutosComponent {
       this.produtos = data as any[];
     });
   }
-  adicionarProduto(prodId: string): void {
-    const produtosQuantidades: { [key: string]: number } = {};
-    // Verifica se o produto já existe na variável local
-    if (prodId in produtosQuantidades) {
-      // Se o produto já existir, incrementa a quantidade em 1
-      produtosQuantidades[prodId]++;
+
+  adicionarProduto(prodNome: string): void {
+    if (prodNome in this.produtosQuantidades) {
+      this.produtosQuantidades[prodNome]++;
     } else {
-      // Se o produto não existir, adiciona com quantidade 1
-      produtosQuantidades[prodId] = 1;
+      this.produtosQuantidades[prodNome] = 1;
     }
-    const quantidadeTotal = Object.values(produtosQuantidades).reduce((acc, curr) => acc + curr, 0);
-    const quantidadeElement = document.getElementById("quantidade-produtos");
-    if (quantidadeElement) {
-      quantidadeElement.textContent = quantidadeTotal.toString();
+
+    this.produtosArray = [];
+    for (const [prodId, quantidade] of Object.entries(this.produtosQuantidades)) {
+      this.produtosArray.push({ Nome: prodId, Quantidade: quantidade });
     }
-    // Exibe a quantidade no console (apenas para demonstração)
-    console.log(produtosQuantidades[prodId]);
   }
 
+  openModal() {
+    this.staticModal.nativeElement.classList.remove('hidden');
+    this.staticModal.nativeElement.classList.add('flex');
+
+    this.pedidoForm.patchValue({
+      Descricao: this.produtosArray.map(prod => `${prod.Nome}: ${prod.Quantidade}`).join('; ')
+    });
+  }
+
+  closeModal() {
+    this.staticModal.nativeElement.classList.remove('flex');
+    this.staticModal.nativeElement.classList.add('hidden');
+  }
+
+  concluirPedido() {
+    const token = localStorage.getItem('token');
+    const tokenPayload = decode(token as string) as any;
+
+    this.pedidosDataService.addPedido(this.pedidoForm, this.produtosArray, tokenPayload.user[0].Id).subscribe((data: Object) => {
+      this.router.navigate(['/pagamentos']);
+    });
+
+  }
 }
-
-// Função para guardar a quantidade de produtos
-
-

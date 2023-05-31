@@ -64,10 +64,6 @@ export class PagAddConteudoComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("ola1")
-
-    console.log("ola1")
-
     const generosInput = this.newConteudoForm.get('GenerosInput')?.value;
     const generosArray = generosInput?.split(';').map((genre: string) => genre.trim());
 

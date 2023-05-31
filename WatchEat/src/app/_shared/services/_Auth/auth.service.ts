@@ -58,8 +58,6 @@ export class AuthService implements CanActivate {
       const currentTime = Math.floor(Date.now() / 1000);
 
       if (tokenPayload.exp < currentTime) {
-        // Token has expired
-        console.log('Token has expired');
         localStorage.removeItem('token');
         return false;
       } else {

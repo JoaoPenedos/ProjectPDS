@@ -29,7 +29,6 @@ export class PagamentosDataService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     const url = 'http://localhost:3000/api/PagamentoPremiumNaoPago/' + userId;
-    console.log(url)
     return this.http.get(url, { headers } );
   }
 

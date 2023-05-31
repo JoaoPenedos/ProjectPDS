@@ -51,7 +51,6 @@ export class ConteudosDataService {
       generos: generosArray,
       atores: []
     };
-    console.log("filmes" + body)
 
     const url = 'http://localhost:3000/api/Conteudo/Filme';
     return this.http.post(url, body, {headers});
@@ -76,7 +75,6 @@ export class ConteudosDataService {
       generos: generosArray,
       atores:[]
     };
-    console.log("series" + body)
 
     const url = 'http://localhost:3000/api/Conteudo/Serie';
     return this.http.post(url, body, {headers});

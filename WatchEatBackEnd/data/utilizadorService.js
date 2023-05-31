@@ -87,13 +87,46 @@ const listUtilizadorByEmail = async (Email)=> {
 const listUtilizadorAmizades = async (Id)=> {
     try {
         let pool = await  sql.connect(config.sql);
-        let query = 'SELECT [UtilizadorId],[UtilizadorId2],[DataPedidoEnviado],[DataPedidoAceite],[Estado]' +
-            'FROM [dbo].[Utilizador_Utilizador]' +
-            'WHERE [UtilizadorId] = @UtilizadorId ' +
-            'OR [UtilizadorId2] = @UtilizadorId';
+        let query = 'SELECT [Utilizador_Utilizador].[UtilizadorId], [Utilizador_Utilizador].[UtilizadorId2],' +
+            ' [Utilizador_Utilizador].[DataPedidoEnviado], [Utilizador_Utilizador].[DataPedidoAceite],' +
+            ' [Utilizador_Utilizador].[Estado],' +
+            ' [Utilizador1].[Nome] AS Nome1, [Utilizador1].[Apelido] AS Apelido1, [Utilizador1].[Email] AS Email1,' +
+            ' [Utilizador2].[Nome] AS Nome2, [Utilizador2].[Apelido] AS Apelido2, [Utilizador2].[Email] AS Email2' +
+            ' FROM [dbo].[Utilizador_Utilizador]' +
+            ' JOIN [Utilizador] AS [Utilizador1] ON [Utilizador1].Id = [Utilizador_Utilizador].UtilizadorId' +
+            ' JOIN [Utilizador] AS [Utilizador2] ON [Utilizador2].Id = [Utilizador_Utilizador].UtilizadorId2' +
+            ' WHERE ([Utilizador_Utilizador].[UtilizadorId] = @UtilizadorId OR' +
+            ' [Utilizador_Utilizador].[UtilizadorId2] = @UtilizadorId)';
 
         const oneUtilizador = await pool.request()
             .input('UtilizadorId', sql.Int, Id)
+            .query(query);
+
+        return oneUtilizador.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
+const listUtilizadorAmizadePendentes = async (Id, Estado)=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT [Utilizador_Utilizador].[UtilizadorId], [Utilizador_Utilizador].[UtilizadorId2],' +
+            ' [Utilizador_Utilizador].[DataPedidoEnviado], [Utilizador_Utilizador].[DataPedidoAceite],' +
+            ' [Utilizador_Utilizador].[Estado],' +
+            ' [Utilizador1].[Nome] AS Nome1, [Utilizador1].[Apelido] AS Apelido1, [Utilizador1].[Email] AS Email1,' +
+            ' [Utilizador2].[Nome] AS Nome2, [Utilizador2].[Apelido] AS Apelido2, [Utilizador2].[Email] AS Email2' +
+            ' FROM [dbo].[Utilizador_Utilizador]' +
+            ' JOIN [Utilizador] AS [Utilizador1] ON [Utilizador1].Id = [Utilizador_Utilizador].UtilizadorId' +
+            ' JOIN [Utilizador] AS [Utilizador2] ON [Utilizador2].Id = [Utilizador_Utilizador].UtilizadorId2' +
+            ' WHERE ([Utilizador_Utilizador].[UtilizadorId] = @UtilizadorId OR' +
+            ' [Utilizador_Utilizador].[UtilizadorId2] = @UtilizadorId) ' +
+            ' AND [Utilizador_Utilizador].[Estado] = @EstadoAmizade';
+
+        const oneUtilizador = await pool.request()
+            .input('UtilizadorId', sql.Int, Id)
+            .input('EstadoAmizade', sql.VarChar(255), Estado)
             .query(query);
 
         return oneUtilizador.recordset;
@@ -349,6 +382,7 @@ module.exports = {
     listUtilizadorById,
     listUtilizadorByEmail,
     listUtilizadorAmizades,
+    listUtilizadorAmizadePendentes,
     listUtilizadorAmizadesTop6,
     listAmizade,
     createUtilizador,

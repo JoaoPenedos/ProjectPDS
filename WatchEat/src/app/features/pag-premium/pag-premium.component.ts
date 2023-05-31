@@ -18,7 +18,6 @@ export class PagPremiumComponent {
 
     this.pagamentosDataService.getUserPagamentoPremiumNaoPago(tokenPayload.user[0].Id).subscribe((data: Object) => {
       this.pagamentoPremiumNaoPago = data as any[]; // Cast the data to an array type
-      console.log(this.pagamentoPremiumNaoPago);
     });
   }
 

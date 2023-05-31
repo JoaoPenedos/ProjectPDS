@@ -34,6 +34,19 @@ const getUtilizadorAmizade = async (req, res)=> {
     }
 }
 
+const getUtilizadorAmizadePendente = async (req, res)=> {
+    try {
+        const utilizadorId = req.params.Id;
+        const estado = req.params.Estado;
+
+        const utilizadorAmizades = await utilizadorData.listUtilizadorAmizadePendentes(utilizadorId, estado);
+        res.send(utilizadorAmizades);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const getUtilizadorAmizadeTop6 = async (req, res)=> {
     try {
         const utilizadorId = req.params.Id;
@@ -98,23 +111,23 @@ const addUtlizadorAmizadeByEmail = async (req, res)=> {
         const email = req.body.Email;
         const user1 = await utilizadorData.listUtilizadorById(utilizadorId);
         const user2 = await utilizadorData.listUtilizadorByEmail(email);
-        const checkAmizade = await utilizadorData.listAmizade(utilizadorId, user2[0].Id);
-        const checkAmizadeReverse = await utilizadorData.listAmizade(user2[0].Id, utilizadorId);
 
         if (user1.length === 0 || user2.length === 0) {
             return res.status(409).json({
-                error: `Utilizador (${utilizadorId}) ou Utilizador (${user2[0].Id}) não existem na BD`
+                error: `Utilizador (${utilizadorId}) ou Utilizador (${email}) não existem na BD`
             });
         }
         else {
+            const checkAmizade = await utilizadorData.listAmizade(utilizadorId, user2[0].Id);
+            const checkAmizadeReverse = await utilizadorData.listAmizade(user2[0].Id, utilizadorId);
             if (checkAmizade.length !== 0) {
                 return res.status(409).json({
-                    error: `Utilizador (${utilizadorId}) e (${ser2[0].Id}) já são amigos ou já existe um pedido enviado`
+                    error: `Utilizador (${utilizadorId}) e (${user2[0].Id}) já são amigos ou já existe um pedido enviado`
                 });
             }
             else if (checkAmizadeReverse.length !== 0) {
                 return res.status(409).json({
-                    error: `Utilizador (${utilizadorId}) e (${ser2[0].Id}) já são amigos ou já existe um pedido enviado`
+                    error: `Utilizador (${utilizadorId}) e (${user2[0].Id}) já são amigos ou já existe um pedido enviado`
                 });
             }
             else {
@@ -173,6 +186,7 @@ module.exports = {
     getUtilizadores,
     getUtilizador,
     getUtilizadorAmizade,
+    getUtilizadorAmizadePendente,
     getUtilizadorAmizadeTop6,
     addUtlizador,
     addUtlizadorAmizade,
