@@ -5,7 +5,8 @@ const authCookie = require("../middleware/authCookieVerify");
 const checkRoles = require("../middleware/rolesAuthorization");
 const router = express.Router();
 
-const {getConteudos, get10RandomConteudos, getConteudoById, getConteudoByNome, getConteudosFilmes, getConteudosSeries,
+const {getConteudos, get10RandomConteudos, getConteudoById, getConteudoByNome,
+    getConteudosFilmes, getConteudosSeries, getConteudoGenrosByContId,
     addConteudo, addConteudoFilme, addConteudoSerie,
     updateConteudo, deleteConteudo} = conteudoController;
 
@@ -15,6 +16,7 @@ router.get('/Conteudo/:Id', getConteudoById);
 router.get('/Conteudo/:Nome', getConteudoByNome);
 router.get('/Conteudos/Filmes', getConteudosFilmes);
 router.get('/Conteudos/Series', getConteudosSeries);
+router.get('/ConteudoGeneros/:contId', getConteudoGenrosByContId);
 
 router.post('/Conteudo', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, addConteudo);
 router.post('/Conteudo/Filme', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, addConteudoFilme);

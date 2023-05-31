@@ -1,14 +1,3 @@
-/*
-Ao fazer login verifica o tier do utilizador, caso este seja "premium",
-verifica 'Descricao' se já existe pagamento referente ao mes atual
-    Caso de não existir verifica se a data atual está entre os 8 primeiros dias do mes
-        caso se confirme os dias é criado um pagamento para ser pago até ao dia 8
-        caso de já ter passado os 8 dias retira a role "premium" e passa a user "normal"
-    Caso de existir verifica se a data atual já passou dia 8 do mes
-        caso de já ter passado os 8 dias retira a role "premium" e passa a user "normal"
-Caso não tenha chegado ao proximo mes não faz nada
- */
-
 'use strict'
 const pagamentoData = require("../data/pagamentoService");
 const utilizadorData = require("../data/utilizadorService");

@@ -39,5 +39,6 @@ app.use('/api', require('./routes/pedidoRoutes').routes);
 app.use('/api', require('./routes/reviewsPremiumRoutes').routes);
 app.use('/api', require('./routes/generoRoutes').routes);
 app.use('/api', require('./routes/alteracaoConteudoRoutes').routes);
+app.use('/api', require('./routes/estatisticasRoutes').routes);
 
 module.exports = app;

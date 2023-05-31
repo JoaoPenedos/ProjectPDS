@@ -9,10 +9,10 @@
               Melhor Classificação
             </div>
             <div class="text-white mb-2">
-              <span class="text-5xl">9.3</span>
+              <span class="text-5xl">{{ estatisticas.bestCont[0].Rating.toFixed(1) }}</span>
             </div>
             <div class="text-sm text-red-400 tracking-wide">
-              The Shawshank Redemption
+              {{ estatisticas.bestCont[0].Nome }}
             </div>
           </div>
         </div>
@@ -22,10 +22,10 @@
               Pior Classificação
             </div>
             <div class="text-white mb-2">
-              <span class="text-5xl">6.3</span>
+              <span class="text-5xl">{{ estatisticas.worstCont[0].Rating.toFixed(1) }}</span>
             </div>
             <div class="text-sm text-red-400 tracking-wide">
-              Fast X
+              {{ estatisticas.worstCont[0].Nome }}
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
               Classificação Média
             </div>
             <div class="text-white mb-2">
-              <span class="text-5xl">8.5</span>
+              <span class="text-5xl">{{ estatisticas.contMediaRating[0].AverageRating.toFixed(1) }}</span>
             </div>
             <div class="text-sm text-white tracking-wide">
             </div>
@@ -51,54 +51,14 @@
               <h3 class="text-red-600 py-4 font-normal text-lg">Mais Populares</h3>
             </div>
           </div>
-          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
+          <div *ngFor="let entry of estatisticas.top5Genres" class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
             <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
-              <span class="text-lg">Ação</span>
+              <span class="text-lg">{{entry.Nome}}</span>
             </div>
             <div class="flex w-3/5 md:w/12">
             </div>
             <div class=" text-white">
-              17%
-            </div>
-          </div>
-          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
-            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
-              <span class="text-lg">Desporto</span>
-            </div>
-            <div class="flex w-3/5 md:w/12">
-            </div>
-            <div class=" text-grey">
-              12%
-            </div>
-          </div>
-          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
-            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
-              <span class="text-lg">Documentário</span>
-            </div>
-            <div class="flex w-3/5 md:w/12">
-            </div>
-            <div class=" text-grey">
-              23%
-            </div>
-          </div>
-          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
-            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
-              <span class="text-lg">Terror</span>
-            </div>
-            <div class="flex w-3/5 md:w/12">
-            </div>
-            <div class=" text-grey">
-              15%
-            </div>
-          </div>
-          <div class="flex-grow flex px-6 py-6 text-white items-center border-b -mx-4">
-            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
-              <span class="text-lg">Romance</span>
-            </div>
-            <div class="flex w-3/5 md:w/12">
-            </div>
-            <div class=" text-grey">
-              33%
+              {{ entry.Frequency + "%" }}
             </div>
           </div>
         </div>
@@ -109,10 +69,6 @@
           height: 400px;
           border-radius: 50%;
           margin: auto;
-          background-image: conic-gradient(
-            red 70deg,
-            lightcoral 0 235deg,
-            lightsalmon 0);
         }
         body,
         .piechart {
@@ -121,49 +77,7 @@
           align-items: center;
         }
       </style>
-      <div class="piechart"></div>
-    </div>
-    <div class="mt-5 bg-gray-800 border-t border-b sm:border-l sm:border-r sm:rounded shadow mb-6">
-      <div class="lg:flex lg:flex-row lg:justify-center">
-        <div class="w-full lg:w-1/3 text-center py-8">
-          <div class="border-r">
-            <div class="text-md uppercase text-red-600 tracking-wide">
-              Melhor Classificação
-            </div>
-            <div class="text-white mb-2">
-              <span class="text-5xl">9.3</span>
-            </div>
-            <div class="text-sm text-red-400 tracking-wide">
-              The Shawshank Redemption
-            </div>
-          </div>
-        </div>
-        <div class="w-full lg:w-1/3 text-center py-8">
-          <div class="border-r">
-            <div class="text-md uppercase text-red-600 tracking-wide">
-              Pior Classificação
-            </div>
-            <div class="text-white mb-2">
-              <span class="text-5xl">6.3</span>
-            </div>
-            <div class="text-sm text-red-400 tracking-wide">
-              Fast X
-            </div>
-          </div>
-        </div>
-        <div class="w-full lg:w-1/3 text-center py-8">
-          <div class="border-r">
-            <div class="text-md uppercase text-red-600 tracking-wide">
-              Classificação Média
-            </div>
-            <div class="text-white mb-2">
-              <span class="text-5xl">8.5</span>
-            </div>
-            <div class="text-sm text-white tracking-wide">
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="piechart" [style.background-image]="generatePieChartStyle()"></div>
     </div>
   </div>
 </div>

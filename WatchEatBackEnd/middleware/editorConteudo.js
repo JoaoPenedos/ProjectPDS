@@ -1,10 +1,3 @@
-/*
-Ao fazer login verifica o tier do utilizador, caso este seja "premium",
-verifica se um determinado utilizador já superou o limite maximo (3) de reviews premium,
-    caso se verifique este mesmo é bloqueado passando assim a uma fase de análise de conta pelos Admins
-    caso não se verifique prossegue com o programa
- */
-
 'use strict'
 const alteracaoConteudoData = require("../data/alteracaoConteudoService");
 const utilizadorData = require("../data/utilizadorService");

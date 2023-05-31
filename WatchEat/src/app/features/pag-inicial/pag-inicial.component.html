@@ -1,11 +1,10 @@
-<div id="app" class="w-[1465px] mx-auto px-4 my-5 md:px-8 py-12 transition-all duration-500 ease-linear">
+<div id="app" class="w-[1465px] mx-auto my-5 md:px-8 py-12 transition-all duration-500 ease-linear">
   <div class="relative">
     <div id="slidesContainer" class="slides-container h-[30rem] flex snap-x snap-mandatory overflow-hidden overflow-x-auto space-x-2 rounded scroll-smooth before:w-[45vw] before:shrink-0 after:w-[45vw] after:shrink-0 md:before:w-0 md:after:w-0">
       <div *ngFor="let cont of randomConteudos" class="slide aspect-square h-full flex-shrink-0 snap-center rounded overflow-hidden w-[19rem]">
         <img [routerLink]="['/conteudo', cont.Id]" id="{{ cont.Id }}" class="hover:cursor-pointer w-full h-full object-cover" src="{{ cont.Poster }}" alt="mountain_image">
       </div>
     </div>
-
     <div class="absolute top-0 -left-4 h-full items-center hidden md:flex">
       <button role="button" class="prev px-2 py-2 rounded-full bg-neutral-100 text-neutral-900 group" aria-label="prev" (click)="scrollSlides(-1)">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-active:-translate-x-2 transition-all duration-200 ease-linear">

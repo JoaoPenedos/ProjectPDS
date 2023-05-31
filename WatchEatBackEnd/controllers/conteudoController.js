@@ -85,6 +85,17 @@ const getConteudosSeries = async (req, res) => {
     }
 }
 
+const getConteudoGenrosByContId = async (req, res) => {
+    try {
+        const contId = req.params.contId;
+        const generosCont = await conteudosGeneroData.listGenerosByContId(contId);
+        res.send(generosCont);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const addConteudo = async (req, res)=> {
     try {
         const data = req.body;
@@ -170,6 +181,7 @@ module.exports = {
     getConteudoByNome,
     getConteudosFilmes,
     getConteudosSeries,
+    getConteudoGenrosByContId,
     addConteudo,
     addConteudoFilme,
     addConteudoSerie,

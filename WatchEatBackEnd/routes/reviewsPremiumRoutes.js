@@ -5,12 +5,13 @@ const authCookie = require("../middleware/authCookieVerify");
 const checkRoles = require("../middleware/rolesAuthorization");
 const router = express.Router();
 
-const {getReviewsPremium, getReviewsPremiumByUserId, getReviewsPremiumByConteudoId, addReviewPremium,
-    updateReviewPremium, deleteReviewPremium, deleteUserReviewsPremium} = reviewPremiumController;
+const {getReviewsPremium, getReviewsPremiumByUserId, getReviewsPremiumByConteudoId, getReviewsPremiumByUserIdAndContId,
+    addReviewPremium, updateReviewPremium, deleteReviewPremium, deleteUserReviewsPremium} = reviewPremiumController;
 
 router.get('/ReviewsPremium', authCookie.authCookieVerify, checkRoles.checkRoleAdmin, getReviewsPremium);
 router.get('/ReviewsPremiumUser/:userId', authCookie.authCookieVerify, getReviewsPremiumByUserId);
 router.get('/ReviewsPremiumCont/:contId', authCookie.authCookieVerify, getReviewsPremiumByConteudoId);
+router.get('/ReviewsPremiumUserCont/:userId/:contId', authCookie.authCookieVerify, getReviewsPremiumByUserIdAndContId);
 
 router.post('/ReviewPremium/:userId', authCookie.authCookieVerify, checkRoles.checkRolePremium, addReviewPremium);
 

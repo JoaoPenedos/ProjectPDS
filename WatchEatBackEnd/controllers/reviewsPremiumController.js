@@ -35,6 +35,17 @@ const getReviewsPremiumByConteudoId = async (req, res) => {
     }
 }
 
+const getReviewsPremiumByUserIdAndContId = async (req, res) => {
+    try {
+        const uId = req.params.userId;
+        const cId = req.params.contId;
+        const revsP = await reviewPremiumData.listReviewsPremiumByUserIdAndContId(uId, cId);
+        res.send(revsP);
+    }
+    catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 
 const addReviewPremium = async (req, res)=> {
     try {
@@ -87,6 +98,7 @@ module.exports = {
     getReviewsPremium,
     getReviewsPremiumByUserId,
     getReviewsPremiumByConteudoId,
+    getReviewsPremiumByUserIdAndContId,
     addReviewPremium,
     updateReviewPremium,
     deleteReviewPremium,

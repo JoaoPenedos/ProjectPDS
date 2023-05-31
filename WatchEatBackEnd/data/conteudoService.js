@@ -22,7 +22,7 @@ const listConteudos = async () => {
 const list10RandomConteudos = async () => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'SELECT TOP 55 PERCENT * FROM [Conteudo] ORDER BY newid()';
+        let query = 'SELECT TOP 50 PERCENT * FROM [Conteudo] ORDER BY newid()';
 
         const list = await pool.request()
             .query(query);
@@ -166,6 +166,75 @@ const listConteudoSerieByNome = async (ConteudoNome)=> {
     }
 }
 
+const listConteudoTopRatingDesc = async ()=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT TOP (1) [Id],[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],[Trailer] ' +
+            'FROM [dbo].[Conteudo] ' +
+            'ORDER BY Rating DESC';
+
+        const conteudo = await pool.request()
+            .query(query);
+
+        return conteudo.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
+const listConteudoTopRatingAsc = async ()=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT TOP (1) [Id],[Nome],[Poster],[Realizador],[Rating],[DataReleased],[Sinopse],[Trailer] ' +
+            'FROM [dbo].[Conteudo] ' +
+            'ORDER BY Rating';
+
+        const conteudo = await pool.request()
+            .query(query);
+
+        return conteudo.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
+const listAverageRatingFromConteudos = async ()=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT AVG([Rating]) AS AverageRating ' +
+            'FROM [dbo].[Conteudo] ';
+
+        const media = await pool.request()
+            .query(query);
+
+        return media.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
+const listTop5Genres = async ()=> {
+    try {
+        let pool = await  sql.connect(config.sql);
+        let query = 'SELECT TOP 5 GeneroId, Genero.Nome, COUNT(*) AS Frequency ' +
+            'FROM Conteudo_Genero ' +
+            'JOIN Genero ON Genero.Id = Conteudo_Genero.GeneroId ' +
+            'GROUP BY GeneroId, Genero.Nome ' +
+            'ORDER BY Frequency DESC ';
+
+        const top5genres = await pool.request()
+            .query(query);
+
+        return top5genres.recordset;
+    }
+    catch (error) {
+        return  error.message;
+    }
+}
+
 const createConteudo = async (conteudoData) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -285,6 +354,10 @@ module.exports = {
     listConteudosSeries,
     listConteudoSerie,
     listConteudoSerieByNome,
+    listConteudoTopRatingDesc,
+    listConteudoTopRatingAsc,
+    listAverageRatingFromConteudos,
+    listTop5Genres,
     createConteudo,
     createConteudoFilme,
     createConteudoSerie,

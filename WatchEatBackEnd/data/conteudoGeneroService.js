@@ -4,6 +4,25 @@ const config = require('../config');
 const sql = require('mssql');
 const utils = require('../utils/utils');
 
+const listGenerosByContId = async (ConteudoId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'SELECT ConteudoId, GeneroId, Nome, Descricao ' +
+            'FROM [dbo].[Conteudo_Genero] ' +
+            'JOIN [dbo].[Genero] ON [Genero].Id = [Conteudo_Genero].GeneroId ' +
+            'WHERE [ConteudoId]=@ConteudoId';
+
+        const generosCont = await pool.request()
+            .input('ConteudoId', sql.Int, ConteudoId)
+            .query(query);
+
+        return generosCont.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
 const createConteudoGenero = async (ConteudoId, GeneroId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -24,5 +43,6 @@ const createConteudoGenero = async (ConteudoId, GeneroId) => {
 }
 
 module.exports = {
+    listGenerosByContId,
     createConteudoGenero
 }

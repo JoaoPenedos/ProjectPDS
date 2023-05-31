@@ -41,13 +41,33 @@ const listReviewsPremiumByUserId = async (userId) => {
 const listReviewsPremiumByConteudoId = async (conteudoId) => {
     try {
         let pool = await sql.connect(config.sql);
-        let query = 'SELECT [UtilizadorId],[ConteudoId],[Review],[ReviewsPremium].[Rating] ' +
+        let query = 'SELECT [UtilizadorId],[Utilizador].Nome,[Utilizador].Apelido,[ConteudoId],[Review],[ReviewsPremium].[Rating] ' +
             'FROM [dbo].[ReviewsPremium]' +
             'JOIN [dbo].[Conteudo] ON Conteudo.Id = ReviewsPremium.ConteudoId ' +
+            'JOIN [dbo].[Utilizador] ON Utilizador.Id = ReviewsPremium.UtilizadorId ' +
             'WHERE [ConteudoId]=@ConteudoId';
 
         const list = await pool.request()
             .input('ConteudoId', sql.Int, conteudoId)
+            .query(query);
+        return list.recordset;
+    }
+    catch (error) {
+        return error.message;
+    }
+}
+
+const listReviewsPremiumByUserIdAndContId = async (uId, cId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        let query = 'SELECT [UtilizadorId],[ConteudoId],[Review],[Rating] ' +
+            'FROM [dbo].[ReviewsPremium]' +
+            'WHERE [ConteudoId]=@ConteudoId ' +
+            'AND [UtilizadorId]=@UtilizadorId';
+
+        const list = await pool.request()
+            .input('ConteudoId', sql.Int, cId)
+            .input('UtilizadorId', sql.Int, uId)
             .query(query);
         return list.recordset;
     }
@@ -136,6 +156,7 @@ module.exports = {
     listReviewsPremium,
     listReviewsPremiumByUserId,
     listReviewsPremiumByConteudoId,
+    listReviewsPremiumByUserIdAndContId,
     createReviewPremium,
     updateReviewPremium,
     deleteReviewPremium,

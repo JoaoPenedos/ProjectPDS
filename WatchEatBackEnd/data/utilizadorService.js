@@ -4,6 +4,34 @@ const config = require('../config');
 const sql = require('mssql');
 const utils = require('../utils/utils');
 
+// const Utilizador = require('../models/utilizadorModel'); // Provide the correct path to the utilizadorModel.js file
+// const Utilizador_Utilizador = require('../models/utilizadorUtilizadorModel');
+// const { Sequelize, Op } = require('sequelize');
+//
+// const listUtilizadores = async () => {
+//     try {
+//         return await Utilizador.findAll();
+//     } catch (error) {
+//         return error.message;
+//     }
+// }
+// const listUtilizadorById = async (Id)=> {
+//     try {
+//         return await Utilizador.findByPk(Id);
+//     }
+//     catch (error) {
+//         return  error.message;
+//     }
+// }
+// const listUtilizadorByEmail = async (Email)=> {
+//     try {
+//         return await Utilizador.findOne({ where: { Email: Email } });
+//     }
+//     catch (error) {
+//         return  error.message;
+//     }
+// }
+
 const listUtilizadores = async () => {
     try {
         let pool = await sql.connect(config.sql);
@@ -78,7 +106,7 @@ const listUtilizadorAmizades = async (Id)=> {
 const listUtilizadorAmizadesTop6 = async (Id)=> {
     try {
         let pool = await  sql.connect(config.sql);
-        let query = 'SELECT [Utilizador_Utilizador].[UtilizadorId], [Utilizador_Utilizador].[UtilizadorId2],' +
+        let query = 'SELECT TOP (6) [Utilizador_Utilizador].[UtilizadorId], [Utilizador_Utilizador].[UtilizadorId2],' +
             ' [Utilizador_Utilizador].[DataPedidoEnviado], [Utilizador_Utilizador].[DataPedidoAceite],' +
             ' [Utilizador_Utilizador].[Estado],' +
             ' [Utilizador1].[Nome] AS Nome1, [Utilizador1].[Apelido] AS Apelido1,' +

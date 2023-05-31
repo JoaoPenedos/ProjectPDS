@@ -9,7 +9,7 @@ const listBibliotecas = async () => {
         let pool = await sql.connect(config.sql);
         let query = 'SELECT [Biblioteca].[UtilizadorId],[Utilizador].[Nome] as Nome,[Utilizador].[Apelido],[Conteudo].[Nome] as Conteudo,' +
             '[Biblioteca].[Review],[Biblioteca].[Rating],[Biblioteca].[Estado],[Biblioteca].[Visibilidade],[Biblioteca].[DataInsercao] ' +
-            'FROM [dbo].[Biblioteca]' +
+            'FROM [dbo].[Biblioteca] ' +
             'JOIN [dbo].[Utilizador] ON Utilizador.Id = Biblioteca.UtilizadorId ' +
             'JOIN [dbo].[Conteudo] ON Conteudo.Id = Biblioteca.ConteudoId';
 
