@@ -37,7 +37,7 @@
                   {{ amigo.Estado }}
                 </p>
               </div>
-              <div *ngIf="amigo.Estado != 'Amigos'" class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              <div *ngIf="amigo.Estado != 'Amigos' && amigo.UtilizadorId != currentUserId " class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                 <button (click)="acceptAmigo(amigo.UtilizadorId, amigo.UtilizadorId2)" class="px-2 py-1 rounded-md bg-red-600 text-white hover:bg-red-700">
                   <div class="inline-flex items-center text-base text-gray-900 dark:text-white">
                     &check;
