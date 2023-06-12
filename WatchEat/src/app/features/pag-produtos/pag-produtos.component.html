@@ -8,11 +8,11 @@
     </div>
   </div>
 </div>
-<div class="flex-col min-h-screen p-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-12 w-full mt-4">
+<div class="flex-col min-h-screen p-10 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-12 w-full mt-4">
   <!-- Product Tile Start -->
   <div *ngFor="let prod of produtos">
-    <img alt="produto" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" class="hover:!opacity-90 block h-64 rounded shadow-lg bg-gray-700"/>
-    <div class="flex items-center justify-between mt-3">
+    <img alt="produto" src="{{ prod.Imagem }}" class="hover:!opacity-90 block h-64 rounded shadow-lg bg-gray-700"/>
+    <div class="flex items-center justify-between mt-2">
       <div class="text-white">
         <p class="font-medium">{{ prod.Nome}}</p>
         <div class="flex items-center">
